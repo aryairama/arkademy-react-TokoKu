@@ -1,0 +1,102 @@
+.text-logo-ecommerce {
+    font-size: 28px;
+    color: #DB3022;
+    font-weight: bold;
+}
+
+.text-auth-warning {
+    font-weight: bold;
+    font-size: 16px;
+    font-style: normal;
+    color: #222222;
+}
+
+.mt-4_5 {
+    margin-top: 1.8rem;
+}
+
+/* swicth */
+
+.btn-switch-orange {
+    border: 1px solid #9B9B9B;
+    color: #9B9B9B;
+}
+
+.btn-switch-orange:hover {
+    border: 1px solid #DB3022;
+    color: #ffffff;
+    background-color: #DB3022;
+}
+
+
+.btn-check:focus+.btn-switch-orange,
+.btn-switch-orange:focus {
+    box-shadow: none
+}
+
+.btn-check:active+.btn-switch-orange,
+.btn-check:checked+.btn-switch-orange,
+.btn-switch-orange.active,
+.btn-switch-orange.dropdown-toggle.show,
+.btn-switch-orange:active {
+    border: 1px solid #DB3022;
+    color: #ffffff;
+    background-color: #DB3022;
+}
+
+.btn-check:active+.btn-switch-orange:focus,
+.btn-check:checked+.btn-switch-orange:focus,
+.btn-switch-orange.active:focus,
+.btn-switch-orange.dropdown-toggle.show:focus,
+.btn-switch-orange:active:focus {
+    box-shadow: none;
+}
+
+.btn-switch-orange.disabled,
+.btn-switch-orange:disabled {
+    color: #DB3022;
+    background-color: transparent
+}
+
+/* switch */
+
+.switch-roles-login>.nav>li>.nav-link.active {
+    color: white;
+    background-color: #DB3022;
+    border: 1px solid #DB3022;
+}
+
+.switch-roles-login>.nav>li>.nav-link {
+    border-radius: 0px;
+    color: #9B9B9B;
+    border: 1px solid #9B9B9B;
+}
+
+.text-forgot-password,
+.text-register {
+    color: #DB3022;
+    font-size: 14px;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.text-forgot-password:hover,
+.text-register:hover {
+    color: #DB3022;
+}
+
+.btn-submit {
+    background-color: #DB3022;
+    color: white;
+}
+
+.btn-submit:hover {
+    color: #DB3022;
+    background-color: transparent;
+    border: 1px solid #DB3022;
+}
+
+#passwordConfirmation>.modal-dialog>.modal-content {
+    border-bottom: 22px solid #DF4538;
+    border-radius: 20px;
+}
