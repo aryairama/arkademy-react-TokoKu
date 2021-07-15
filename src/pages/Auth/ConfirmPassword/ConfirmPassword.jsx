@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
@@ -44,12 +45,17 @@ const ConfirmPassword = () => {
             placeholder="Confirmation New Password"
           />
           <div className="col-md-6 offset-md-3 mb-3">
-            <div className="text-end text-forgot-password d-block">
+            <Link
+              to="/forgotpassword"
+              className="text-end text-forgot-password d-block"
+            >
               Forgot Password
-            </div>
+            </Link>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Button className="btn-submit rounded-pill">Confirm Password</Button>
+            <Button type="button" className="btn-submit rounded-pill">
+              Confirm Password
+            </Button>
           </div>
         </div>
       </form>

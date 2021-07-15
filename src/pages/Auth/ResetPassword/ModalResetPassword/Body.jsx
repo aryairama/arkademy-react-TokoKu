@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../../../../assets/img/icon/Vector.svg'
 import IconLock from '../../../../assets/img/icon/lock1.png'
-import Button from '../../../../components/base/Button/Button';
 
-const Body = () => {
+const Body = (props) => {
   return (
     <Fragment>
       <div className="d-flex">
@@ -17,9 +17,9 @@ const Body = () => {
       <p className="w-75 text-black-14px text-black-50 mt-4_5 text-center">
         The following is the button for you to reset the password.
       </p>
-      <Button className="btn btn-orange rounded-pill mb-4">
+      <Link onClick={props.onClick} to="/confirmpassword" className="btn btn-orange rounded-pill mb-4">
         Change password
-      </Button>
+      </Link>
     </Fragment>
   );
 };

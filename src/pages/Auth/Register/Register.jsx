@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
@@ -108,12 +109,12 @@ const Register = (props) => {
             </Fragment>
           )}
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Button className="btn-submit rounded-pill">Register</Button>
+            <Button type="button" className="btn-submit rounded-pill">Register</Button>
           </div>
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">
               Already have a Tokopedia account?{' '}
-              <div className="text-register d-inline">Login</div>
+              <Link to="/login" className="text-register d-inline">Login</Link>
             </div>
           </div>
         </div>

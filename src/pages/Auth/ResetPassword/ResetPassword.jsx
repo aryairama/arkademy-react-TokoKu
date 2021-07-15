@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
@@ -16,6 +18,7 @@ const ResetPassword = () => {
   };
   const [formData, setFormData] = useState(initialFormData);
   const modalShowHandler = () => modalResetPassword.show();
+  const modalHideHandler = () => modalResetPassword.hide();
   useEffect(() => {
     setModalResetPassword(new Modal(refResetPassword.current));
   }, []);
@@ -41,9 +44,12 @@ const ResetPassword = () => {
             placeholder="Email"
           />
           <div className="col-md-6 offset-md-3 mb-3">
-            <div className="text-end text-forgot-password d-block">
+            <Link
+              to="/forgotpassword"
+              className="text-end text-forgot-password d-block"
+            >
               Forgot Password
-            </div>
+            </Link>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
             <Button
@@ -57,17 +63,22 @@ const ResetPassword = () => {
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">
               Don't have a Tokopedia account?{' '}
-              <div className="text-register d-inline">Register</div>
+              <Link to="/register" className="text-register d-inline">
+                Register
+              </Link>
             </div>
           </div>
         </div>
       </form>
-      <MyModal
-        id="passwordConfirmation"
-        forwadedRef={refResetPassword}
-        styleBody="d-flex flex-column align-items-center"
-        body={<Body/>}
-      ></MyModal>
+      {createPortal(
+        <MyModal
+          id="passwordConfirmation"
+          forwadedRef={refResetPassword}
+          styleBody="d-flex flex-column align-items-center"
+          body={<Body onClick={modalHideHandler}/>}
+        />,
+        document.getElementById('modal-root')
+      )}
     </LayoutAuth>
   );
 };
