@@ -53,7 +53,7 @@ const Login = (props) => {
           />
           <div className="col-md-6 offset-md-3 mb-3">
             <Link
-              to="/forgotpassword"
+              to="/auth/forgotpassword"
               className="text-end text-forgot-password d-block"
             >
               Forgot Password
@@ -67,7 +67,7 @@ const Login = (props) => {
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">
               Don't have a Tokopedia account?{' '}
-              <Link to="/register" className="text-register d-inline">
+              <Link to="/auth/register" className="text-register d-inline">
                 Register
               </Link>
             </div>

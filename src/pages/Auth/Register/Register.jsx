@@ -114,7 +114,7 @@ const Register = (props) => {
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">
               Already have a Tokopedia account?{' '}
-              <Link to="/login" className="text-register d-inline">Login</Link>
+              <Link to="/auth/login" className="text-register d-inline">Login</Link>
             </div>
           </div>
         </div>

@@ -4,7 +4,6 @@ import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
 import Button from '../../../components/base/Button/Button';
-import '../../../assets/css/style.css';
 import '../../../assets/css/auth.css';
 
 const ConfirmPassword = () => {
@@ -46,7 +45,7 @@ const ConfirmPassword = () => {
           />
           <div className="col-md-6 offset-md-3 mb-3">
             <Link
-              to="/forgotpassword"
+              to="/auth/forgotpassword"
               className="text-end text-forgot-password d-block"
             >
               Forgot Password

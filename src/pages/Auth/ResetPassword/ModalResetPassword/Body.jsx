@@ -17,7 +17,7 @@ const Body = (props) => {
       <p className="w-75 text-black-14px text-black-50 mt-4_5 text-center">
         The following is the button for you to reset the password.
       </p>
-      <Link onClick={props.onClick} to="/confirmpassword" className="btn btn-orange rounded-pill mb-4">
+      <Link onClick={props.onClick} to="/auth/confirmpassword" className="btn btn-orange rounded-pill mb-4">
         Change password
       </Link>
     </Fragment>
