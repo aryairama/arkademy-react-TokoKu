@@ -2,20 +2,16 @@ import React, { useState } from 'react';
 import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
-import AuthSwitch from '../../../components/base/AuthSwitch/AuthSwitch';
 import Button from '../../../components/base/Button/Button';
+import '../../../assets/css/style.css';
 import '../../../assets/css/auth.css';
 
-const Login = (props) => {
-  const [roles, setRoles] = useState('seller');
+const ConfirmPassword = () => {
   const initialFormData = {
-    email: '',
     password: '',
+    confirmPassword:'',
   };
   const [formData, setFormData] = useState(initialFormData);
-  const changeSwitchHandler = (e) => {
-    setRoles(e.target.value);
-  };
   const changeInputHandler = (e) => {
     setFormData((oldValue) => {
       return {
@@ -27,22 +23,12 @@ const Login = (props) => {
   return (
     <LayoutAuth>
       <AuthLogos />
-      <p className="text-center text-auth-warning mt-3">
-        Please login with your account
+      <p className="text-center text-auth-warning mt-3">Reset password</p>
+      <p className=" text-black-14px text-orange text-center">
+        You need to change your password to activate your account
       </p>
-      <AuthSwitch
-        value={roles}
-        onChangeSwitch={changeSwitchHandler}
-      ></AuthSwitch>
-      <form className="form-login px-5 px-md-0 px-lg-0 mt-4_5">
+      <form className="form-login px-5 px-md-0 px-lg-0">
         <div className="row">
-          <AuthInput
-            name="email"
-            value={formData.email}
-            onChangeInput={changeInputHandler}
-            type="email"
-            placeholder="Email"
-          />
           <AuthInput
             name="password"
             value={formData.password}
@@ -50,19 +36,20 @@ const Login = (props) => {
             type="password"
             placeholder="Password"
           />
+          <AuthInput
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChangeInput={changeInputHandler}
+            type="password"
+            placeholder="Confirmation New Password"
+          />
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-end text-forgot-password d-block">
               Forgot Password
             </div>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Button className="btn-submit rounded-pill">Login</Button>
-          </div>
-          <div className="col-md-6 offset-md-3 mb-3">
-            <div className="text-center">
-              Don't have a Tokopedia account?{' '}
-              <div className="text-register d-inline">Register</div>
-            </div>
+            <Button className="btn-submit rounded-pill">Confirm Password</Button>
           </div>
         </div>
       </form>
@@ -70,4 +57,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default ConfirmPassword;

@@ -356,7 +356,8 @@ body {
 }
 
 .list-rating-product {
-    justify-content: start;
+    justify-content: flex-start;
+    /* fix postcss->default value start */
     display: flex;
     list-style-type: none;
 }
