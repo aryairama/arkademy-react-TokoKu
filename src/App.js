@@ -5,7 +5,7 @@ import ConfirmPassword from "./pages/Auth/ConfirmPassword/ConfirmPassword";
 function App() {
   return (
     <>
-      <ConfirmPassword></ConfirmPassword>
+      <ResetPassword></ResetPassword>
     </>
   );
 }

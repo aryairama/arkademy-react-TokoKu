@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
 import Button from '../../../components/base/Button/Button';
-import '../../../assets/css/style.css';
+import MyModal from '../../../components/module/Modal/Modal';
+import { Modal } from 'bootstrap';
+import Body from './ModalResetPassword/Body';
 import '../../../assets/css/auth.css';
 
 const ResetPassword = () => {
+  const refResetPassword = useRef(null);
+  const [modalResetPassword, setModalResetPassword] = useState(null);
   const initialFormData = {
     email: '',
   };
   const [formData, setFormData] = useState(initialFormData);
+  const modalShowHandler = () => modalResetPassword.show();
+  useEffect(() => {
+    setModalResetPassword(new Modal(refResetPassword.current));
+  }, []);
   const changeInputHandler = (e) => {
     setFormData((oldValue) => {
       return {
@@ -38,7 +46,13 @@ const ResetPassword = () => {
             </div>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Button className="btn-submit rounded-pill">Reset Password</Button>
+            <Button
+              type="button"
+              className="btn-submit rounded-pill"
+              onClick={modalShowHandler}
+            >
+              Reset Password
+            </Button>
           </div>
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">
@@ -48,6 +62,12 @@ const ResetPassword = () => {
           </div>
         </div>
       </form>
+      <MyModal
+        id="passwordConfirmation"
+        forwadedRef={refResetPassword}
+        styleBody="d-flex flex-column align-items-center"
+        body={<Body/>}
+      ></MyModal>
     </LayoutAuth>
   );
 };
