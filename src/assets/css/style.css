@@ -7,6 +7,21 @@ body {
     font-family: Metropolis-Regular;
 }
 
+.slick-prev {
+    left: 3% !important;
+    z-index: 1;
+}
+
+.slick-next {
+    right: 3% !important;
+    z-index: 1;
+}
+
+.slick-slide>div {
+    padding: 0 10px;
+}
+
+
 .overflow-x {
     overflow-x: auto;
     overflow-y: hidden;
