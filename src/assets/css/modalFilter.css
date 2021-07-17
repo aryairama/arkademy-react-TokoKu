@@ -1,0 +1,199 @@
+/* Modal Filter */
+.filter-title {
+    font-size: 16px;
+}
+
+.divider-filter {
+    border: 4px solid #dee2e6;
+}
+
+.btn-check:checked+.btn-outline-rounded-black,
+.btn-check:active+.btn-outline-rounded-black,
+.btn-outline-rounded-black:active,
+.btn-outline-rounded-black.active {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-black:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-black {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-white,
+.btn-check:active+.btn-outline-rounded-white,
+.btn-outline-rounded-white:active,
+.btn-outline-rounded-white.active {
+    box-shadow:0 0 0 0px black, 0 0 0 2px #DB3022 !important;
+    border: 4px solid white;
+}
+
+.btn-outline-rounded-white:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px black, 0 0 0 2px #DB3022 !important;
+}
+
+.btn-outline-rounded-white {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-red,
+.btn-check:active+.btn-outline-rounded-red,
+.btn-outline-rounded-red:active,
+.btn-outline-rounded-red.active {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-red:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-red {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #B82222;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-pink,
+.btn-check:active+.btn-outline-rounded-pink,
+.btn-outline-rounded-pink:active,
+.btn-outline-rounded-pink.active {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-pink:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-pink {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #BEA9A9;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-brown,
+.btn-check:active+.btn-outline-rounded-brown,
+.btn-outline-rounded-brown:active,
+.btn-outline-rounded-brown.active {
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+    border: 4px solid white;
+}
+
+.btn-outline-rounded-brown:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-brown {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #E2BB8D;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-blue,
+.btn-check:active+.btn-outline-rounded-blue,
+.btn-outline-rounded-blue:active,
+.btn-outline-rounded-blue.active {
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+    border: 4px solid white;
+}
+
+.btn-outline-rounded-blue:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-blue {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #151867;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-light-blue,
+.btn-check:active+.btn-outline-rounded-light-blue,
+.btn-outline-rounded-light-blue:active,
+.btn-outline-rounded-light-blue.active {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-light-blue:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-light-blue {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #4290D8;
+    border: 1px solid white;
+}
+
+.btn-check:checked+.btn-outline-rounded-light-green,
+.btn-check:active+.btn-outline-rounded-light-green,
+.btn-outline-rounded-light-green:active,
+.btn-outline-rounded-light-green.active {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-light-green:hover {
+    border: 4px solid white;
+    box-shadow:0 0 0 0px white, 0 0 0 2px #DB3022;
+}
+
+.btn-outline-rounded-light-green {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #42D86C;
+    border: 1px solid white;
+}
+
+
+.btn-check:checked+.btn-outline-orange,
+.btn-check:active+.btn-outline-orange,
+.btn-outline-orange:active,
+.btn-outline-orange.active {
+    box-shadow: none;
+    color: white;
+    border: 1px solid #DB3022;
+    background-color: #DB3022;
+}
+
+.btn-outline-orange:hover {
+    border: 1px solid #DB3022;
+    color: #ffffff;
+    background-color: #DB3022;
+}
+
+.btn-outline-orange {
+    border: 1px solid #9B9B9B;
+    color: #9B9B9B;
+}
+

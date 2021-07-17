@@ -1,32 +1,43 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/module/Navbar/Navbar';
+import { Modal } from 'bootstrap';
+import { createPortal } from 'react-dom';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
-import NavbarRightMenu from '../../components/module/Navbar/NavbarRightMenu';
 import NavbarLeftMenu from '../../components/module/Navbar/NavbarLeftMenu';
+import NavbarRightMenu from '../../components/module/Navbar/NavbarRightMenu';
 import Carousel from '../../components/module/Carousel/Carousel';
 import ProductCardLayout from '../../components/base/ProductCardLayout/ProductCardLayout';
-import ProductCard from '../../components/base/ProductCard/ProductCard'
+import ProductCard from '../../components/base/ProductCard/ProductCard';
 import Container from '../../components/base/Container/Container';
 import Footer from '../../components/module/Footer/Footer';
 import FooterMenu from '../../components/base/FooterMenu/FooterMenu';
 import ConfigCarousel from '../../configs/Carousel';
-import img from './img';
+import MyModal from '../../components/module/Modal/Modal';
+import ModalHeader from '../../components/ModalFilter/Header';
+import ModalBody from '../../components/ModalFilter/Body';
+import ModalFooter from '../../components/ModalFilter/Footer';
 import getProduct from './getProducts';
+import img from './img';
 
-const Home =  (props) => {
+const Home = (props) => {
+  const refModalFilter = useRef(null);
+  const [modalFilter, setModalFilter] = useState(null);
   const [newProducts, setNewProducts] = useState([]);
-  const [popularProducts,setPopularProducts] = useState([])
+  const [popularProducts, setPopularProducts] = useState([]);
+  const modalShowHandler = () => modalFilter.show();
+  const modalHideHandler = () => modalFilter.hide();
   useEffect(async () => {
     try {
       const { data: data1 } = await (await getProduct('DESC')).data;
       const { data: data2 } = await (await getProduct('ASC')).data;
-      setNewProducts(data1)
-      setPopularProducts(data2)
+      setNewProducts(data1);
+      setPopularProducts(data2);
+      setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
     } catch (error) {
       console.log(error);
     }
-  }, [])
+  }, []);
   return (
     <Fragment>
       <Navbar
@@ -34,8 +45,8 @@ const Home =  (props) => {
         urlLogo="/"
         urlLogoImg={logoTokoKu}
         textLogo="TokoKu"
-        leftMenu={<NavbarRightMenu />}
-        rigthMenu={<NavbarLeftMenu />}
+        leftMenu={<NavbarLeftMenu onClickFilter={modalShowHandler} />}
+        rigthMenu={<NavbarRightMenu />}
       ></Navbar>
       <Container className="mt-10">
         <Carousel settings={ConfigCarousel.configTrendCarousel}>
@@ -265,6 +276,18 @@ const Home =  (props) => {
           </Fragment>
         }
       />
+      {createPortal(
+        <MyModal
+          id="filterProducts"
+          forwadedRef={refModalFilter}
+          styleHeader="justify-content-start"
+          styleFooter="justify-content-around m-0"
+          header={<ModalHeader onClickFilter={modalHideHandler} />}
+          body={<ModalBody />}
+          footer={<ModalFooter onClickCloseFilter={ modalHideHandler }/>}
+        />,
+        document.getElementById('modal-root')
+      )}
     </Fragment>
   );
 };

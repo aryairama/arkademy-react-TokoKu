@@ -1,25 +1,25 @@
 import React from 'react';
+import logoSearch from '../../../assets/img/icon/Search.svg';
+import iconFilter from '../../../assets/img/icon/filter.svg';
+import iconCart from '../../../assets/img/icon/keranjang.svg';
 
-const NavbarLeftMenu = () => {
+const NavbarLeftMenu = (props) => {
   return (
-    <div className="row flex-grow-1 gx-0">
-      <div className="offset-4 col-2 d-none d-md-block">
-        <a href="./myBag.html" className="btn-icon ms-lg-4">
-          <img src="../asset/img/icon/keranjang.svg" alt="" />
-        </a>
+    <div className="row flex-grow-1">
+      <div className="col-sm-10 col-9">
+        <div className="input-group input-group-sm home-seacrh rounded-pill">
+          <input type="text" className="form-control border-end-0 rounded-pill-start" placeholder="Search" />
+          <span className="input-group-text bg-white border-start-0 rounded-pill-end">
+            <img src={logoSearch} alt="logo-search" />
+          </span>
+        </div>
       </div>
-      <div className="col-md-6 col-8 d-flex">
-        <a
-          href="../auth/login.html"
-          className="btn btn-sm btn-orange rounded-pill w-50 me-3"
-        >
-          Login
-        </a>
-        <a
-          href="../auth/register.html"
-          className="btn btn-sm button-auth rounded-pill w-50"
-        >
-          Signup
+      <div className="col-sm-2 col-3 d-flex">
+        <button onClick={props.onClickFilter} className="btn-filter ms-md-0 ms-n3">
+          <img src={iconFilter} alt="icon-filter" />
+        </button>
+        <a href="./myBag.html" className="btn-icon d-md-none d-block">
+          <img src={iconCart} alt="icon-chart" />
         </a>
       </div>
     </div>
