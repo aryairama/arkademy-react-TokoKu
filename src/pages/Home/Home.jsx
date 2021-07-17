@@ -9,6 +9,7 @@ import NavbarRightMenu from '../../components/module/Navbar/NavbarRightMenu';
 import Carousel from '../../components/module/Carousel/Carousel';
 import ProductCardLayout from '../../components/base/ProductCardLayout/ProductCardLayout';
 import ProductCard from '../../components/base/ProductCard/ProductCard';
+import CategoryCard from '../../components/base/CategoryCard/CategoryCard';
 import Container from '../../components/base/Container/Container';
 import Footer from '../../components/module/Footer/Footer';
 import FooterMenu from '../../components/base/FooterMenu/FooterMenu';
@@ -17,7 +18,7 @@ import MyModal from '../../components/module/Modal/Modal';
 import ModalHeader from '../../components/ModalFilter/Header';
 import ModalBody from '../../components/ModalFilter/Body';
 import ModalFooter from '../../components/ModalFilter/Footer';
-import getProduct from './getProducts';
+import ConsumeApi from './ConsumeApi';
 import img from './img';
 
 const Home = (props) => {
@@ -25,14 +26,17 @@ const Home = (props) => {
   const [modalFilter, setModalFilter] = useState(null);
   const [newProducts, setNewProducts] = useState([]);
   const [popularProducts, setPopularProducts] = useState([]);
+  const [categories,setCategories] = useState([])
   const modalShowHandler = () => modalFilter.show();
   const modalHideHandler = () => modalFilter.hide();
   useEffect(async () => {
     try {
-      const { data: data1 } = await (await getProduct('DESC')).data;
-      const { data: data2 } = await (await getProduct('ASC')).data;
+      const { data: data1 } = await (await ConsumeApi.getProducts('DESC')).data;
+      const { data: data2 } = await (await ConsumeApi.getProducts('ASC')).data;
+      const { data: data3 } = await (await ConsumeApi.getCategories()).data;
       setNewProducts(data1);
       setPopularProducts(data2);
+      setCategories(data3);
       setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
     } catch (error) {
       console.log(error);
@@ -96,116 +100,14 @@ const Home = (props) => {
           </div>
         </div>
         <Carousel settings={ConfigCarousel.configCetgoryCarousel}>
-          <div className="card d-flex bg-red card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg4} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                T-Shirt
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-blue card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg5} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-orange card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg2} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-pink card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg1} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-green card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg3} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-red card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg4} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                T-Shirt
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-blue card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg5} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-orange card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg2} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-pink card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg1} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
-          <div className="card d-flex bg-green card-category justify-content-center align-items-center">
-            <img className="card-img w-60" src={img.categoryImg3} alt="style-trend" />
-            <div className="card-img-overlay d-flex align-items-center justify-content-center">
-              <a
-                href="./pages/tShirt.html"
-                className="text-black-20px text-white fw-bold text-decoration-none stretched-link"
-              >
-                Shorts
-              </a>
-            </div>
-          </div>
+          {categories.map((category) => (
+            <CategoryCard
+              key={category.category_id}
+              name={category.name}
+              category_id={category.category_id}
+              img_category={category.img_category}
+            />
+          ))}
         </Carousel>
       </Container>
       <Container className="mt-5">
@@ -218,7 +120,7 @@ const Home = (props) => {
         <ProductCardLayout>
           {newProducts.map((newProduct) => (
             <ProductCard
-              urlProduct="/"
+              urlProduct={`/product/${newProduct.product_id}`}
               key={newProduct.product_id}
               productTitle={newProduct.name}
               imgProduct={`${process.env.REACT_APP_API_URL}/${newProduct.img_product}`}
@@ -236,14 +138,14 @@ const Home = (props) => {
           </div>
         </div>
         <ProductCardLayout>
-          {popularProducts.map((newProduct) => (
+          {popularProducts.map((popularProduct) => (
             <ProductCard
-              urlProduct="/"
-              key={newProduct.product_id}
-              productTitle={newProduct.name}
-              imgProduct={`${process.env.REACT_APP_API_URL}/${newProduct.img_product}`}
-              productPrice={parseInt(newProduct.price)}
-              productBrand={newProduct.brand}
+              urlProduct={`/product/${popularProduct.product_id}`}
+              key={popularProduct.product_id}
+              productTitle={popularProduct.name}
+              imgProduct={`${process.env.REACT_APP_API_URL}/${popularProduct.img_product}`}
+              productPrice={parseInt(popularProduct.price)}
+              productBrand={popularProduct.brand}
             />
           ))}
         </ProductCardLayout>
@@ -284,7 +186,7 @@ const Home = (props) => {
           styleFooter="justify-content-around m-0"
           header={<ModalHeader onClickFilter={modalHideHandler} />}
           body={<ModalBody />}
-          footer={<ModalFooter onClickCloseFilter={ modalHideHandler }/>}
+          footer={<ModalFooter onClickCloseFilter={modalHideHandler} />}
         />,
         document.getElementById('modal-root')
       )}

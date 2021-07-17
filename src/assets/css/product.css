@@ -1,0 +1,213 @@
+.beadcrumb-text,
+.product-information-description-text {
+    font-size: 14px;
+    color: #9B9B9B;
+}
+
+.img-small-product-gallery {
+    margin: 3px;
+    width: 65px;
+    height: 65px;
+    transition: border 100ms ease-in-out;
+}
+
+.img-small-product-gallery:hover {
+    border: 3px solid #db3022;
+}
+
+.img-small-product-gallery-active {
+    border: 3px solid #db3022;
+}
+
+.product-title {
+    /* 20% */
+    font-size: 19.2px;
+}
+
+.product-brand {
+    font-size: 16px;
+    color: #9B9B9B;
+}
+
+.product-price {
+    /* 30% */
+    font-size: 23.1px;
+    color: #222222;
+    font-weight: bold;
+}
+
+.btn-decrement-product {
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: #D4D4D4;
+    color: white;
+}
+
+.btn-increment-product {
+    border: 1px solid #D4D4D4;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: #FFFFFF;
+}
+
+
+.form-control-quantity {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    border: none;
+    width: 30%;
+    text-align: center;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control-quantity::-webkit-inner-spin-button,
+.form-control-quantity::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.product-information-title {
+    /* cut 20% */
+    font-size: 22.4px;
+    color: #222222;
+    font-weight: bold;
+}
+
+.product-information-condition,
+.product-information-description {
+    /* 20% */
+    font-size: 16px;
+    color: #222222;
+    font-weight: bold;
+}
+
+.text-rating-primary {
+    /* 30% */
+    font-size: 42px;
+    font-style: normal;
+    color: #222222;
+}
+
+.text-rating-secondary {
+    /* 20% */
+    font-size: 16px;
+    font-style: normal;
+    color: #9B9B9B;
+}
+
+.text-count-rating {
+    font-size: 14px;
+    font-style: normal;
+    color: #9B9B9B;
+}
+
+.rating-bar-orange {
+    background-color: #db3022;
+    height: 6px;
+    width: 200px;
+    border-radius: 6px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.rating-bar-transparant {
+    background-color: transparent;
+    height: 6px;
+    width: 200px;
+    border-radius: 6px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.divider-product {
+    border: 4px solid #D4D4D4;
+}
+
+@media (min-width: 576px) {
+
+    /*cut font size sebesar 25% untuk font size di atas 30px */
+    .product-price {
+        font-size: 24.75px;
+    }
+
+    .product-information-title {
+        /* 15% */
+        font-size: 23.8px;
+    }
+
+    .product-information-condition,
+    .product-information-description,
+    .text-rating-secondary {
+        /* 15% */
+        font-size: 17px;
+    }
+
+    .text-rating-primary {
+        /* 25% */
+        font-size: 45px;
+    }
+
+    .product-title {
+        /* 15% */
+        font-size: 20.4px;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    /* cut font size sebesar 20% untuk font size di atas 30px */
+    .product-price {
+        font-size: 26.45px;
+    }
+
+    .product-information-title {
+        /* 10% */
+        font-size: 25.2px;
+    }
+
+    .product-information-condition,
+    .product-information-description,
+    .text-rating-secondary {
+        /* 10% */
+        font-size: 18px;
+    }
+
+    .text-rating-primary {
+        /* 20% */
+        font-size: 48px;
+    }
+
+    .product-title {
+        /* 10% */
+        font-size: 21.6px;
+    }
+}
+
+@media (min-width: 992px) {
+    .product-price {
+        font-size: 33px;
+    }
+
+    .product-information-title {
+        font-size: 28px;
+    }
+
+    .product-information-condition,
+    .product-information-description,
+    .text-rating-secondary {
+        font-size: 20px;
+    }
+
+    .text-rating-primary {
+        font-size: 60px;
+    }
+
+    .product-title {
+        font-size: 24px;
+    }
+}
