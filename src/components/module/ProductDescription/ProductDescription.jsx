@@ -9,7 +9,7 @@ const ProductDescription = (props) => {
         <p className="product-information-condition ">Condition</p>
         <p className="product-information-condition text-orange mt-n3">New</p>
         <p className="product-information-description mt-5">Description</p>
-        <p className="product-information-description-text">{props.description}</p>
+        <p className="product-information-description-text" dangerouslySetInnerHTML={{__html: props.description}}></p>
       </div>
       <div className="produk-information-rating">
         <p className="product-information-title mt-5">Product review</p>
