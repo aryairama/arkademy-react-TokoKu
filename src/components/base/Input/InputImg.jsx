@@ -9,7 +9,13 @@ const InputImg = (props) => {
         <div className="col">
           <div className="card img-preview-primary">
             <div className="card-body d-flex justify-content-center align-items-center">
-              <img className="img-fluid" src={previewImg ? previewImg : iconBox} alt="" />
+              {props.img_product && !previewImg && (
+                <img className="img-fluid" src={`${process.env.REACT_APP_API_URL}/${props.img_product}`} alt="" />
+              )}
+              {!props.img_product && <img className="img-fluid" src={previewImg ? previewImg : iconBox} alt="" />}
+              {props.img_product && previewImg && (
+                <img className="img-fluid" src={previewImg ? previewImg : iconBox} alt="" />
+              )}
               <div className="img-preview-primary-waypoint">Foto utama</div>
             </div>
           </div>

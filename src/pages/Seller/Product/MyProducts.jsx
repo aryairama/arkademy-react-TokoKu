@@ -8,6 +8,7 @@ import 'rc-pagination/assets/index.css';
 import iconNotfound from '../../../assets/img/icon/undraw_opinion_dxp8_1.svg';
 import arrowUpDOwn from '../../../assets/img/icon/arrow_up_down.svg';
 import searchIcon from '../../../assets/img/icon/Search.svg';
+import { Link } from 'react-router-dom';
 
 const MyProducts = () => {
   const [page, setPage] = useState(1);
@@ -39,7 +40,7 @@ const MyProducts = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [search.allItems, sort.allItems, fieldOrder, page]);
+  }, [search.allItems, sort.allItems, fieldOrder, page, productAllItems]);
   const paginationHandler = (current, pageSize) => {
     setPage(current);
   };
@@ -96,7 +97,7 @@ const MyProducts = () => {
                           type="text"
                           placeholder="Search"
                           onChange={searchHandler}
-                          value={ search.allItems}
+                          value={search.allItems}
                         />
                         <div className="table-responsive-md pt-3">
                           <table className="table table-secondary">
@@ -140,8 +141,10 @@ const MyProducts = () => {
                                   <td>{parseInt(value.price, 10)}</td>
                                   <td>{value.quantity}</td>
                                   <td>
-                                    <Button className="btn-sm btn-outline-orange mx-1">Edit</Button>
-                                    <Button className="btn-sm btn-outline-orange mx-1">Delete</Button>
+                                    <Link to={`/seller/updateproducts/${value.product_id}`} className="btn btn-sm btn-outline-orange mx-1 text-decoration-none">
+                                      Edit
+                                    </Link>
+                                    <Button className="btn btn-sm btn-outline-orange mx-1">Delete</Button>
                                   </td>
                                 </tr>
                               ))}

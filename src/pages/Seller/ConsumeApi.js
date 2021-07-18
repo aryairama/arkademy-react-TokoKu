@@ -39,3 +39,25 @@ export const postProduct = async (formData) => {
     console.log(error);
   }
 };
+
+export const updateProduct = async (formData,id) => {
+  try {
+    const product = new FormData();
+    product.append('name', formData.name);
+    product.append('brand', formData.brand);
+    product.append('category_id', formData.category_id);
+    product.append('price', formData.price);
+    product.append('colors', formData.colors);
+    product.append('size', formData.size);
+    product.append('quantity', formData.quantity);
+    product.append('product_status', formData.product_status);
+    product.append('description', formData.description);
+    if (typeof formData.imgProduct !== 'undefined') {
+      product.append('imgProduct', formData.imgProduct);
+    }
+    const data = await axios.put(`/products/${id}`, product);
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+}
