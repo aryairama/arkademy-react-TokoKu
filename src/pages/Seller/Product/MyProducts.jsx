@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Container, InputGroup, NotFound, buttonItemRender,Button } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
-import { getProducts } from '../ConsumeApi';
+import { getProducts,deleteProduct } from '../ConsumeApi';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import iconNotfound from '../../../assets/img/icon/undraw_opinion_dxp8_1.svg';
@@ -40,7 +40,7 @@ const MyProducts = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [search.allItems, sort.allItems, fieldOrder, page, productAllItems]);
+  }, [search.allItems, sort.allItems, fieldOrder, page,productAllItems]);
   const paginationHandler = (current, pageSize) => {
     setPage(current);
   };
@@ -144,7 +144,7 @@ const MyProducts = () => {
                                     <Link to={`/seller/updateproducts/${value.product_id}`} className="btn btn-sm btn-outline-orange mx-1 text-decoration-none">
                                       Edit
                                     </Link>
-                                    <Button className="btn btn-sm btn-outline-orange mx-1">Delete</Button>
+                                    <Button className="btn btn-sm btn-outline-orange mx-1" onClick={()=> deleteProduct(value.product_id)}>Delete</Button>
                                   </td>
                                 </tr>
                               ))}

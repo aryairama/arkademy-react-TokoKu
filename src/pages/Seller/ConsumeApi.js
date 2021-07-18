@@ -40,7 +40,7 @@ export const postProduct = async (formData) => {
   }
 };
 
-export const updateProduct = async (formData,id) => {
+export const updateProduct = async (formData, id) => {
   try {
     const product = new FormData();
     product.append('name', formData.name);
@@ -56,8 +56,17 @@ export const updateProduct = async (formData,id) => {
       product.append('imgProduct', formData.imgProduct);
     }
     const data = await axios.put(`/products/${id}`, product);
-    return data
+    return data;
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const deleteProduct = async (id) => {
+  try {
+    const deleteData = await axios.delete(`/products/${id}`);
+    return deleteData;
+  } catch (error) {
+    console.log(error);
+  }
+};
