@@ -12,3 +12,15 @@ export { default as InputPicker } from './InputPicker/InputPicker';
 export { default as ProductCard } from './ProductCard/ProductCard';
 export { default as ProductCardLayout } from './ProductCardLayout/ProductCardLayout';
 export { default as StarIcon } from './StarIcon/StarIcon';
+export { default as InputGroup } from './InputGroup/InputGroup';
+export { default as NotFound } from './NotFound/NotFound';
+
+export const buttonItemRender = (current, type, element) => {
+  if (type === 'prev') {
+    return <button type="button" className="btn btn-sm btn-outline-orange" title="prev"></button>;
+  }
+  if (type === 'next') {
+    return <button type="button" className="btn btn-sm btn-outline-orange" title="next"></button>;
+  }
+  return element;
+};

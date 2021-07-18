@@ -576,9 +576,20 @@ body {
     border-spacing: 0px;
 }
 
+.table>thead>tr {
+    cursor: pointer;
+}
+
+.table>thead>tr>th:hover {
+    cursor: pointer;
+    background-color: #9b9b9b;
+    color: white !important;
+}
+
 .table>thead>tr>th {
     font-size: 14px;
     border: none !important;
+    transition: all 300ms ease-in-out;
 }
 
 .table>thead>tr>th:first-child {
