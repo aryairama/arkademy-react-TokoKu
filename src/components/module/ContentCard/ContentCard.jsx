@@ -2,7 +2,7 @@ import React from 'react';
 
 const ContentCard = (props) => {
   return (
-    <div className="card rounded-3 shadow">
+    <div className={`card rounded-3 shadow ${props.styleCard}`}>
       {props.cardHeader && (
         <div className={`card-header bg-transparent p-3 ${props.styleHeader}`}>{props.cardHeader}</div>
       )}

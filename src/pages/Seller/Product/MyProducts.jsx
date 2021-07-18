@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useState } from 'react';
-import { Container, InputGroup, NotFound, buttonItemRender } from '../../../components/base/index';
+import { Container, InputGroup, NotFound, buttonItemRender,Button } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
 import { getProducts } from '../ConsumeApi';
 import Pagination from 'rc-pagination';
@@ -96,8 +96,9 @@ const MyProducts = () => {
                           type="text"
                           placeholder="Search"
                           onChange={searchHandler}
+                          value={ search.allItems}
                         />
-                        <div className="table-responsive-sm pt-3">
+                        <div className="table-responsive-md pt-3">
                           <table className="table table-secondary">
                             <thead>
                               <tr>
@@ -138,7 +139,10 @@ const MyProducts = () => {
                                   <td>{value.name}</td>
                                   <td>{parseInt(value.price, 10)}</td>
                                   <td>{value.quantity}</td>
-                                  <td></td>
+                                  <td>
+                                    <Button className="btn-sm btn-outline-orange mx-1">Edit</Button>
+                                    <Button className="btn-sm btn-outline-orange mx-1">Delete</Button>
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>
@@ -148,7 +152,7 @@ const MyProducts = () => {
                                   {pagination && (
                                     <Pagination
                                       current={page}
-                                      total={pagination.pages}
+                                      total={pagination.countData}
                                       pageSize={pagination.limit ? pagination.limit : 1}
                                       itemRender={buttonItemRender}
                                       onChange={paginationHandler}

@@ -14,6 +14,9 @@ export { default as ProductCardLayout } from './ProductCardLayout/ProductCardLay
 export { default as StarIcon } from './StarIcon/StarIcon';
 export { default as InputGroup } from './InputGroup/InputGroup';
 export { default as NotFound } from './NotFound/NotFound';
+export { default as Input } from './Input/Input';
+export { default as InputCheck } from './Input/InputCheck';
+export { default as InputImg } from './Input/InputImg';
 
 export const buttonItemRender = (current, type, element) => {
   if (type === 'prev') {

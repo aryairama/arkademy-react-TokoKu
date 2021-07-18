@@ -1,13 +1,16 @@
+import { Link } from "react-router-dom";
+import profile from '../../../assets/img/profile/1.png'
+import iconPencil from '../../../assets/img/icon/pensil.svg'
 const Sidebar = (props) => {
   return (
     <div className="d-flex wrapper flex-nowrap">
       <aside className={`sidebar ps-5 flex-column ${props.sidebarActive ? 'sidebar-active' : ''}`}>
         <div className="user-profile d-flex flex-wrap mb-5">
-          <img src="../asset/img/profile/1.png" className="user-profile-img" alt="user-profile-img" />
+          <img src={profile} className="user-profile-img" alt="user-profile-img" />
           <div className="d-flex flex-column ps-3 pt-1">
             <div className="text-black-16px font-semi-bold">Johanes Mikael</div>
             <div className="text-black-14px text-black-50">
-              <img src="../asset/img/icon/pensil.svg" alt="" /> Ubah profile
+              <img src={iconPencil} alt="" /> Ubah profile
             </div>
           </div>
         </div>
@@ -39,14 +42,14 @@ const Sidebar = (props) => {
               </label>
               <ul className="sidebar-submenu" id="submenu2">
                 <li>
-                  <a href="./myProducts.html" className="text-black-50">
+                  <Link to="/seller/myproducts" className="text-black-50">
                     My Products
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="./sellingProducts.html" className="text-black-50">
+                  <Link to="/seller/sellingproducts" className="text-black-50">
                     Selling products
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>

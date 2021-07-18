@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import MyProducts from '../Seller/Product/MyProducts';
+import SellingProducts from './Product/SellingProducts';
 import { Navbar, SideNavbar, SidebarButton, Sidebar } from '../../components/module/index';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
 import '../../assets/css/profile.css';
@@ -24,6 +25,7 @@ const Seller = (prop) => {
       <Sidebar sidebarActive={sidebarActive}>
         <Switch>
           <Route path="/seller/myproducts" component={MyProducts} />
+          <Route path="/seller/sellingproducts" component={SellingProducts} />
           <Route
             component={() => {
               return <p> Page Not Found</p>;
