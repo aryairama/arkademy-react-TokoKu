@@ -1,4 +1,4 @@
-const configTrendCarousel = {
+export const configTrendCarousel = {
   infinite: true,
   centerPadding: '-120px',
   className: 'center',
@@ -30,7 +30,7 @@ const configTrendCarousel = {
   ],
 };
 
-const configCetgoryCarousel = {
+export const configCetgoryCarousel = {
   infinite: true,
   slidesToShow: 5,
   slidesToScroll: 1,
@@ -52,11 +52,24 @@ const configCetgoryCarousel = {
     {
       breakpoint: 768,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 1100,
+      settings: {
+        slidesToShow: 4,
         slidesToScroll: 1,
       },
     },
   ],
 };
 
-export default { configCetgoryCarousel, configTrendCarousel };

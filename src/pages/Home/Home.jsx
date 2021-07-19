@@ -1,39 +1,56 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import Navbar from '../../components/module/Navbar/Navbar';
 import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
+import {
+  Footer,
+  ContentCard,
+  Modal as MyModal,
+  Carousel,
+  NavbarLeftMenu,
+  NavbarRightMenu,
+  Navbar,
+} from '../../components/module/index';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
-import NavbarLeftMenu from '../../components/module/Navbar/NavbarLeftMenu';
-import NavbarRightMenu from '../../components/module/Navbar/NavbarRightMenu';
-import Carousel from '../../components/module/Carousel/Carousel';
 import ProductCardLayout from '../../components/base/ProductCardLayout/ProductCardLayout';
 import ProductCard from '../../components/base/ProductCard/ProductCard';
 import CategoryCard from '../../components/base/CategoryCard/CategoryCard';
 import Container from '../../components/base/Container/Container';
-import Footer from '../../components/module/Footer/Footer';
 import FooterMenu from '../../components/base/FooterMenu/FooterMenu';
-import ConfigCarousel from '../../configs/Carousel';
-import MyModal from '../../components/module/Modal/Modal';
+import { configTrendCarousel, configCetgoryCarousel } from '../../configs/Carousel';
 import ModalHeader from '../../components/ModalFilter/Header';
 import ModalBody from '../../components/ModalFilter/Body';
 import ModalFooter from '../../components/ModalFilter/Footer';
 import ConsumeApi from './ConsumeApi';
 import img from './img';
+import qs from 'query-string';
 
 const Home = (props) => {
+  const [search, setSearch] = useState([]);
+  const url = qs.parse(props.location.search);
   const refModalFilter = useRef(null);
   const [modalFilter, setModalFilter] = useState(null);
   const [newProducts, setNewProducts] = useState([]);
   const [popularProducts, setPopularProducts] = useState([]);
-  const [categories,setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   const modalShowHandler = () => modalFilter.show();
   const modalHideHandler = () => modalFilter.hide();
+  const searchProducts = async () => {
+    if (url) {
+      try {
+        const { data: data4 } = await (await ConsumeApi.searchProducts(url.search, 30)).data;
+        setSearch(data4);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   useEffect(async () => {
     try {
       const { data: data1 } = await (await ConsumeApi.getProducts('DESC')).data;
       const { data: data2 } = await (await ConsumeApi.getProducts('ASC')).data;
       const { data: data3 } = await (await ConsumeApi.getCategories()).data;
+      searchProducts();
       setNewProducts(data1);
       setPopularProducts(data2);
       setCategories(data3);
@@ -41,7 +58,8 @@ const Home = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [url.search]);
+
   return (
     <Fragment>
       <Navbar
@@ -52,8 +70,36 @@ const Home = (props) => {
         leftMenu={<NavbarLeftMenu onClickFilter={modalShowHandler} />}
         rigthMenu={<NavbarRightMenu />}
       ></Navbar>
-      <Container className="mt-10">
-        <Carousel settings={ConfigCarousel.configTrendCarousel}>
+      <Container className={`mt-10 ${url.search || search.length > 0 ? 'd-block' : 'd-none'}`}>
+        <div className="row">
+          <div className="col-12">
+            <ContentCard
+              styleCard={`mb-n5 ${search.length > 0 ? 'd-none' : 'd-block'}`}
+              cardBody={
+                <Fragment>
+                  <p className="header-product">Result</p>
+                  <hr />
+                  <p className="text-black-16px">Product not found</p>
+                </Fragment>
+              }
+            />
+          </div>
+        </div>
+        <ProductCardLayout>
+          {search.map((product) => (
+            <ProductCard
+              urlProduct={`/product/${product.product_id}`}
+              key={product.product_id}
+              productTitle={product.name}
+              imgProduct={`${process.env.REACT_APP_API_URL}/${product.img_product}`}
+              productPrice={parseInt(product.price)}
+              productBrand={product.brand}
+            />
+          ))}
+        </ProductCardLayout>
+      </Container>
+      <Container className={`mt-10 ${search.length > 0 ? 'd-none' : 'd-block'}`}>
+        <Carousel settings={configTrendCarousel}>
           <div className="card">
             <img className="card-img" src={img.trendImg1} alt="style-trend" />
             <div className="card-img-overlay d-flex align-items-center justify-content-center">
@@ -92,14 +138,14 @@ const Home = (props) => {
           </div>
         </Carousel>
       </Container>
-      <Container className="mt-5">
+      <Container className={`mt-5 ${search.length > 0 ? 'd-none' : 'd-block'}`}>
         <div className="row">
           <div className="col-12">
             <p className="header-product">Category</p>
             <p className="header-product-text mt-n4">What are you currently looking for</p>
           </div>
         </div>
-        <Carousel settings={ConfigCarousel.configCetgoryCarousel}>
+        <Carousel settings={configCetgoryCarousel}>
           {categories.map((category) => (
             <CategoryCard
               key={category.category_id}
@@ -110,7 +156,8 @@ const Home = (props) => {
           ))}
         </Carousel>
       </Container>
-      <Container className="mt-5">
+
+      <Container className={`mt-5 ${search.length > 0 ? 'd-none' : 'd-block'}`}>
         <div className="row">
           <div className="col-12">
             <p className="header-product">New</p>
@@ -130,7 +177,7 @@ const Home = (props) => {
           ))}
         </ProductCardLayout>
       </Container>
-      <Container className="mt-5">
+      <Container className={`mt-5 ${search.length > 0 ? 'd-none' : 'd-block'}`}>
         <div className="row">
           <div className="col-12">
             <p className="header-product">Popular</p>

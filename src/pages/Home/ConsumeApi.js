@@ -16,6 +16,15 @@ const getCategories = async () => {
     console.log(error);
   }
 };
-const ConsumeApi = { getProducts, getCategories };
+
+const searchProducts = async (keyword, limit) => {
+  try {
+    const data = await axios.get(`/products?search=${keyword}&limit=${limit}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const ConsumeApi = { getProducts, getCategories, searchProducts };
 
 export default ConsumeApi;
