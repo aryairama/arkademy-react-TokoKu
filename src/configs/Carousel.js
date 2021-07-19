@@ -43,16 +43,44 @@ export const configCetgoryCarousel = {
   dotsClass: 'slick-dots text-start',
   responsive: [
     {
-      breakpoint: 576,
+      breakpoint: 400,
       settings: {
         slidesToShow: 1.5,
         slidesToScroll: 1,
       },
     },
     {
-      breakpoint: 768,
+      breakpoint: 460,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 1.8,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 500,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2.2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 700,
+      settings: {
+        slidesToShow: 2.3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 780,
+      settings: {
+        slidesToShow: 2.6,
         slidesToScroll: 1,
       },
     },
@@ -64,9 +92,16 @@ export const configCetgoryCarousel = {
       },
     },
     {
+      breakpoint: 970,
+      settings: {
+        slidesToShow: 3.3,
+        slidesToScroll: 1,
+      },
+    },
+    {
       breakpoint: 1100,
       settings: {
-        slidesToShow: 4,
+        slidesToShow: 3.9,
         slidesToScroll: 1,
       },
     },
