@@ -28,13 +28,8 @@ const Login = (props) => {
   return (
     <LayoutAuth>
       <AuthLogos />
-      <p className="text-center text-auth-warning mt-3">
-        Please login with your account
-      </p>
-      <AuthSwitch
-        value={roles}
-        onChangeSwitch={changeSwitchHandler}
-      ></AuthSwitch>
+      <p className="text-center text-auth-warning mt-3">Please login with your account</p>
+      <AuthSwitch value={roles} onChangeSwitch={changeSwitchHandler}></AuthSwitch>
       <form className="form-login px-5 px-md-0 px-lg-0 mt-4_5">
         <div className="row">
           <AuthInput
@@ -52,17 +47,14 @@ const Login = (props) => {
             placeholder="Password"
           />
           <div className="col-md-6 offset-md-3 mb-3">
-            <Link
-              to="/auth/forgotpassword"
-              className="text-end text-forgot-password d-block"
-            >
+            <Link to="/auth/forgotpassword" className="text-end text-forgot-password d-block">
               Forgot Password
             </Link>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Button type="button" className="btn-submit rounded-pill">
+            <Link to="/seller/myproducts" type="button" className="btn btn-submit rounded-pill">
               Login
-            </Button>
+            </Link>
           </div>
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">
