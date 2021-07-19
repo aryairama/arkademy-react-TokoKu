@@ -50,7 +50,7 @@ const SellingProducts = (props) => {
   const submitHandler = async (e) => {
     try {
       e.preventDefault()
-      postProduct(formData);
+      await postProduct(formData);
       setFromData(initializationData)
       return props.history.push('/seller/myproducts');
     } catch (error) {

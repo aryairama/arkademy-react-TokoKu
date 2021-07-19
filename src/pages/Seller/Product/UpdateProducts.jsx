@@ -55,7 +55,7 @@ const UpdateProducts = (props) => {
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
-      updateProduct(formData, id);
+      await updateProduct(formData, id);
       setFromData(initializationData);
       return props.history.push('/seller/myproducts');
     } catch (error) {

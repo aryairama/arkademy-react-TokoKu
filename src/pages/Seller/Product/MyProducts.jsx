@@ -31,8 +31,8 @@ const MyProducts = () => {
       return { ...oldValue, [name]: value };
     });
   };
+  const order = sort.allItems ? 'DESC' : 'ASC';
   useEffect(async () => {
-    const order = sort.allItems ? 'DESC' : 'ASC';
     try {
       const { data, pagination } = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
       setProductAllItems(data);
@@ -40,10 +40,16 @@ const MyProducts = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [search.allItems, sort.allItems, fieldOrder, page,productAllItems]);
+  }, [search.allItems, sort.allItems, fieldOrder, page]);
   const paginationHandler = (current, pageSize) => {
     setPage(current);
   };
+
+  const handleDelete  = async(id) => {
+    await deleteProduct(id);
+    const {data} = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
+    setProductAllItems(data);
+  }
   return (
     <Fragment>
       <Container>
@@ -141,10 +147,18 @@ const MyProducts = () => {
                                   <td>{parseInt(value.price, 10)}</td>
                                   <td>{value.quantity}</td>
                                   <td>
-                                    <Link to={`/seller/updateproducts/${value.product_id}`} className="btn btn-sm btn-outline-orange mx-1 text-decoration-none">
+                                    <Link
+                                      to={`/seller/updateproducts/${value.product_id}`}
+                                      className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
+                                    >
                                       Edit
                                     </Link>
-                                    <Button className="btn btn-sm btn-outline-orange mx-1" onClick={()=> deleteProduct(value.product_id)}>Delete</Button>
+                                    <Button
+                                      className="btn btn-sm btn-outline-orange mx-1"
+                                      onClick={() => handleDelete(value.product_id)}
+                                    >
+                                      Delete
+                                    </Button>
                                   </td>
                                 </tr>
                               ))}
