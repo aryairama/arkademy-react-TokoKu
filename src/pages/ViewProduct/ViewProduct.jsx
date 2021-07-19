@@ -2,7 +2,7 @@
 import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
-import { Container, Breadcrumb, ProductCard, ProductCardLayout } from '../../components/base/index';
+import { Container, Breadcrumb, ProductCard, ProductCardLayout,FooterMenu } from '../../components/base/index';
 import {
   Navbar,
   NavbarLeftMenu,
@@ -11,12 +11,14 @@ import {
   ProductGallery,
   ProductDetail,
   ProductDescription,
+  Footer
 } from '../../components/module/index';
 import { Body as ModalBody, Header as ModalHeader, Footer as ModalFooter } from '../../components/ModalFilter/Index';
 import { Modal } from 'bootstrap';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
 import ConsumeApi from './ConsumeApi';
 import '../../assets/css/product.css';
+import img from '../Home/img'
 
 const ViewProduct = (props) => {
   let { id } = useParams();
@@ -93,6 +95,34 @@ const ViewProduct = (props) => {
           ))}
         </ProductCardLayout>
       </Container>
+      <Footer
+        detailBrand={
+          <Fragment>
+            <p>About TokoKu</p>
+            <p className="text-black-14px">
+              Situs jual beli online terlengkap dengan berbagai pilihan. Belanja online mudah dan menyenangkan di
+              TokoKu. Pengiriman cepat.
+            </p>
+          </Fragment>
+        }
+        nameMenu1="Menu"
+        menu1={
+          <Fragment>
+            <FooterMenu linkMenu="/" img={img.Home} textMenu="Home" />
+            <FooterMenu linkMenu="/" img={img.Cart} textMenu="My Bag" />
+            <FooterMenu linkMenu="/auth/login" img={img.Auth} textMenu="Login" />
+            <FooterMenu linkMenu="/auth/register" img={img.Auth} textMenu="Register" />
+          </Fragment>
+        }
+        nameMenu2="Social media"
+        menu2={
+          <Fragment>
+            <FooterMenu linkMenu="/" img={img.Facebook} textMenu="Facebook" />
+            <FooterMenu linkMenu="/" img={img.Twitter} textMenu="Twitter" />
+            <FooterMenu linkMenu="/" img={img.Instagram} textMenu="Instagram" />
+          </Fragment>
+        }
+      />
       {createPortal(
         <MyModal
           id="filterProducts"
