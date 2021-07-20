@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
-import profile from '../../../assets/img/profile/1.png'
-import iconPencil from '../../../assets/img/icon/pensil.svg'
+import { NavLink, useLocation } from 'react-router-dom';
+import profile from '../../../assets/img/profile/1.png';
+import iconPencil from '../../../assets/img/icon/pensil.svg';
+import iconHome from '../../../assets/img/icon/home.svg';
+import iconPackage from '../../../assets/img/icon/package.svg';
+import iconCart from '../../../assets/img/icon/shopping_cart_.svg';
 const Sidebar = (props) => {
+  const location = useLocation();
   return (
     <div className="d-flex wrapper flex-nowrap">
       <aside className={`sidebar ps-5 flex-column ${props.sidebarActive ? 'sidebar-active' : ''}`}>
@@ -18,38 +22,48 @@ const Sidebar = (props) => {
           <ul className="sidebar-menu">
             <li>
               <input type="checkbox" className="sidebar-collapse" id="sidebar-collapse1" />
-              <label htmlFor="sidebar-collapse1" className="d-flex align-items-center">
+              <label
+                htmlFor="sidebar-collapse1"
+                className={`d-flex align-items-center ${location.pathname === '/seller/profilestore' ? 'active' : ''}`}
+              >
                 <div className="sidebar-menu-icon-background bg-light-blue">
-                  <img className="sidebar-menu-icon" src="../asset/img/icon/home.svg" alt="" />
+                  <img className="sidebar-menu-icon" src={iconHome} alt="" />
                 </div>
                 Store
                 <span className="arrow-menu ms-auto"></span>
               </label>
               <ul className="sidebar-submenu" id="submenu1">
                 <li>
-                  <a href="./profileSeller.html">Store profile</a>
+                  <NavLink activeClassName="active" to="/seller/profilestore">
+                    Store profile
+                  </NavLink>
                 </li>
               </ul>
             </li>
             <li>
               <input type="checkbox" className="sidebar-collapse" id="sidebar-collapse2" />
-              <label htmlFor="sidebar-collapse2" className="d-flex align-items-center text-black-50">
+              <label
+                htmlFor="sidebar-collapse2"
+                className={`d-flex align-items-center ${
+                  location.pathname === '/seller/myproducts'
+                    || location.pathname === '/seller/sellingproducts' ? 'active' : ''}`}
+              >
                 <div className="sidebar-menu-icon-background bg-dark-orange">
-                  <img className="sidebar-menu-icon" src="../asset/img/icon/package.svg" alt="" />
+                  <img className="sidebar-menu-icon" src={iconPackage} alt="" />
                 </div>
                 Product
                 <span className=" arrow-menu ms-auto"></span>
               </label>
               <ul className="sidebar-submenu" id="submenu2">
                 <li>
-                  <Link to="/seller/myproducts" className="text-black-50">
+                  <NavLink activeClassName="active" to="/seller/myproducts">
                     My Products
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/seller/sellingproducts" className="text-black-50">
+                  <NavLink activeClassName="active" to="/seller/sellingproducts">
                     Selling products
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
@@ -57,7 +71,7 @@ const Sidebar = (props) => {
               <input type="checkbox" className="sidebar-collapse" id="sidebar-collapse3" />
               <label htmlFor="sidebar-collapse3" className="d-flex align-items-center text-black-50">
                 <div className="sidebar-menu-icon-background bg-pink">
-                  <img className="sidebar-menu-icon" src="../asset/img/icon/shopping_cart_.svg" alt="" />
+                  <img className="sidebar-menu-icon" src={iconCart} alt="" />
                 </div>{' '}
                 Order
                 <span className=" arrow-menu ms-auto"></span>
