@@ -12,3 +12,4 @@ export { default as ProductGallery } from './ProductGallery/ProductGallery';
 export { default as ContentCard } from './ContentCard/ContentCard';
 export { default as SidebarButton } from './Sidebar/SidebarButton';
 export { default as Sidebar } from './Sidebar/Sidebar';
+export { default as NavbarAuthRight } from './Navbar/NavbarAuthRight';

@@ -11,7 +11,7 @@ import Auth from '../../assets/img/icon/box-arrow-in-right.svg';
 import Facebook from '../../assets/img/icon/facebook.svg';
 import Twitter from '../../assets/img/icon/twitter.svg';
 import Instagram from '../../assets/img/icon/instagram.svg';
-
+import IconNotFound from '../../assets/img/icon/undraw_opinion_dxp8_1.svg';
 export default {
   trendImg1,
   trendImg2,
@@ -26,4 +26,5 @@ export default {
   Facebook,
   Twitter,
   Instagram,
+  IconNotFound,
 };
