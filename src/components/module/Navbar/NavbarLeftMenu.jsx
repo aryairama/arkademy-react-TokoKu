@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logoSearch from '../../../assets/img/icon/Search.svg';
 import iconFilter from '../../../assets/img/icon/filter.svg';
 import iconCart from '../../../assets/img/icon/keranjang.svg';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const NavbarLeftMenu = (props) => {
   const move = useHistory();
@@ -29,9 +29,9 @@ const NavbarLeftMenu = (props) => {
         <button onClick={props.onClickFilter} className="btn-filter ms-md-0 ms-n3">
           <img src={iconFilter} alt="icon-filter" />
         </button>
-        <a href="./myBag.html" className="btn-icon d-md-none d-block">
+        <Link to="/myBag" className="btn-icon d-md-none d-block">
           <img src={iconCart} alt="icon-chart" />
-        </a>
+        </Link>
       </div>
     </div>
   );

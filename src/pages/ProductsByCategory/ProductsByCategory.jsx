@@ -38,7 +38,6 @@ const ProductsByCategory = (props) => {
     }
     window.scrollTo(0, 0);
   }, [id]);
-  console.log();
   return (
     <Fragment>
       <Navbar

@@ -7,7 +7,7 @@ const NavbarAuthRight = (props) => {
   return (
     <div className="row flex-grow-1 flex-wrap">
       <div className="offset-md-2 col-10 d-flex justify-content-md-end justify-content-start align-items-center">
-        <Link to="/" className="btn-icon mx-3">
+        <Link to="/mybag" className="btn-icon mx-3">
           <img src={cart} alt="icon-bell" />
         </Link>
         <Link to="/" className="btn-icon mx-3">

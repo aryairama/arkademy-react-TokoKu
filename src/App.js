@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import ViewProduct from './pages/ViewProduct/ViewProduct';
 import Seller from './pages/Seller/Seller';
 import ProductsByCategory from './pages/ProductsByCategory/ProductsByCategory';
+import MyBag from './pages/MyBag/MyBag';
 import { Route, Switch } from 'react-router-dom';
 
 function App(props) {
@@ -13,8 +14,9 @@ function App(props) {
         <Route exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />
         <Route path="/product/:id" component={ViewProduct} />
-        <Route path="/category/:id" component={ProductsByCategory}/>
+        <Route path="/category/:id" component={ProductsByCategory} />
         <Route path="/seller" component={Seller} />
+        <Route path="/mybag" component={MyBag} />
         <Route
           component={() => {
             return <p> Page Not Found</p>;

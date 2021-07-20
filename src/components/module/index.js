@@ -1,6 +1,6 @@
 export { default as Carousel } from './Carousel/Carousel';
 export { default as Footer } from './Footer/Footer';
-export { default as LayoutAuth } from './LayoutAuth/LayoutAuth';
+export { default as LayoutAuthForm } from './LayoutAuthForm/LayoutAuthForm';
 export { default as Modal } from './Modal/Modal';
 export { default as Navbar } from './Navbar/Navbar';
 export { default as NavbarLeftMenu } from './Navbar/NavbarLeftMenu';
@@ -13,3 +13,5 @@ export { default as ContentCard } from './ContentCard/ContentCard';
 export { default as SidebarButton } from './Sidebar/SidebarButton';
 export { default as Sidebar } from './Sidebar/Sidebar';
 export { default as NavbarAuthRight } from './Navbar/NavbarAuthRight';
+export { default as LayoutNoAuth } from './Layout/LayoutNoAuth';
+export { default as LayoutAuth } from './Layout/LayoutAuth';

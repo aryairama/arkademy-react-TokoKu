@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
+import { LayoutAuthForm } from '../../../components/module';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
 import AuthSwitch from '../../../components/base/AuthSwitch/AuthSwitch';
-import Button from '../../../components/base/Button/Button';
 import '../../../assets/css/auth.css';
 
 const Login = (props) => {
@@ -26,7 +25,7 @@ const Login = (props) => {
     });
   };
   return (
-    <LayoutAuth>
+    <LayoutAuthForm>
       <AuthLogos />
       <p className="text-center text-auth-warning mt-3">Please login with your account</p>
       <AuthSwitch value={roles} onChangeSwitch={changeSwitchHandler}></AuthSwitch>
@@ -66,7 +65,7 @@ const Login = (props) => {
           </div>
         </div>
       </form>
-    </LayoutAuth>
+    </LayoutAuthForm>
   );
 };
 

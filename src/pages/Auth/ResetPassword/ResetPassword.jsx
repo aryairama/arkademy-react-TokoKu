@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
+import { LayoutAuthForm } from '../../../components/module';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
 import Button from '../../../components/base/Button/Button';
@@ -31,7 +31,7 @@ const ResetPassword = () => {
     });
   };
   return (
-    <LayoutAuth>
+    <LayoutAuthForm>
       <AuthLogos />
       <p className="text-center text-auth-warning mt-3">Reset password</p>
       <form className="form-login px-5 px-md-0 px-lg-0">
@@ -79,7 +79,7 @@ const ResetPassword = () => {
         />,
         document.getElementById('modal-root')
       )}
-    </LayoutAuth>
+    </LayoutAuthForm>
   );
 };
 

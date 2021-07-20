@@ -1,0 +1,52 @@
+.form-check-product:checked {
+    background-color: #DB3022;
+}
+
+.form-check-product:focus {
+    box-shadow: none;
+}
+
+.shopping-summary-total-price {
+    font-size: 18px;
+    color: #222222;
+    font-weight: bold;
+}
+
+.img-mybag-product {
+    width: 103px;
+    height: 69px;
+}
+
+.btn-decrement-product {
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: #D4D4D4;
+    color: white;
+}
+
+.btn-increment-product {
+    border: 1px solid #D4D4D4;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: #FFFFFF;
+}
+
+
+.form-control-quantity {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    border: none;
+    width: 30%;
+    text-align: center;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control-quantity::-webkit-inner-spin-button,
+.form-control-quantity::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import LayoutAuth from '../../../components/module/LayoutAuth/LayoutAuth';
+import { LayoutAuthForm } from '../../../components/module';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
 import AuthSwitch from '../../../components/base/AuthSwitch/AuthSwitch';
@@ -33,7 +33,7 @@ const Register = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roles]);
   return (
-    <LayoutAuth>
+    <LayoutAuthForm>
       <AuthLogos />
       <p className="text-center text-auth-warning mt-3">
         Please sign up with your account
@@ -119,7 +119,7 @@ const Register = (props) => {
           </div>
         </div>
       </form>
-    </LayoutAuth>
+    </LayoutAuthForm>
   );
 };
 

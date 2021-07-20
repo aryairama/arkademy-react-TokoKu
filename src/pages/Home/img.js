@@ -12,7 +12,9 @@ import Facebook from '../../assets/img/icon/facebook.svg';
 import Twitter from '../../assets/img/icon/twitter.svg';
 import Instagram from '../../assets/img/icon/instagram.svg';
 import IconNotFound from '../../assets/img/icon/undraw_opinion_dxp8_1.svg';
-export default {
+import Product1 from '../../assets/img/product/1.jpg';
+import Product2 from '../../assets/img/product/2.png';
+const img = {
   trendImg1,
   trendImg2,
   categoryImg1,
@@ -27,4 +29,7 @@ export default {
   Twitter,
   Instagram,
   IconNotFound,
+  Product1,
+  Product2,
 };
+export default img;

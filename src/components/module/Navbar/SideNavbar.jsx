@@ -6,10 +6,10 @@ const SideNavbar = (props) => {
   return (
     <div className="row flex-grow-1 flex-wrap">
       <div className="offset-md-2 col-10 d-flex justify-content-md-end justify-content-start align-items-center">
-        <Link to="/" className="btn-icon mx-3">
+        <Link to="/mybag" className="btn-icon mx-3">
           <img src={bell} alt="icon-bell" />
         </Link>
-        <Link to="/" href="./myBag.html" className="btn-icon mx-3">
+        <Link to="/mybag" className="btn-icon mx-3">
           <img src={mail} alt="icon-mail" />
         </Link>
         <div className="mx-3" onClick={() => props.setSidebarActive((oldValue) => !oldValue)}>

@@ -1,5 +1,5 @@
 import React from 'react';
-const LayoutAuth = (props) => {
+const LayoutAuthForm = (props) => {
   return (
     <section className="container">
       <div className="row">
@@ -8,4 +8,4 @@ const LayoutAuth = (props) => {
     </section>
   );
 };
-export default LayoutAuth;
+export default LayoutAuthForm;
