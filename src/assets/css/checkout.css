@@ -1,0 +1,31 @@
+.shopping-summary-total-price {
+    font-size: 18px;
+    color: #222222;
+    font-weight: bold;
+}
+
+.img-mybag-product {
+    width: 103px;
+    height: 69px;
+}
+
+/* checkout address */
+.add-new-address {
+    border: 1px dashed #9B9B9B;
+}
+
+.list-address {
+    border: 1px solid #DB3022;
+}
+
+#primary_address:checked,
+.form-check-input-payment:checked {
+    background-color: #DB3022;
+}
+
+#primary_address:focus,
+.form-check-input-payment:focus {
+    box-shadow: none;
+}
+
+/* checkout address */

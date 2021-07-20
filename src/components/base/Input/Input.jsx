@@ -4,11 +4,12 @@ const Input = (props) => {
   return (
     <Fragment>
       {props.label && (
-        <label htmlFor="goods" className={`form-label text-black-50 ${props.styleLabel}`}>
+        <label htmlFor={props.id} className={`form-label text-black-50 ${props.styleLabel}`}>
           {props.label}
         </label>
       )}
       <input
+        id={props.id}
         type={props.type}
         className={`form-control ${props.styleInput}`}
         placeholder={props.placeholder}

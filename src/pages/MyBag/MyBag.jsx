@@ -12,11 +12,7 @@ import ModalFooter from '../../components/ModalFilter/Footer';
 import '../../assets/css/myBag.css';
 import img from '../Home/img';
 const MyBag = () => {
-  const [cartProducts, setCartProducts] = useState({
-    title: "Men's Jacket jeans",
-    brand: 'Zalora Cloth',
-    quantity:1
-  });
+  const [quantity, setQuantity] = useState(1);
   const refModalFilter = useRef(null);
   const [modalFilter, setModalFilter] = useState(null);
   const modalShowHandler = () => modalFilter.show();
@@ -28,9 +24,6 @@ const MyBag = () => {
       console.log(error);
     }
   }, []);
-  const changeHandler = (e) => {
-    
-  }
   return (
     <Fragment>
       <Navbar
@@ -80,12 +73,12 @@ const MyBag = () => {
                     </div>
                     <img className="img-mybag-product rounded-3" src={img.Product1} alt="logo-product" />
                     <div className="mybag-product-header ms-3">
-                      <p className="card-product-title">{cartProducts.title }</p>
-                      <p className="card-product-brand mt-n3">{ cartProducts.brand}</p>
+                      <p className="card-product-title">Men's Jacket jeans</p>
+                      <p className="card-product-brand mt-n3">Zalora Cloth</p>
                     </div>
                   </div>
                   <div className="col-6 col-md-3 col-lg-3 d-flex flex-wrap justify-content-start mt-md-0 mt-3">
-                    <CountInput id="quantity1" value={cartProducts.quantity} onClick={ cartProducts.quantity}/>
+                    <CountInput name="quantity1" value={quantity} onClick={setQuantity} />
                   </div>
                   <div className="col-6 col-md-2 col-lg-2 d-flex flex-wrap justify-content-end ">
                     <span className="card-product-title fw-bold">$ 20.0</span>

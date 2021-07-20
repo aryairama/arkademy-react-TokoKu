@@ -5,6 +5,7 @@ import ViewProduct from './pages/ViewProduct/ViewProduct';
 import Seller from './pages/Seller/Seller';
 import ProductsByCategory from './pages/ProductsByCategory/ProductsByCategory';
 import MyBag from './pages/MyBag/MyBag';
+import Checkout from './pages/Checkout/Checkout';
 import { Route, Switch } from 'react-router-dom';
 
 function App(props) {
@@ -17,6 +18,7 @@ function App(props) {
         <Route path="/category/:id" component={ProductsByCategory} />
         <Route path="/seller" component={Seller} />
         <Route path="/mybag" component={MyBag} />
+        <Route path="/checkout" component={Checkout} />
         <Route
           component={() => {
             return <p> Page Not Found</p>;

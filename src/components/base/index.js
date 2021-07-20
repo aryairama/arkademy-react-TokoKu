@@ -17,6 +17,7 @@ export { default as NotFound } from './NotFound/NotFound';
 export { default as Input } from './Input/Input';
 export { default as InputCheck } from './Input/InputCheck';
 export { default as InputImg } from './Input/InputImg';
+export { default as BoxItem } from './BoxItem/BoxItem';
 
 export const buttonItemRender = (current, type, element) => {
   if (type === 'prev') {
