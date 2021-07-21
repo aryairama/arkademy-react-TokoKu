@@ -45,8 +45,10 @@ const Sidebar = (props) => {
               <label
                 htmlFor="sidebar-collapse2"
                 className={`d-flex align-items-center ${
-                  location.pathname === '/seller/myproducts'
-                    || location.pathname === '/seller/sellingproducts' ? 'active' : ''}`}
+                  location.pathname === '/seller/myproducts' || location.pathname === '/seller/sellingproducts'
+                    ? 'active'
+                    : ''
+                }`}
               >
                 <div className="sidebar-menu-icon-background bg-dark-orange">
                   <img className="sidebar-menu-icon" src={iconPackage} alt="" />
@@ -69,7 +71,14 @@ const Sidebar = (props) => {
             </li>
             <li>
               <input type="checkbox" className="sidebar-collapse" id="sidebar-collapse3" />
-              <label htmlFor="sidebar-collapse3" className="d-flex align-items-center text-black-50">
+              <label
+                htmlFor="sidebar-collapse3"
+                className={`d-flex align-items-center ${
+                  location.pathname === '/seller/myorder' || location.pathname === '/seller/myordercancel'
+                    ? 'active'
+                    : ''
+                }`}
+              >
                 <div className="sidebar-menu-icon-background bg-pink">
                   <img className="sidebar-menu-icon" src={iconCart} alt="" />
                 </div>{' '}
@@ -78,14 +87,14 @@ const Sidebar = (props) => {
               </label>
               <ul className="sidebar-submenu" id="submenu2">
                 <li>
-                  <a href="./myOrderSeller.html" className="text-black-50">
+                  <NavLink activeClassName="active" to="/seller/myorder">
                     My order
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="./orderCancel.html" className="text-black-50">
+                  <NavLink activeClassName="active" to="/seller/myordercancel">
                     Order cancel
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </li>
