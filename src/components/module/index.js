@@ -12,6 +12,7 @@ export { default as ProductGallery } from './ProductGallery/ProductGallery';
 export { default as ContentCard } from './ContentCard/ContentCard';
 export { default as SidebarButton } from './Sidebar/SidebarButton';
 export { default as Sidebar } from './Sidebar/Sidebar';
+export { default as SidebarCustommer } from './Sidebar/SidebarCustommer';
 export { default as NavbarAuthRight } from './Navbar/NavbarAuthRight';
 export { default as LayoutNoAuth } from './Layout/LayoutNoAuth';
 export { default as LayoutAuth } from './Layout/LayoutAuth';
