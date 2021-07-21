@@ -73,6 +73,8 @@ const Home = (props) => {
       <Container className={`mt-10 ${url.search || search.length > 0 ? 'd-block' : 'd-none'}`}>
         <div className="row">
           <div className="col-12">
+            <p className={`header-product ${search.length > 0 ? 'd-block' : 'd-none'}`}>Result</p>
+            <ContentCard/>
             <ContentCard
               styleCard={`mb-n5 ${search.length > 0 ? 'd-none' : 'd-block'}`}
               cardBody={

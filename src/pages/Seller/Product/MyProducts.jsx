@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useState } from 'react';
-import { Container, InputGroup, NotFound, buttonItemRender,Button } from '../../../components/base/index';
+import { Container, InputGroup, NotFound, buttonItemRender, Button } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
-import { getProducts,deleteProduct } from '../ConsumeApi';
+import { getProducts, deleteProduct } from '../ConsumeApi';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import iconNotfound from '../../../assets/img/icon/undraw_opinion_dxp8_1.svg';
 import arrowUpDOwn from '../../../assets/img/icon/arrow_up_down.svg';
 import searchIcon from '../../../assets/img/icon/Search.svg';
+import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 
 const MyProducts = () => {
@@ -45,11 +46,33 @@ const MyProducts = () => {
     setPage(current);
   };
 
-  const handleDelete  = async(id) => {
-    await deleteProduct(id);
-    const {data} = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
-    setProductAllItems(data);
-  }
+  const handleDelete = (id) => {
+    swal({
+      title: 'Are you sure?',
+      text: 'Deleted data cannot be recovered',
+      icon: 'warning',
+      buttons: {
+        cancel: {
+          text: 'Cancel',
+          value: null,
+          visible: true,
+        },
+        delete: {
+          text: 'Delete',
+          value: true,
+          visible: true,
+          className: 'bg-danger text-white',
+        },
+      },
+    }).then(async (value) => {
+      if (value) {
+        await deleteProduct(id);
+        const { data } = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
+        setProductAllItems(data);
+        swal('Success', 'Data deleted successfully', 'success');
+      }
+    });
+  };
   return (
     <Fragment>
       <Container>

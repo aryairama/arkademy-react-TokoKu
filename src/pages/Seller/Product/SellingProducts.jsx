@@ -13,6 +13,7 @@ import { ContentCard } from '../../../components/module/index';
 import { getCategories, postProduct } from '../ConsumeApi';
 import { Editor } from '@tinymce/tinymce-react';
 import Select from 'react-select';
+import swal from 'sweetalert';
 
 const SellingProducts = (props) => {
   const tinyEditor = useRef(null);
@@ -52,8 +53,10 @@ const SellingProducts = (props) => {
       e.preventDefault()
       await postProduct(formData);
       setFromData(initializationData)
+      swal('Success', 'Data created successfully', 'success');
       return props.history.push('/seller/myproducts');
     } catch (error) {
+      swal('Error', 'Data failed to update', 'error');
       console.log(error);
     }
   }

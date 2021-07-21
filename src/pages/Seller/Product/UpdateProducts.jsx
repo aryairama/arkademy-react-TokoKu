@@ -13,6 +13,7 @@ import { ContentCard } from '../../../components/module/index';
 import { getCategories, updateProduct } from '../ConsumeApi';
 import ConsumeApi from '../../ViewProduct/ConsumeApi';
 import { Editor } from '@tinymce/tinymce-react';
+import swal from 'sweetalert';
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
 
@@ -57,8 +58,10 @@ const UpdateProducts = (props) => {
       e.preventDefault();
       await updateProduct(formData, id);
       setFromData(initializationData);
+      swal('Success', 'Data updated successfully', 'success');
       return props.history.push('/seller/myproducts');
     } catch (error) {
+      swal('Error', 'Data failed to update', 'error');
       console.log(error);
     }
   };
@@ -271,7 +274,7 @@ const UpdateProducts = (props) => {
                   'removeformat | help',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
               }}
-              onChange={(e) =>
+              onSaveContent={(e) =>
                 setFromData((oldValue) => {
                   return { ...oldValue, description: e.target.getContent() };
                 })
