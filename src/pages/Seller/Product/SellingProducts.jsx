@@ -22,18 +22,31 @@ const SellingProducts = (props) => {
     brand: '',
     category_id: '',
     price: 1,
-    colors: '',
+    colors: [],
     size: '',
     quantity: 1,
     product_status: '',
     description: '',
-    imgProduct: null,
+    img_product: [],
   };
   const [formData, setFromData] = useState(initializationData);
   const [categories, setCategories] = useState([]);
   const formDataHandler = (e) => {
     setFromData((oldValue) => {
       return { ...oldValue, [e.target.name]: e.target.value };
+    });
+  };
+  const colorsHandler = (e) => {
+    const options = formData.colors;
+    let index;
+    if (e.target.checked) {
+      options.push(+e.target.value);
+    } else {
+      index = options.indexOf(+e.target.value);
+      options.splice(index, 1);
+    }
+    setFromData((oldValue) => {
+      return { ...oldValue, [e.target.name]: options };
     });
   };
   useEffect(async () => {
@@ -50,16 +63,16 @@ const SellingProducts = (props) => {
 
   const submitHandler = async (e) => {
     try {
-      e.preventDefault()
+      e.preventDefault();
       await postProduct(formData);
-      setFromData(initializationData)
+      setFromData(initializationData);
       swal('Success', 'Data created successfully', 'success');
       return props.history.push('/seller/myproducts');
     } catch (error) {
-      swal('Error', 'Data failed to update', 'error');
+      swal('Error', 'Failed to sell product', 'error');
       console.log(error);
     }
-  }
+  };
   return (
     <Container>
       <form onSubmit={submitHandler} encType="multipart/form-data">
@@ -144,41 +157,37 @@ const SellingProducts = (props) => {
                   <label htmlFor="color_product1">Color Product</label>
                   <div className="d-flex flex-wrap mt-2">
                     <ColorPicker
-                      type="radio"
+                      type="checkbox"
                       id="color_product1"
                       color="red"
                       name="colors"
-                      onClick={formDataHandler}
-                      value="red"
-                      defaultChecked={formData.colors}
+                      onClick={colorsHandler}
+                      value="1"
                     />
                     <ColorPicker
-                      type="radio"
+                      type="checkbox"
                       id="color_product2"
                       color="black"
                       name="colors"
-                      value="black"
-                      onClick={formDataHandler}
-                      defaultChecked={formData.colors}
+                      value="2"
+                      onClick={colorsHandler}
                     />
                     <ColorPicker
-                      type="radio"
+                      type="checkbox"
                       id="color_product3"
                       color="white"
                       name="colors"
                       className="shadow"
-                      value="white"
-                      onClick={formDataHandler}
-                      defaultChecked={formData.colors}
+                      value="3"
+                      onClick={colorsHandler}
                     />
                     <ColorPicker
-                      type="radio"
+                      type="checkbox"
                       id="color_product4"
                       color="blue"
                       name="colors"
-                      value="blue"
-                      onClick={formDataHandler}
-                      defaultChecked={formData.colors}
+                      value="4"
+                      onClick={colorsHandler}
                     />
                   </div>
                 </div>
