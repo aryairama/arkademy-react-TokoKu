@@ -7,6 +7,7 @@ import Custommer from './pages/Custommer/Custommer';
 import ProductsByCategory from './pages/ProductsByCategory/ProductsByCategory';
 import MyBag from './pages/MyBag/MyBag';
 import Checkout from './pages/Checkout/Checkout';
+import VerifRegisterEmail from './pages/VerifRegisterEmail/VerifRegisterEmail';
 import { Route, Switch } from 'react-router-dom';
 
 function App(props) {
@@ -21,6 +22,7 @@ function App(props) {
         <Route path="/custommer" component={Custommer} />
         <Route path="/mybag" component={MyBag} />
         <Route path="/checkout" component={Checkout} />
+        <Route path="/verifemailregister" component={VerifRegisterEmail }/>
         <Route
           component={() => {
             return <p> Page Not Found</p>;

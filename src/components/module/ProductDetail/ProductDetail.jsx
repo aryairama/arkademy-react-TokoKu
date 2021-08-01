@@ -4,8 +4,9 @@ import ColorPicker from '../../base/ColorPicker/ColorPicker';
 import CountInput from '../../base/CountInput/CountInput';
 
 const ProductDetail = (props) => {
-  const [size, setSize] = useState(10)
-  const [quantity,setQuantity] = useState(1)
+  const [size, setSize] = useState(10);
+  const [quantity, setQuantity] = useState(1);
+  
   return (
     <Fragment>
       <div className="product-detail mt-md-0 mt-4">
@@ -26,14 +27,30 @@ const ProductDetail = (props) => {
         <div className="filter-colors lh-1">
           <p className="filter-title">Colors</p>
           <div className="d-flex flex-wrap justify-content-start">
-            <ColorPicker type="radio" id="color_product1" value={props.color} color={props.color} />
+            {props.colors &&
+              props.colors.map((color) => (
+                <ColorPicker
+                  type="radio"
+                  name="color_product"
+                  id={`color_product${color.color_id}`}
+                  key={color.color_id}
+                  value={color.color_id}
+                  color={color.color_name}
+                  className={color.color_name === 'white' ? 'shadow' : ''}
+                />
+              ))}
           </div>
         </div>
       </div>
       <div className="product-size-and-quantity mt-4">
         <div className="row">
           <CountInput className="col-xl-2 col-lg-3 col-md-4 col-6" title="Size" value={size} onClick={setSize} />
-          <CountInput className="col-xl-2 col-lg-3 col-md-4 col-6" title="Quantity" value={quantity} onClick={ setQuantity }/>
+          <CountInput
+            className="col-xl-2 col-lg-3 col-md-4 col-6"
+            title="Quantity"
+            value={quantity}
+            onClick={setQuantity}
+          />
         </div>
       </div>
       <div className="product-button-action d-flex  justify-content-around mt-lg-5 mt-4">

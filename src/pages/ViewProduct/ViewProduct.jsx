@@ -2,7 +2,15 @@
 import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
-import { Container, Breadcrumb, ProductCard, ProductCardLayout,FooterMenu } from '../../components/base/index';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  Container,
+  Breadcrumb,
+  ProductCard,
+  ProductCardLayout,
+  FooterMenu,
+  buttonItemRender,
+} from '../../components/base/index';
 import {
   Navbar,
   NavbarLeftMenu,
@@ -11,35 +19,36 @@ import {
   ProductGallery,
   ProductDetail,
   ProductDescription,
-  Footer
+  Footer,
 } from '../../components/module/index';
+import Pagination from 'rc-pagination';
+import locale from 'rc-pagination/es/locale/en_US';
 import { Body as ModalBody, Header as ModalHeader, Footer as ModalFooter } from '../../components/ModalFilter/Index';
 import { Modal } from 'bootstrap';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
-import ConsumeApi from './ConsumeApi';
+import { getDetailProduct, paginationProductsById } from '../../configs/redux/actions/productAction';
 import '../../assets/css/product.css';
-import img from '../Home/img'
+import img from '../Home/img';
 
 const ViewProduct = (props) => {
-  let { id } = useParams();
+  const dispatch = useDispatch();
   const refModalFilter = useRef(null);
-  const [detailProduct, setDetailProduct] = useState({});
-  const [productsById, setProductsById] = useState([]);
+  const { id } = useParams();
+  const { detailProduct, productsById } = useSelector((state) => state.product);
+  const [page, setPage] = useState(1);
   const [modalFilter, setModalFilter] = useState(null);
   const modalShowHandler = () => modalFilter.show();
   const modalHideHandler = () => modalFilter.hide();
-  useEffect(async () => {
-    try {
-      const { data: data1 } = await (await ConsumeApi.detailProduct(id)).data;
-      const { data: data2 } = await (await ConsumeApi.getProductsById(data1[0].category_id)).data;
-      setDetailProduct(data1[0]);
-      setProductsById(data2);
-      setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
-    } catch (error) {
-      console.log(error);
-    }
+  useEffect(() => {
+    dispatch(getDetailProduct(id));
+    setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
     window.scrollTo(0, 0);
   }, [id]);
+  useEffect(() => {
+    if (Object.keys(detailProduct).length > 0) {
+      dispatch(paginationProductsById(page));
+    }
+  }, [page]);
   return (
     <Fragment>
       <Navbar
@@ -59,14 +68,14 @@ const ViewProduct = (props) => {
       <Container className="mt-5">
         <div className="row">
           <div className="col-md-4">
-            <ProductGallery img_product={detailProduct.img_product} />
+            <ProductGallery img_products={detailProduct.img_products} />
           </div>
           <div className="col-md-8">
             <ProductDetail
               name={detailProduct.name}
               brand={detailProduct.brand}
               price={detailProduct.price}
-              color={detailProduct.colors}
+              colors={detailProduct.colors}
             />
           </div>
           <div className="col-md-12 mt-5">
@@ -83,17 +92,32 @@ const ViewProduct = (props) => {
           </div>
         </div>
         <ProductCardLayout>
-          {productsById.map((newProduct) => (
-            <ProductCard
-              urlProduct={`/product/${newProduct.product_id}`}
-              key={newProduct.product_id}
-              productTitle={newProduct.name}
-              imgProduct={`${process.env.REACT_APP_API_URL}/${newProduct.img_product}`}
-              productPrice={parseInt(newProduct.price)}
-              productBrand={newProduct.brand}
-            />
-          ))}
+          {productsById.data &&
+            productsById.data.map((newProduct) => (
+              <ProductCard
+                urlProduct={`/product/${newProduct.product_id}`}
+                key={newProduct.product_id}
+                productTitle={newProduct.name}
+                imgProduct={`${process.env.REACT_APP_API_URL}/${newProduct.img_product}`}
+                productPrice={parseInt(newProduct.price)}
+                productBrand={newProduct.brand}
+              />
+            ))}
         </ProductCardLayout>
+        <div className="row">
+          <div className="col-md-12">
+            {productsById.pagination && (
+              <Pagination
+                current={page}
+                total={productsById.pagination.countData}
+                pageSize={productsById.pagination.limit ? productsById.pagination.limit : 1}
+                itemRender={buttonItemRender}
+                onChange={(current, pageSize) => setPage(current)}
+                locale={locale}
+              />
+            )}
+          </div>
+        </div>
       </Container>
       <Footer
         detailBrand={

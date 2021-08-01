@@ -11,26 +11,33 @@ import {
 } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
 import { getCategories, updateProduct } from '../ConsumeApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { getColors } from '../../../configs/redux/actions/colorAction';
 import ConsumeApi from '../../ViewProduct/ConsumeApi';
 import { Editor } from '@tinymce/tinymce-react';
-import swal from 'sweetalert';
 import Select from 'react-select';
-import { useParams } from 'react-router-dom';
+import { useParams,useHistory } from 'react-router-dom';
 
 const UpdateProducts = (props) => {
+  const {
+    color: { colors },
+  } = useSelector((state) => state);
   const { id } = useParams();
+  const history = useHistory()
+  const dispatch = useDispatch();
   const tinyEditor = useRef(null);
   const initializationData = {
     name: '',
     brand: '',
     category_id: '',
     price: 1,
-    colors: '',
+    colors: [],
     size: '',
     quantity: 1,
     product_status: '',
     description: '',
-    imgProduct: null,
+    img_product: [],
+    old_img_product: [],
   };
   const [formData, setFromData] = useState(initializationData);
   const [categories, setCategories] = useState([]);
@@ -40,11 +47,21 @@ const UpdateProducts = (props) => {
     });
   };
   useEffect(async () => {
-    const { data: data1 } = await (await getCategories('off')).data;
-    const { data: data2 } = await (await ConsumeApi.detailProduct(id)).data;
-    setFromData({ ...data2[0] });
+    dispatch(getColors('', 'ASC', 'ADD_COLORS', '', '', 'off'));
+    const { data: categories } = await (await getCategories('off')).data;
+    const { data: detailProduct } = await (await ConsumeApi.detailProduct(id)).data;
+    const { img_products } = detailProduct;
+    delete detailProduct.img_products;
+    setFromData((oldValue) => {
+      return {
+        ...oldValue,
+        ...detailProduct,
+        colors: detailProduct.colors.map((color) => color.color_id),
+        old_img: img_products,
+      };
+    });
     setCategories((oldValue) =>
-      data1.map((value) => {
+      categories.map((value) => {
         return {
           value: value.category_id,
           label: value.name,
@@ -52,18 +69,35 @@ const UpdateProducts = (props) => {
       })
     );
   }, []);
-
-  const submitHandler = async (e) => {
-    try {
-      e.preventDefault();
-      await updateProduct(formData, id);
-      setFromData(initializationData);
-      swal('Success', 'Data updated successfully', 'success');
-      return props.history.push('/seller/myproducts');
-    } catch (error) {
-      swal('Error', 'Data failed to update', 'error');
-      console.log(error);
+  const colorsHandler = (e) => {
+    const options = formData.colors;
+    let index;
+    if (e.target.checked) {
+      options.push(+e.target.value);
+    } else {
+      index = options.indexOf(+e.target.value);
+      options.splice(index, 1);
     }
+    setFromData((oldValue) => {
+      return { ...oldValue, [e.target.name]: options };
+    });
+  };
+  const old_img_product = (e) => {
+    const options = formData.old_img_product;
+    let index;
+    if (e.target.checked) {
+      options.push(+e.target.value);
+    } else {
+      index = options.indexOf(+e.target.value);
+      options.splice(index, 1);
+    }
+    setFromData((oldValue) => {
+      return { ...oldValue, [e.target.name]: options };
+    });
+  };
+  const submitHandler = async (e) => {
+      e.preventDefault();
+      await updateProduct(formData, id,history);
   };
   const options = [
     { value: 'XS', label: 'XS' },
@@ -156,43 +190,20 @@ const UpdateProducts = (props) => {
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
                   <label htmlFor="color_product1">Color Product</label>
                   <div className="d-flex flex-wrap mt-2">
-                    <ColorPicker
-                      type="radio"
-                      id="color_product1"
-                      color="red"
-                      name="colors"
-                      onClick={formDataHandler}
-                      value="red"
-                      defaultChecked={formData.colors}
-                    />
-                    <ColorPicker
-                      type="radio"
-                      id="color_product2"
-                      color="black"
-                      name="colors"
-                      value="black"
-                      onClick={formDataHandler}
-                      defaultChecked={formData.colors}
-                    />
-                    <ColorPicker
-                      type="radio"
-                      id="color_product3"
-                      color="white"
-                      name="colors"
-                      className="shadow"
-                      value="white"
-                      onClick={formDataHandler}
-                      defaultChecked={formData.colors}
-                    />
-                    <ColorPicker
-                      type="radio"
-                      id="color_product4"
-                      color="blue"
-                      name="colors"
-                      value="blue"
-                      onClick={formDataHandler}
-                      defaultChecked={formData.colors}
-                    />
+                    {colors.data &&
+                      colors.data.map((color) => (
+                        <ColorPicker
+                          key={color.color_id}
+                          type="checkbox"
+                          className={color.color_name === 'white' ? 'shadow' : ''}
+                          id={`color_product${color.color_id}`}
+                          color={color.color_name}
+                          name="colors"
+                          onClick={colorsHandler}
+                          value={color.color_id}
+                          productColors={formData.colors}
+                        />
+                      ))}
                   </div>
                 </div>
               </div>
@@ -249,7 +260,35 @@ const UpdateProducts = (props) => {
         <ContentCard
           styleCard="mb-4"
           cardHeader={<div className="text-black-20px fw-bold">Photo of goods</div>}
-          cardBody={<InputImg img_product={formData.img_product} onChange={setFromData} />}
+          cardBody={
+            <Fragment>
+              <label className="form-label text-black-50">Old Img Product</label>
+              <div className="d-flex flex-nowrap overflow-x border border-dashed rounded-3">
+                {formData.old_img &&
+                  formData.old_img.map((img, index) => (
+                    <div key={index} className="d-flex align-items-center m-2">
+                      <InputCheck
+                        type="checkbox"
+                        value={img.img_product_id}
+                        name="old_img_product"
+                        id={`old_img_product${img.img_product_id}`}
+                        styleInput="me-2"
+                        onClick={old_img_product}
+                        label={
+                          <img
+                            className="img-fluid rounded-3 img-small-product-gallery"
+                            src={`${process.env.REACT_APP_API_URL}/${img.img_product}`}
+                            alt="old_img_product"
+                          />
+                        }
+                      />
+                    </div>
+                  ))}
+              </div>
+              <label className="form-label text-black-50 mt-2">New Img Product</label>
+              <InputImg onChange={setFromData} />
+            </Fragment>
+          }
         ></ContentCard>
         <ContentCard
           styleCard="mb-4"

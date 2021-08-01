@@ -2,6 +2,8 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import logoTokoKu from '../../assets/img/icon/Vector.svg';
 import {
   Footer,
   ContentCard,
@@ -11,28 +13,24 @@ import {
   NavbarRightMenu,
   Navbar,
 } from '../../components/module/index';
-import logoTokoKu from '../../assets/img/icon/Vector.svg';
-import ProductCardLayout from '../../components/base/ProductCardLayout/ProductCardLayout';
-import ProductCard from '../../components/base/ProductCard/ProductCard';
-import CategoryCard from '../../components/base/CategoryCard/CategoryCard';
-import Container from '../../components/base/Container/Container';
-import FooterMenu from '../../components/base/FooterMenu/FooterMenu';
+import Pagination from 'rc-pagination';
+import locale from 'rc-pagination/es/locale/en_US';
+import { ProductCardLayout, ProductCard, CategoryCard, Container, FooterMenu, buttonItemRender} from '../../components/base/index';
 import { configTrendCarousel, configCetgoryCarousel } from '../../configs/Carousel';
-import ModalHeader from '../../components/ModalFilter/Header';
-import ModalBody from '../../components/ModalFilter/Body';
-import ModalFooter from '../../components/ModalFilter/Footer';
+import { Header as ModalHeader, Body as ModalBody, Footer as ModalFooter } from '../../components/ModalFilter/Index';
+import { getProducts, getCategories } from '../../configs/redux/actions/productAction';
 import ConsumeApi from './ConsumeApi';
 import img from './img';
 import qs from 'query-string';
 
 const Home = (props) => {
+  const dispatch = useDispatch();
+  const { newProducts, popularProducts, categories } = useSelector((state) => state.product);
   const [search, setSearch] = useState([]);
   const url = qs.parse(props.location.search);
   const refModalFilter = useRef(null);
   const [modalFilter, setModalFilter] = useState(null);
-  const [newProducts, setNewProducts] = useState([]);
-  const [popularProducts, setPopularProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [page,setPage] = useState(1)
   const modalShowHandler = () => modalFilter.show();
   const modalHideHandler = () => modalFilter.hide();
   const searchProducts = async () => {
@@ -47,18 +45,18 @@ const Home = (props) => {
   };
   useEffect(async () => {
     try {
-      const { data: data1 } = await (await ConsumeApi.getProducts('DESC')).data;
-      const { data: data2 } = await (await ConsumeApi.getProducts('ASC')).data;
-      const { data: data3 } = await (await ConsumeApi.getCategories()).data;
+      dispatch(getProducts(5, 'ASC', 'NEW_PRODUCTS'));
+      dispatch(getProducts(10, 'DESC', 'POPULAR_PRODUCTS'));
+      dispatch(getCategories());
       searchProducts();
-      setNewProducts(data1);
-      setPopularProducts(data2);
-      setCategories(data3);
       setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
     } catch (error) {
       console.log(error);
     }
   }, [url.search]);
+  useEffect(async () => {
+    dispatch(getProducts(10, 'DESC', 'POPULAR_PRODUCTS',page));
+  },[page])
 
   return (
     <Fragment>
@@ -74,7 +72,7 @@ const Home = (props) => {
         <div className="row">
           <div className="col-12">
             <p className={`header-product ${search.length > 0 ? 'd-block' : 'd-none'}`}>Result</p>
-            <ContentCard/>
+            <ContentCard />
             <ContentCard
               styleCard={`mb-n5 ${search.length > 0 ? 'd-none' : 'd-block'}`}
               cardBody={
@@ -167,16 +165,17 @@ const Home = (props) => {
           </div>
         </div>
         <ProductCardLayout>
-          {newProducts.map((newProduct) => (
-            <ProductCard
-              urlProduct={`/product/${newProduct.product_id}`}
-              key={newProduct.product_id}
-              productTitle={newProduct.name}
-              imgProduct={`${process.env.REACT_APP_API_URL}/${newProduct.img_product}`}
-              productPrice={parseInt(newProduct.price)}
-              productBrand={newProduct.brand}
-            />
-          ))}
+          {newProducts.data &&
+            newProducts.data.map((newProduct) => (
+              <ProductCard
+                urlProduct={`/product/${newProduct.product_id}`}
+                key={newProduct.product_id}
+                productTitle={newProduct.name}
+                imgProduct={`${process.env.REACT_APP_API_URL}/${newProduct.img_product}`}
+                productPrice={parseInt(newProduct.price)}
+                productBrand={newProduct.brand}
+              />
+            ))}
         </ProductCardLayout>
       </Container>
       <Container className={`mt-5 ${search.length > 0 ? 'd-none' : 'd-block'}`}>
@@ -187,17 +186,32 @@ const Home = (props) => {
           </div>
         </div>
         <ProductCardLayout>
-          {popularProducts.map((popularProduct) => (
-            <ProductCard
-              urlProduct={`/product/${popularProduct.product_id}`}
-              key={popularProduct.product_id}
-              productTitle={popularProduct.name}
-              imgProduct={`${process.env.REACT_APP_API_URL}/${popularProduct.img_product}`}
-              productPrice={parseInt(popularProduct.price)}
-              productBrand={popularProduct.brand}
-            />
-          ))}
+          {popularProducts.data &&
+            popularProducts.data.map((popularProduct) => (
+              <ProductCard
+                urlProduct={`/product/${popularProduct.product_id}`}
+                key={popularProduct.product_id}
+                productTitle={popularProduct.name}
+                imgProduct={`${process.env.REACT_APP_API_URL}/${popularProduct.img_product}`}
+                productPrice={parseInt(popularProduct.price)}
+                productBrand={popularProduct.brand}
+              />
+            ))}
         </ProductCardLayout>
+        <div className="row">
+          <div className="col-md-12">
+            {popularProducts.pagination && (
+              <Pagination
+                current={page}
+                total={popularProducts.pagination.countData}
+                pageSize={popularProducts.pagination.limit ? popularProducts.pagination.limit : 1}
+                itemRender={buttonItemRender}
+                onChange={(current, pageSize) => setPage(current)}
+                locale={locale}
+              />
+            )}
+          </div>
+        </div>
       </Container>
       <Footer
         detailBrand={
