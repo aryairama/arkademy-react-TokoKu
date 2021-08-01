@@ -15,6 +15,7 @@ import {
   NavbarLeftMenu,
   Modal as MyModal,
 } from '../../components/module/index';
+import PrivateRoute from '../../configs/midlleware/PrivateRoute';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
 import '../../assets/css/profile.css';
 
@@ -46,9 +47,9 @@ const Seller = (prop) => {
       ></Navbar>
       <Sidebar sidebarActive={sidebarActive}>
         <Switch>
-          <Route path="/custommer/profile" component={Profile} />
-          <Route path="/custommer/address" component={Address} />
-          <Route path="/custommer/myorder" component={MyOrder} />
+          <PrivateRoute roles={['custommer', 'seller']} path="/custommer/profile" component={Profile} />
+          <PrivateRoute roles={['custommer', 'seller']} path="/custommer/address" component={Address} />
+          <PrivateRoute roles={['custommer', 'seller']} path="/custommer/myorder" component={MyOrder} />
           <Route
             component={() => {
               return <p> Page Not Found</p>;

@@ -1,7 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
 import rootReducers from './reducers/rootReducers';
 import thunk from 'redux-thunk';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(rootReducers, composeWithDevTools(applyMiddleware(thunk)));
-export default store;
+const persistConfig = {
+  key: 'TokoKu',
+  storage,
+  whitelist: ['user'],
+};
+const persistedReducer = persistReducer(persistConfig, rootReducers);
+export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const persistor = persistStore(store);

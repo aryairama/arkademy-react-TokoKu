@@ -32,7 +32,7 @@ const ProductsByCategory = (props) => {
       const { data: data1 } = await (await ConsumeApi.getProductsById(id)).data;
       const { data: data2 } = await (await detailCategory(id)).data;
       setProducts(data1);
-      setCategory(data2[0]);
+      setCategory(data2);
     } catch (error) {
       console.log(error);
     }

@@ -9,7 +9,7 @@ const MyOrder = () => {
           <Fragment>
             <div className="text-black-20px fw-bold">My order</div>
             <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <div className="nav nav-tabs" id="nav-tab" role="tablist">
                 <button
                   className="nav-link nav-tab-orange active ps-0"
                   id="all_items"

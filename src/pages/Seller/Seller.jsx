@@ -7,6 +7,7 @@ import ProfileStore from './ProfileStore/ProfileStore';
 import MyOrder from './Order/MyOrder';
 import MyOrderCancel from './Order/MyOrderCancel';
 import { Navbar, SideNavbar, SidebarButton, Sidebar } from '../../components/module/index';
+import PrivateRoute from '../../configs/midlleware/PrivateRoute';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
 import '../../assets/css/profile.css';
 
@@ -28,12 +29,12 @@ const Seller = (prop) => {
       ></Navbar>
       <Sidebar sidebarActive={sidebarActive}>
         <Switch>
-          <Route path="/seller/myproducts" component={MyProducts} />
-          <Route path="/seller/sellingproducts" component={SellingProducts} />
-          <Route path="/seller/updateproducts/:id" component={UpdateProducts} />
-          <Route path="/seller/profilestore" component={ProfileStore} />
-          <Route path="/seller/myorder" component={MyOrder} />
-          <Route path="/seller/myordercancel" component={MyOrderCancel} />
+          <PrivateRoute roles={['seller']} path="/seller/myproducts" component={MyProducts} />
+          <PrivateRoute roles={['seller']} path="/seller/sellingproducts" component={SellingProducts} />
+          <PrivateRoute roles={['seller']} path="/seller/updateproducts/:id" component={UpdateProducts} />
+          <PrivateRoute roles={['seller']} path="/seller/profilestore" component={ProfileStore} />
+          <PrivateRoute roles={['seller']} path="/seller/myorder" component={MyOrder} />
+          <PrivateRoute roles={['seller']} path="/seller/myordercancel" component={MyOrderCancel} />
           <Route
             component={() => {
               return <p> Page Not Found</p>;

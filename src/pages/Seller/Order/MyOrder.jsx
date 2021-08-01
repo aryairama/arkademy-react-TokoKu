@@ -86,109 +86,109 @@ const MyOrder = () => {
                 </button>
               </div>
             </nav>
-            <div class="tab-content" id="nav-tabContent">
+            <div className="tab-content" id="nav-tabContent">
               <div
-                class="tab-pane h-min-60vh fade show active"
+                className="tab-pane h-min-60vh fade show active"
                 id="tab_all_items"
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
               >
-                <div class="d-flex flex-column pt-3">
-                  <div class="input-group input-group-sm input-group-myorder">
-                    <button class="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
+                <div className="d-flex flex-column pt-3">
+                  <div className="input-group input-group-sm input-group-myorder">
+                    <button className="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
                       <img src={IconSearch} alt="icon-search" aria-label="button search" />
                     </button>
-                    <input type="text" class="form-control rounded-pill-end border-start-0" placeholder="Search" />
+                    <input type="text" className="form-control rounded-pill-end border-start-0" placeholder="Search" />
                   </div>
-                  <div class="data-notfound align-self-center mt-10">
+                  <div className="data-notfound align-self-center mt-10">
                     <img src={IconProdcutsNotFound} width="165px" height="147px" alt="icon-product" />
                   </div>
-                  <p class="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
+                  <p className="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
                 </div>
               </div>
-              <div class="tab-pane h-min-60vh fade" id="tab_get_paid" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div class="d-flex flex-column pt-3">
-                  <div class="input-group input-group-sm input-group-myorder">
-                    <button class="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
+              <div className="tab-pane h-min-60vh fade" id="tab_get_paid" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div className="d-flex flex-column pt-3">
+                  <div className="input-group input-group-sm input-group-myorder">
+                    <button className="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
                       <img src={IconSearch} alt="icon-search" aria-label="button search" />
                     </button>
-                    <input type="text" class="form-control rounded-pill-end border-start-0" placeholder="Search" />
+                    <input type="text" className="form-control rounded-pill-end border-start-0" placeholder="Search" />
                   </div>
-                  <div class="data-notfound align-self-center mt-10">
+                  <div className="data-notfound align-self-center mt-10">
                     <img src={IconProdcutsNotFound} width="165px" height="147px" alt="icon-product" />
                   </div>
-                  <p class="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
+                  <p className="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
                 </div>
               </div>
               <div
-                class="tab-pane h-min-60vh fade"
+                className="tab-pane h-min-60vh fade"
                 id="tab_processed"
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                <div class="d-flex flex-column pt-3">
-                  <div class="input-group input-group-sm input-group-myorder">
-                    <button class="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
+                <div className="d-flex flex-column pt-3">
+                  <div className="input-group input-group-sm input-group-myorder">
+                    <button className="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
                       <img src={IconSearch} alt="icon-search" aria-label="button search" />
                     </button>
-                    <input type="text" class="form-control rounded-pill-end border-start-0" placeholder="Search" />
+                    <input type="text" className="form-control rounded-pill-end border-start-0" placeholder="Search" />
                   </div>
-                  <div class="data-notfound align-self-center mt-10">
+                  <div className="data-notfound align-self-center mt-10">
                     <img src={IconProdcutsNotFound} width="165px" height="147px" alt="icon-product" />
                   </div>
-                  <p class="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
+                  <p className="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
                 </div>
               </div>
-              <div class="tab-pane h-min-60vh fade" id="tab_sent" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <div class="d-flex flex-column pt-3">
-                  <div class="input-group input-group-sm input-group-myorder">
-                    <button class="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
+              <div className="tab-pane h-min-60vh fade" id="tab_sent" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div className="d-flex flex-column pt-3">
+                  <div className="input-group input-group-sm input-group-myorder">
+                    <button className="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
                       <img src={IconSearch} alt="icon-search" aria-label="button search" />
                     </button>
-                    <input type="text" class="form-control rounded-pill-end border-start-0" placeholder="Search" />
+                    <input type="text" className="form-control rounded-pill-end border-start-0" placeholder="Search" />
                   </div>
-                  <div class="data-notfound align-self-center mt-10">
+                  <div className="data-notfound align-self-center mt-10">
                     <img src={IconProdcutsNotFound} width="165px" height="147px" alt="icon-product" />
                   </div>
-                  <p class="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
+                  <p className="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
                 </div>
               </div>
               <div
-                class="tab-pane h-min-60vh fade"
+                className="tab-pane h-min-60vh fade"
                 id="tab_completed"
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                <div class="d-flex flex-column pt-3">
-                  <div class="input-group input-group-sm input-group-myorder">
-                    <button class="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
+                <div className="d-flex flex-column pt-3">
+                  <div className="input-group input-group-sm input-group-myorder">
+                    <button className="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
                       <img src={IconSearch} alt="icon-search" aria-label="button search" />
                     </button>
-                    <input type="text" class="form-control rounded-pill-end border-start-0" placeholder="Search" />
+                    <input type="text" className="form-control rounded-pill-end border-start-0" placeholder="Search" />
                   </div>
-                  <div class="data-notfound align-self-center mt-10">
+                  <div className="data-notfound align-self-center mt-10">
                     <img src={IconProdcutsNotFound} width="165px" height="147px" alt="icon-product" />
                   </div>
-                  <p class="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
+                  <p className="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
                 </div>
               </div>
               <div
-                class="tab-pane h-min-60vh fade"
+                className="tab-pane h-min-60vh fade"
                 id="tab_order_cancel"
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                <div class="d-flex flex-column pt-3">
-                  <div class="input-group input-group-sm input-group-myorder">
-                    <button class="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
+                <div className="d-flex flex-column pt-3">
+                  <div className="input-group input-group-sm input-group-myorder">
+                    <button className="input-group-text border-grey bg-transparent rounded-pill-start border-end-0">
                       <img src={IconSearch} alt="icon-search" aria-label="button search" />
                     </button>
-                    <input type="text" class="form-control rounded-pill-end border-start-0" placeholder="Search" />
+                    <input type="text" className="form-control rounded-pill-end border-start-0" placeholder="Search" />
                   </div>
-                  <div class="data-notfound align-self-center mt-10">
+                  <div className="data-notfound align-self-center mt-10">
                     <img src={IconProdcutsNotFound} width="165px" height="147px" alt="icon-product" />
                   </div>
-                  <p class="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
+                  <p className="text-black-16px text-black-50 pt-5 text-center">You don't have a product yet</p>
                 </div>
               </div>
             </div>

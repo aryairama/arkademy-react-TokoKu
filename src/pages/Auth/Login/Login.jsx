@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LayoutAuthForm } from '../../../components/module';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
 import AuthInput from '../../../components/base/AuthInput/AuthInput';
 import AuthSwitch from '../../../components/base/AuthSwitch/AuthSwitch';
+import { Button } from '../../../components/base';
+import { login } from '../../../configs/redux/actions/userAction';
+import { useDispatch } from 'react-redux';
 import '../../../assets/css/auth.css';
 
 const Login = (props) => {
+  const history = useHistory()
+  const dispatch = useDispatch()
   const [roles, setRoles] = useState('seller');
   const initialFormData = {
     email: '',
@@ -24,12 +29,16 @@ const Login = (props) => {
       };
     });
   };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(login(formData, history));
+  }
   return (
     <LayoutAuthForm>
       <AuthLogos />
       <p className="text-center text-auth-warning mt-3">Please login with your account</p>
       <AuthSwitch value={roles} onChangeSwitch={changeSwitchHandler}></AuthSwitch>
-      <form className="form-login px-5 px-md-0 px-lg-0 mt-4_5">
+      <form onSubmit={submitHandler} className="form-login px-5 px-md-0 px-lg-0 mt-4_5">
         <div className="row">
           <AuthInput
             name="email"
@@ -51,9 +60,9 @@ const Login = (props) => {
             </Link>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Link to="/seller/myproducts" type="button" className="btn btn-submit rounded-pill">
+            <Button type="submit" className="btn btn-submit rounded-pill">
               Login
-            </Link>
+            </Button>
           </div>
           <div className="col-md-6 offset-md-3 mb-3">
             <div className="text-center">

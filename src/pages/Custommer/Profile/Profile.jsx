@@ -103,42 +103,42 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <div class="row mb-3">
-                <label for="phone_number" class="col-sm-3 col-form-label text-black-50">
+              <div className="row mb-3">
+                <label htmlFor="phone_number" className="col-sm-3 col-form-label text-black-50">
                   Date of birth
                 </label>
-                <div class="col-sm-3">
-                  <select name="day" id="days" class="form-select">
-                    <option value="1" class="">
+                <div className="col-sm-3">
+                  <select name="day" id="days" className="form-select">
+                    <option value="1" className="">
                       1
                     </option>
-                    <option value="2" class="">
+                    <option value="2" className="">
                       2
                     </option>
-                    <option value="3" class="">
+                    <option value="3" className="">
                       3
                     </option>
-                    <option value="4" class="">
+                    <option value="4" className="">
                       4
                     </option>
-                    <option value="5" class="">
+                    <option value="5" className="">
                       5
                     </option>
-                    <option value="6" class="">
+                    <option value="6" className="">
                       6
                     </option>
                   </select>
                 </div>
-                <div class="col-sm-3">
-                  <select name="month" id="month" class="form-select">
+                <div className="col-sm-3">
+                  <select name="month" id="month" className="form-select">
                     <option value="januari">januari</option>
                     <option value="februari">februari</option>
                     <option value="maret">maret</option>
                     <option value="april">april</option>
                   </select>
                 </div>
-                <div class="col-sm-3">
-                  <select name="year" id="year" class="form-select">
+                <div className="col-sm-3">
+                  <select name="year" id="year" className="form-select">
                     <option value="1990">1990</option>
                     <option value="1991">1991</option>
                     <option value="1992">1992</option>
