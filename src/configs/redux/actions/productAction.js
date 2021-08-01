@@ -14,15 +14,6 @@ export const getProducts =
     }
   };
 
-export const getCategories = () => async (dispatch) => {
-  try {
-    const data = await axios.get('/categories/?limit=20');
-    dispatch({ type: 'CATEGORIES', payload: data.data.data });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const getDetailProduct = (id) => async (dispatch) => {
   try {
     const { data } = await (await axios.get(`/products/${id}`)).data;
@@ -34,9 +25,9 @@ export const getDetailProduct = (id) => async (dispatch) => {
   }
 };
 
-export const paginationProductsById = (page) => async (dispatch, getState) => {
+export const paginationProductsById = (id,page) => async (dispatch, getState) => {
   try {
-    const { data, pagination } = await (await getProductsById(getState().product.detailProduct.category_id, page)).data;
+    const { data, pagination } = await (await getProductsById(id, page)).data;
     dispatch({ type: 'PRODUCT_BY_ID', payload: { data, pagination } });
   } catch (error) {
     console.log(error);

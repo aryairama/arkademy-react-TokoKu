@@ -46,7 +46,7 @@ const ViewProduct = (props) => {
   }, [id]);
   useEffect(() => {
     if (Object.keys(detailProduct).length > 0) {
-      dispatch(paginationProductsById(page));
+      dispatch(paginationProductsById(detailProduct.category_id,page));
     }
   }, [page]);
   return (

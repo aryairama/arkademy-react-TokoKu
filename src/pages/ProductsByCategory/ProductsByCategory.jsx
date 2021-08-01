@@ -3,41 +3,44 @@ import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Footer, Modal as MyModal, NavbarLeftMenu, Navbar, NavbarAuthRight } from '../../components/module/index';
 import {
-  Footer,
-  Modal as MyModal,
-  NavbarLeftMenu,
-  Navbar,
-  NavbarAuthRight,
-} from '../../components/module/index';
-import { ProductCardLayout, ProductCard, Container, FooterMenu, Breadcrumb } from '../../components/base/index';
+  ProductCardLayout,
+  ProductCard,
+  Container,
+  FooterMenu,
+  Breadcrumb,
+  buttonItemRender,
+} from '../../components/base/index';
+import Pagination from 'rc-pagination';
+import locale from 'rc-pagination/es/locale/en_US';
 import ModalHeader from '../../components/ModalFilter/Header';
 import ModalBody from '../../components/ModalFilter/Body';
 import ModalFooter from '../../components/ModalFilter/Footer';
+import { paginationProductsById } from '../../configs/redux/actions/productAction';
+import { getDetailCategory } from '../../configs/redux/actions/categoryAction';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
-import ConsumeApi from '../ViewProduct/ConsumeApi';
-import { detailCategory } from './ConsumeApi';
 import img from '../Home/img';
+
 const ProductsByCategory = (props) => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const {
+    product: { productsById },
+    category: { detailCategory },
+  } = useSelector((state) => state);
   const refModalFilter = useRef(null);
   const [modalFilter, setModalFilter] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState({});
+  const [page, setPage] = useState(1);
   const modalShowHandler = () => modalFilter.show();
   const modalHideHandler = () => modalFilter.hide();
-  useEffect(async () => {
-    try {
-      setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
-      const { data: data1 } = await (await ConsumeApi.getProductsById(id)).data;
-      const { data: data2 } = await (await detailCategory(id)).data;
-      setProducts(data1);
-      setCategory(data2);
-    } catch (error) {
-      console.log(error);
-    }
+  useEffect(() => {
+    setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
+    dispatch(paginationProductsById(id, page));
+    dispatch(getDetailCategory(id));
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, page]);
   return (
     <Fragment>
       <Navbar
@@ -50,23 +53,25 @@ const ProductsByCategory = (props) => {
       ></Navbar>
       <Container className="mt-10 ps-4">
         <Breadcrumb
-          url={['/', '/category', `/category/${category.category_id}`]}
-          textUrl={['Home', 'Category', category.name]}
+          url={['/', '/category', `/category/${detailCategory.category_id}`]}
+          textUrl={['Home', 'Category', detailCategory.name]}
         />
       </Container>
-      <Container className={`mt-3 ${products.length === 0 ? 'h-min-60vh' : ''}`}>
+      <Container className={`mt-3 ${productsById.data && productsById.data.length === 0 ? 'h-min-60vh' : ''}`}>
         <div className="row">
           <div className="col-12">
-            <p className="header-product">{category.name}</p>
+            <p className="header-product">{detailCategory.name}</p>
           </div>
-          {products.length === 0 && (
-            <div className="d-flex flex-column align-items-center">
-              <img className="mt-10" src={img.IconNotFound} alt="" />
-              <p className="text-black-16px text-black-50 pt-5">Related products do not exist</p>
-            </div>
-          )}
-          <ProductCardLayout>
-            {products.map((newProduct) => (
+        </div>
+        {productsById.data && productsById.data.length === 0 && (
+          <div className="d-flex flex-column align-items-center">
+            <img className="mt-10" src={img.IconNotFound} alt="" />
+            <p className="text-black-16px text-black-50 pt-5">Related products do not exist</p>
+          </div>
+        )}
+        <ProductCardLayout>
+          {productsById.data &&
+            productsById.data.map((newProduct) => (
               <ProductCard
                 urlProduct={`/product/${newProduct.product_id}`}
                 key={newProduct.product_id}
@@ -76,7 +81,20 @@ const ProductsByCategory = (props) => {
                 productBrand={newProduct.brand}
               />
             ))}
-          </ProductCardLayout>
+        </ProductCardLayout>
+        <div className="row">
+          <div className="col-md-12">
+            {productsById.pagination && (
+              <Pagination
+                current={page}
+                total={productsById.pagination.countData}
+                pageSize={productsById.pagination.limit ? productsById.pagination.limit : 1}
+                itemRender={buttonItemRender}
+                onChange={(current, pageSize) => setPage(current)}
+                locale={locale}
+              />
+            )}
+          </div>
         </div>
       </Container>
       <Footer

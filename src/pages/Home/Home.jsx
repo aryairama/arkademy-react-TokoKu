@@ -18,14 +18,18 @@ import locale from 'rc-pagination/es/locale/en_US';
 import { ProductCardLayout, ProductCard, CategoryCard, Container, FooterMenu, buttonItemRender} from '../../components/base/index';
 import { configTrendCarousel, configCetgoryCarousel } from '../../configs/Carousel';
 import { Header as ModalHeader, Body as ModalBody, Footer as ModalFooter } from '../../components/ModalFilter/Index';
-import { getProducts, getCategories } from '../../configs/redux/actions/productAction';
+import { getProducts } from '../../configs/redux/actions/productAction';
+import { getCategories } from '../../configs/redux/actions/categoryAction';
 import ConsumeApi from './ConsumeApi';
 import img from './img';
 import qs from 'query-string';
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  const { newProducts, popularProducts, categories } = useSelector((state) => state.product);
+  const {
+    product: { newProducts, popularProducts },
+    category: { categories },
+  } = useSelector((state) => state);
   const [search, setSearch] = useState([]);
   const url = qs.parse(props.location.search);
   const refModalFilter = useRef(null);
