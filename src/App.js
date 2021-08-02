@@ -9,20 +9,21 @@ import MyBag from './pages/MyBag/MyBag';
 import Checkout from './pages/Checkout/Checkout';
 import VerifRegisterEmail from './pages/VerifRegisterEmail/VerifRegisterEmail';
 import { Route, Switch } from 'react-router-dom';
+import PublicRoute from './configs/midlleware/PublicRoute';
 
 function App(props) {
   return (
     <Fragment>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <PublicRoute exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />
-        <Route path="/product/:id" component={ViewProduct} />
-        <Route path="/category/:id" component={ProductsByCategory} />
+        <PublicRoute path="/product/:id" component={ViewProduct} />
+        <PublicRoute path="/category/:id" component={ProductsByCategory} />
         <Route path="/seller" component={Seller} />
         <Route path="/custommer" component={Custommer} />
-        <Route path="/mybag" component={MyBag} />
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/verifemailregister" component={VerifRegisterEmail }/>
+        <PublicRoute footer={false} path="/mybag" component={MyBag} />
+        <PublicRoute footer={false} path="/checkout" component={Checkout} />
+        <Route path="/verifemailregister" component={VerifRegisterEmail} />
         <Route
           component={() => {
             return <p> Page Not Found</p>;

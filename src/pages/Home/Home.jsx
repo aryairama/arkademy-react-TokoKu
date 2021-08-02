@@ -1,23 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { Modal } from 'bootstrap';
-import { createPortal } from 'react-dom';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import logoTokoKu from '../../assets/img/icon/Vector.svg';
-import {
-  Footer,
-  ContentCard,
-  Modal as MyModal,
-  Carousel,
-  NavbarLeftMenu,
-  NavbarRightMenu,
-  Navbar,
-} from '../../components/module/index';
+import { ContentCard, Carousel } from '../../components/module/index';
 import Pagination from 'rc-pagination';
 import locale from 'rc-pagination/es/locale/en_US';
-import { ProductCardLayout, ProductCard, CategoryCard, Container, FooterMenu, buttonItemRender} from '../../components/base/index';
+import { ProductCardLayout, ProductCard, CategoryCard, Container, buttonItemRender } from '../../components/base/index';
 import { configTrendCarousel, configCetgoryCarousel } from '../../configs/Carousel';
-import { Header as ModalHeader, Body as ModalBody, Footer as ModalFooter } from '../../components/ModalFilter/Index';
 import { getProducts } from '../../configs/redux/actions/productAction';
 import { getCategories } from '../../configs/redux/actions/categoryAction';
 import ConsumeApi from './ConsumeApi';
@@ -32,11 +20,7 @@ const Home = (props) => {
   } = useSelector((state) => state);
   const [search, setSearch] = useState([]);
   const url = qs.parse(props.location.search);
-  const refModalFilter = useRef(null);
-  const [modalFilter, setModalFilter] = useState(null);
-  const [page,setPage] = useState(1)
-  const modalShowHandler = () => modalFilter.show();
-  const modalHideHandler = () => modalFilter.hide();
+  const [page, setPage] = useState(1);
   const searchProducts = async () => {
     if (url) {
       try {
@@ -53,25 +37,16 @@ const Home = (props) => {
       dispatch(getProducts(10, 'DESC', 'POPULAR_PRODUCTS'));
       dispatch(getCategories());
       searchProducts();
-      setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
     } catch (error) {
       console.log(error);
     }
   }, [url.search]);
   useEffect(async () => {
-    dispatch(getProducts(10, 'DESC', 'POPULAR_PRODUCTS',page));
-  },[page])
+    dispatch(getProducts(10, 'DESC', 'POPULAR_PRODUCTS', page));
+  }, [page]);
 
   return (
     <Fragment>
-      <Navbar
-        expand="md"
-        urlLogo="/"
-        urlLogoImg={logoTokoKu}
-        textLogo="TokoKu"
-        leftMenu={<NavbarLeftMenu onClickFilter={modalShowHandler} />}
-        rigthMenu={<NavbarRightMenu />}
-      ></Navbar>
       <Container className={`mt-10 ${url.search || search.length > 0 ? 'd-block' : 'd-none'}`}>
         <div className="row">
           <div className="col-12">
@@ -160,7 +135,6 @@ const Home = (props) => {
           ))}
         </Carousel>
       </Container>
-
       <Container className={`mt-5 ${search.length > 0 ? 'd-none' : 'd-block'}`}>
         <div className="row">
           <div className="col-12">
@@ -217,46 +191,6 @@ const Home = (props) => {
           </div>
         </div>
       </Container>
-      <Footer
-        detailBrand={
-          <Fragment>
-            <p>About TokoKu</p>
-            <p className="text-black-14px">
-              Situs jual beli online terlengkap dengan berbagai pilihan. Belanja online mudah dan menyenangkan di
-              TokoKu. Pengiriman cepat.
-            </p>
-          </Fragment>
-        }
-        nameMenu1="Menu"
-        menu1={
-          <Fragment>
-            <FooterMenu linkMenu="/" img={img.Home} textMenu="Home" />
-            <FooterMenu linkMenu="/" img={img.Cart} textMenu="My Bag" />
-            <FooterMenu linkMenu="/auth/login" img={img.Auth} textMenu="Login" />
-            <FooterMenu linkMenu="/auth/register" img={img.Auth} textMenu="Register" />
-          </Fragment>
-        }
-        nameMenu2="Social media"
-        menu2={
-          <Fragment>
-            <FooterMenu linkMenu="/" img={img.Facebook} textMenu="Facebook" />
-            <FooterMenu linkMenu="/" img={img.Twitter} textMenu="Twitter" />
-            <FooterMenu linkMenu="/" img={img.Instagram} textMenu="Instagram" />
-          </Fragment>
-        }
-      />
-      {createPortal(
-        <MyModal
-          id="filterProducts"
-          forwadedRef={refModalFilter}
-          styleHeader="justify-content-start"
-          styleFooter="justify-content-around m-0"
-          header={<ModalHeader onClickFilter={modalHideHandler} />}
-          body={<ModalBody />}
-          footer={<ModalFooter onClickCloseFilter={modalHideHandler} />}
-        />,
-        document.getElementById('modal-root')
-      )}
     </Fragment>
   );
 };

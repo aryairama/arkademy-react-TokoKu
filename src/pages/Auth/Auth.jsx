@@ -4,14 +4,16 @@ import ResetPassword from './ResetPassword/ResetPassword';
 import Register from './Register/Register';
 import Login from './Login/Login';
 import ConfirmPassword from './ConfirmPassword/ConfirmPassword';
+import PublicRoute from '../../configs/midlleware/PublicRoute';
+
 const Auth = (props) => {
   return (
     <Fragment>
       <Switch>
-        <Route path="/auth/login" component={Login} />
-        <Route path="/auth/register" component={Register} />
-        <Route path="/auth/forgotpassword" component={ResetPassword} />
-        <Route path="/auth/confirmpassword" component={ConfirmPassword} />
+        <PublicRoute footer={false} navbar={false} restricted={true} path="/auth/login" component={Login} />
+        <PublicRoute footer={false} navbar={false} restricted={true} path="/auth/register" component={Register} />
+        <PublicRoute footer={false} navbar={false} restricted={true} path="/auth/forgotpassword" component={ResetPassword} />
+        <PublicRoute footer={false} navbar={false} restricted={true} path="/auth/confirmpassword" component={ConfirmPassword} />
         <Route render={() => <Redirect to="/auth/login" />} />
       </Switch>
     </Fragment>
