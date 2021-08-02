@@ -3,7 +3,7 @@ import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { Modal } from 'bootstrap';
-import { Footer, Modal as MyModal, NavbarLeftMenu, NavbarRightMenu, Navbar } from '../../components/module/index';
+import { Footer, Modal as MyModal, NavbarLeftMenu, NavbarRightMenu,NavbarAuthRight, Navbar } from '../../components/module/index';
 import { FooterMenu } from '../../components/base/index';
 import { Header as ModalHeader, Body as ModalBody, Footer as ModalFooter } from '../../components/ModalFilter/Index';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ const PublicRoute = ({ component: Component, ...rest }) => {
               urlLogoImg={logoTokoKu}
               textLogo="TokoKu"
               leftMenu={<NavbarLeftMenu onClickFilter={modalShowHandler} />}
-              rigthMenu={<NavbarRightMenu />}
+              rigthMenu={auth > 0 ? <NavbarAuthRight/> : <NavbarRightMenu />}
             ></Navbar>
           )}
           {!rest.restricted && <Component {...props} />}
