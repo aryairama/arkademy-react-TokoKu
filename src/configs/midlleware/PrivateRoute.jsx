@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { user } = useSelector((state) => state.user);
   let access = false;
+  const auth = Object.keys(user).length;
   for (let i = 0; i < rest.roles.length; i++) {
     if (user.roles === rest.roles[i]) {
       access = true;
@@ -16,13 +17,20 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (Object.keys(user).length < 1) {
+        if (auth < 0) {
           return <Redirect to="/auth/login" />;
         } else if (!access) {
           return <Redirect to="/auth/login" />;
-        } else if (access && Object.keys(user).length > 1) {
+        } else if (access && auth > 0) {
           return <Component {...props} />;
         }
+        // if ((auth > 0 && rest.path === '/auth/login') || (auth > 0 && rest.path === '/auth/register')) {
+        //   if (user.roles === 'custommer') {
+        //     <Redirect to="/custommer/profile" />;
+        //   } else if (user.roles === 'seller') {
+        //     <Redirect to="/seller/myproducts" />;
+        //   }
+        // }
       }}
     />
   );

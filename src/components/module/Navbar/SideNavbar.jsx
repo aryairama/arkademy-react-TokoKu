@@ -1,8 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import bell from '../../../assets/img/icon/lonceng.svg';
 import mail from '../../../assets/img/icon/mail.svg';
 import imgProfile from '../../../assets/img/profile/1.png';
+import iconNavbar from '../../../assets/img/icon/list.svg';
+import { Button } from '../../base';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../configs/redux/actions/userAction';
+
 const SideNavbar = (props) => {
+  const dispatch = useDispatch();
+  const history =  useHistory()
   return (
     <div className="row flex-grow-1 flex-wrap">
       <div className="offset-md-2 col-10 d-flex justify-content-md-end justify-content-start align-items-center">
@@ -12,9 +19,28 @@ const SideNavbar = (props) => {
         <Link to="/mybag" className="btn-icon mx-3">
           <img src={mail} alt="icon-mail" />
         </Link>
-        <div className="mx-3" onClick={() => props.setSidebarActive((oldValue) => !oldValue)}>
-          <img className="rounded-circle profile sidebar-toggler d-block" src={imgProfile} alt="icon-profile" />
+        <div className="btn-icon mx-3 dropdown">
+          <img
+            data-bs-toggle="dropdown"
+            className="rounded-circle profile d-block"
+            src={imgProfile}
+            alt="icon-profile"
+          />
+          <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li>
+              <Button onClick={() => dispatch(logout(history))} className="dropdown-item" type="button">
+                Logout
+              </Button>
+            </li>
+          </ul>
         </div>
+        <Button
+          type="button"
+          className="btn-icon border d-none d-md-block"
+          onClick={() => props.setSidebarActive((oldValue) => !oldValue)}
+        >
+          <img width="20px" height="20px" src={iconNavbar} alt="icon-mail" />
+        </Button>
       </div>
     </div>
   );
