@@ -1,5 +1,6 @@
 const initialState = {
   storeProducts: {},
+  detailStore: {},
 };
 
 const storeReducer = (state = initialState, action) => {
@@ -8,6 +9,11 @@ const storeReducer = (state = initialState, action) => {
       return {
         ...state,
         storeProducts: action.payload,
+      };
+    case 'DETAIL_STORE':
+      return {
+        ...state,
+        detailStore: action.payload,
       };
     default:
       return state;
