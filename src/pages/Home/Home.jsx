@@ -35,7 +35,7 @@ const Home = (props) => {
     try {
       dispatch(getProducts(5, 'ASC', 'NEW_PRODUCTS'));
       dispatch(getProducts(10, 'DESC', 'POPULAR_PRODUCTS'));
-      dispatch(getCategories());
+      dispatch(getCategories('','DESC', 'CATEGORIES','','','off'));
       searchProducts();
     } catch (error) {
       console.log(error);
@@ -125,7 +125,7 @@ const Home = (props) => {
           </div>
         </div>
         <Carousel settings={configCetgoryCarousel}>
-          {categories.map((category) => (
+          {categories.data && categories.data.map((category) => (
             <CategoryCard
               key={category.category_id}
               name={category.name}

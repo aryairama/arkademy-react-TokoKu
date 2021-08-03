@@ -10,20 +10,22 @@ import {
   Button,
 } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
-import { getCategories, updateProduct } from '../ConsumeApi';
+import { getCategories } from '../../../configs/redux/actions/categoryAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { getColors } from '../../../configs/redux/actions/colorAction';
-import ConsumeApi from '../../ViewProduct/ConsumeApi';
+import { updateProduct,getDetailProduct } from '../../../configs/redux/actions/productAction';
 import { Editor } from '@tinymce/tinymce-react';
 import Select from 'react-select';
-import { useParams,useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const UpdateProducts = (props) => {
   const {
     color: { colors },
+    category: { categories: dataCategories },
+    product:{ detailProduct },
   } = useSelector((state) => state);
   const { id } = useParams();
-  const history = useHistory()
   const dispatch = useDispatch();
   const tinyEditor = useRef(null);
   const initializationData = {
@@ -40,6 +42,7 @@ const UpdateProducts = (props) => {
     old_img_product: [],
   };
   const [formData, setFromData] = useState(initializationData);
+  const [errorFrom, setErrorForm] = useState({ ...initializationData, quantity: '', price: '' });
   const [categories, setCategories] = useState([]);
   const formDataHandler = (e) => {
     setFromData((oldValue) => {
@@ -48,27 +51,33 @@ const UpdateProducts = (props) => {
   };
   useEffect(async () => {
     dispatch(getColors('', 'ASC', 'ADD_COLORS', '', '', 'off'));
-    const { data: categories } = await (await getCategories('off')).data;
-    const { data: detailProduct } = await (await ConsumeApi.detailProduct(id)).data;
-    const { img_products } = detailProduct;
-    delete detailProduct.img_products;
-    setFromData((oldValue) => {
-      return {
-        ...oldValue,
-        ...detailProduct,
-        colors: detailProduct.colors.map((color) => color.color_id),
-        old_img: img_products,
-      };
-    });
-    setCategories((oldValue) =>
-      categories.map((value) => {
-        return {
-          value: value.category_id,
-          label: value.name,
-        };
-      })
-    );
+    dispatch(getCategories('', 'DESC', 'CATEGORIES','','','off'));
+    dispatch(getDetailProduct(id))
   }, []);
+  useEffect(() => {
+    if (dataCategories.data) {
+      setCategories((oldValue) =>
+        dataCategories.data.map((value) => {
+          return {
+            value: value.category_id,
+            label: value.name,
+          };
+        })
+      );
+    }
+    if (Object.keys(detailProduct).length > 0) {
+      const { img_products } = detailProduct;
+      delete detailProduct.img_products;
+      setFromData((oldValue) => {
+        return {
+          ...oldValue,
+          ...detailProduct,
+          colors: detailProduct.colors.map((color) => color.color_id),
+          old_img: img_products,
+        };
+      });
+    }
+  }, [dataCategories.data,detailProduct]);
   const colorsHandler = (e) => {
     const options = formData.colors;
     let index;
@@ -96,8 +105,25 @@ const UpdateProducts = (props) => {
     });
   };
   const submitHandler = async (e) => {
+    try {
       e.preventDefault();
-      await updateProduct(formData, id,history);
+      await dispatch(updateProduct(formData, id))
+      swal('Success', 'Data updated successfully', 'success');
+      return props.history.push('/seller/myproducts');
+    } catch (error) {
+      swal('Error', 'Failed to sell product', 'error');
+      if (error.response.data.statusCode === 422) {
+        document.querySelector('.main-panel').scrollTo(0, 0);
+        setErrorForm({ ...initializationData, quantity: '', price: '' });
+        setErrorForm((oldValue) => {
+          const inputError = {};
+          error.response.data.error.forEach((error) => {
+            inputError[error.param] = error.msg;
+          });
+          return { ...oldValue, ...inputError };
+        });
+      }
+    }
   };
   const options = [
     { value: 'XS', label: 'XS' },
@@ -117,17 +143,28 @@ const UpdateProducts = (props) => {
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
                   <Input
+                    id="name"
                     label="Name of goods"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={formDataHandler}
+                    styleInput={errorFrom.name ? 'is-invalid' : ''}
                   />
+                  {errorFrom.name && <div className="invalid-feedback">{errorFrom.name}</div>}
                 </div>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
-                  <Input label="Brand" type="text" name="brand" value={formData.brand} onChange={formDataHandler} />
+                  <Input
+                    label="Brand"
+                    type="text"
+                    name="brand"
+                    value={formData.brand}
+                    onChange={formDataHandler}
+                    styleInput={errorFrom.brand ? 'is-invalid' : ''}
+                  />
+                  {errorFrom.brand && <div className="invalid-feedback">{errorFrom.brand}</div>}
                 </div>
               </div>
               <div className="row">
@@ -137,6 +174,7 @@ const UpdateProducts = (props) => {
                   </label>
                   <Select
                     value={categories.filter((category) => category.value === formData.category_id)}
+                    className={errorFrom.category_id ? 'border border-danger is-invalid' : ''}
                     id="category"
                     options={categories}
                     name="category_id"
@@ -146,6 +184,7 @@ const UpdateProducts = (props) => {
                       })
                     }
                   ></Select>
+                  {errorFrom.category_id && <div className="invalid-feedback">{errorFrom.category_id}</div>}
                 </div>
               </div>
             </Fragment>
@@ -159,7 +198,7 @@ const UpdateProducts = (props) => {
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
                   <Input
-                    styleInput="input-number-noarrow"
+                    styleInput={`input-number-noarrow ${errorFrom.price ? 'is-invalid' : ''}`}
                     label="Unit price"
                     type="number"
                     name="price"
@@ -167,6 +206,7 @@ const UpdateProducts = (props) => {
                     onChange={formDataHandler}
                     min="1"
                   />
+                  {errorFrom.price && <div className="invalid-feedback">{errorFrom.price}</div>}
                 </div>
               </div>
               <div className="row">
@@ -182,14 +222,19 @@ const UpdateProducts = (props) => {
                     rightButton={true}
                     textButton="Buah"
                     typeButton="button"
-                    styleButton="border-grey border-start-0 bg-transparent text-black-50 text-black-14px"
+                    styleButton={`border-grey border-start-0 bg-transparent text-black-50 text-black-14px ${
+                      errorFrom.quantity ? 'is-invalid' : ''
+                    }`}
                   />
+                  {errorFrom.quantity && <div className="invalid-feedback">{errorFrom.quantity}</div>}
                 </div>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
                   <label htmlFor="color_product1">Color Product</label>
-                  <div className="d-flex flex-wrap mt-2">
+                  <div
+                    className={`d-flex flex-nowrap overflow-x py-2 px-2 mt-2 ${errorFrom.colors ? 'is-invalid' : ''}`}
+                  >
                     {colors.data &&
                       colors.data.map((color) => (
                         <ColorPicker
@@ -205,6 +250,9 @@ const UpdateProducts = (props) => {
                         />
                       ))}
                   </div>
+                  {errorFrom.colors && !Array.isArray(errorFrom.colors) && (
+                    <div className="invalid-feedback">{errorFrom.colors}</div>
+                  )}
                 </div>
               </div>
               <div className="row">
@@ -213,6 +261,7 @@ const UpdateProducts = (props) => {
                     Size Product
                   </label>
                   <Select
+                    className={errorFrom.size ? 'border border-danger is-invalid' : ''}
                     id="size"
                     options={options}
                     value={options.filter((data) => data.value === formData.size)}
@@ -223,12 +272,13 @@ const UpdateProducts = (props) => {
                       })
                     }
                   ></Select>
+                  {errorFrom.size && <div className="invalid-feedback">{errorFrom.size}</div>}
                 </div>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12">
                   <p className="text-black-50 lh-1">Stock</p>
-                  <div className="form-check-inline">
+                  <div className={`form-check-inline ${errorFrom.product_status ? 'is-invalid' : ''}`}>
                     <InputCheck
                       type="radio"
                       value="new"
@@ -252,6 +302,7 @@ const UpdateProducts = (props) => {
                       styleInput="me-2"
                     />
                   </div>
+                  {errorFrom.product_status && <div className="invalid-feedback">{errorFrom.product_status}</div>}
                 </div>
               </div>
             </Fragment>
@@ -294,31 +345,36 @@ const UpdateProducts = (props) => {
           styleCard="mb-4"
           cardHeader={<div className="text-black-20px fw-bold">Description</div>}
           cardBody={
-            <Editor
-              apiKey="ye3sivj2b6om6cs63viibjhwr9hkpy3j4wxc1zrjag2g2adv"
-              onInit={(evt, editor) => (tinyEditor.current = editor)}
-              initialValue={formData.description}
-              init={{
-                height: 400,
-                menubar: true,
-                plugins: [
-                  'advlist autolink lists link image charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code help wordcount',
-                ],
-                toolbar:
-                  'undo redo | formatselect fontsizeselect forecolor| ' +
-                  'bold italic backcolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'removeformat | help',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-              }}
-              onSaveContent={(e) =>
-                setFromData((oldValue) => {
-                  return { ...oldValue, description: e.target.getContent() };
-                })
-              }
-            ></Editor>
+            <Fragment>
+              <div className={errorFrom.description ? 'is-invalid' : ''}>
+                <Editor
+                  apiKey="ye3sivj2b6om6cs63viibjhwr9hkpy3j4wxc1zrjag2g2adv"
+                  onInit={(evt, editor) => (tinyEditor.current = editor)}
+                  initialValue={formData.description}
+                  init={{
+                    height: 400,
+                    menubar: true,
+                    plugins: [
+                      'advlist autolink lists link image charmap print preview anchor',
+                      'searchreplace visualblocks code fullscreen',
+                      'insertdatetime media table paste code help wordcount',
+                    ],
+                    toolbar:
+                      'undo redo | formatselect fontsizeselect forecolor| ' +
+                      'bold italic backcolor | alignleft aligncenter ' +
+                      'alignright alignjustify | bullist numlist outdent indent | ' +
+                      'removeformat | help',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                  }}
+                  onSaveContent={(e) =>
+                    setFromData((oldValue) => {
+                      return { ...oldValue, description: e.target.getContent() };
+                    })
+                  }
+                ></Editor>
+              </div>
+              {errorFrom.description && <div className="invalid-feedback">{errorFrom.description}</div>}
+            </Fragment>
           }
         ></ContentCard>
         <div className=" text-end mb-4">

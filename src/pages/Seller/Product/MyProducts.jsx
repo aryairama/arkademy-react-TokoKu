@@ -2,7 +2,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Container, InputGroup, NotFound, buttonItemRender, Button } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
-import { getProducts, deleteProduct } from '../ConsumeApi';
+import { getProducts } from '../ConsumeApi';
+import { deleteProduct } from '../../../configs/redux/actions/productAction';
+import { useDispatch } from 'react-redux';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import iconNotfound from '../../../assets/img/icon/undraw_opinion_dxp8_1.svg';
@@ -12,6 +14,7 @@ import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 
 const MyProducts = () => {
+  const dispatch = useDispatch()
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({});
   const [productAllItems, setProductAllItems] = useState([]);
@@ -66,7 +69,7 @@ const MyProducts = () => {
       },
     }).then(async (value) => {
       if (value) {
-        await deleteProduct(id);
+        await dispatch(deleteProduct(id));
         const { data } = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
         setProductAllItems(data);
         swal('Success', 'Data deleted successfully', 'success');

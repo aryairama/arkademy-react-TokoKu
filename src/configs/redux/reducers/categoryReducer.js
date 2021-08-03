@@ -1,5 +1,5 @@
 const initialState = {
-  categories: [],
+  categories: {},
   detailCategory: {},
 };
 
