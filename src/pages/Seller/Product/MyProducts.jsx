@@ -3,8 +3,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Container, InputGroup, NotFound, buttonItemRender, Button } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
 import { getProducts } from '../ConsumeApi';
+import { getStoreProducts } from '../../../configs/redux/actions/storeAction';
 import { deleteProduct } from '../../../configs/redux/actions/productAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import iconNotfound from '../../../assets/img/icon/undraw_opinion_dxp8_1.svg';
@@ -14,7 +15,10 @@ import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 
 const MyProducts = () => {
-  const dispatch = useDispatch()
+  const {
+    store: { storeProducts },
+  } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({});
   const [productAllItems, setProductAllItems] = useState([]);
@@ -25,6 +29,14 @@ const MyProducts = () => {
   const [sort, setSort] = useState({
     allItems: true,
   });
+  const [limit, setLimit] = useState({
+    allItems: 10,
+  });
+  const limitHandler = (e) => {
+    setLimit((oldValue) => {
+      return { ...oldValue, [e.target.name]: e.target.value };
+    });
+  };
   const searchHandler = (e) => {
     setSearch((oldValue) => {
       return { ...oldValue, [e.target.name]: e.target.value };
@@ -37,14 +49,16 @@ const MyProducts = () => {
   };
   const order = sort.allItems ? 'DESC' : 'ASC';
   useEffect(async () => {
-    try {
-      const { data, pagination } = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
-      setProductAllItems(data);
-      setPagination(pagination);
-    } catch (error) {
-      console.log(error);
+    dispatch(getStoreProducts('STORE_PRODUCTS', search.allItems, order, fieldOrder, limit.allItems, page));
+  }, [search.allItems, sort.allItems, limit.allItems, fieldOrder, page]);
+  useEffect(() => {
+    if (storeProducts.data) {
+      setProductAllItems(storeProducts.data);
     }
-  }, [search.allItems, sort.allItems, fieldOrder, page]);
+    if (storeProducts.pagination) {
+      setPagination(storeProducts.pagination);
+    }
+  }, [storeProducts.data, storeProducts.pagination]);
   const paginationHandler = (current, pageSize) => {
     setPage(current);
   };
@@ -119,18 +133,33 @@ const MyProducts = () => {
                   <div className="tab-content" id="nav-tabContent">
                     <div className="tab-pane h-min-60vh fade show active" id="tab_all_items">
                       <div className="d-flex flex-column pt-3">
-                        <InputGroup
-                          leftButton="true"
-                          styleInputGroup="input-group-sm input-group-myorder"
-                          styleButton="border-grey bg-transparent rounded-pill-start border-end-0"
-                          styleInput="rounded-pill-end border-start-0"
-                          textButton={<img src={searchIcon} alt="icon-search" aria-label="button search" />}
-                          name="allItems"
-                          type="text"
-                          placeholder="Search"
-                          onChange={searchHandler}
-                          value={search.allItems}
-                        />
+                        <div className="d-flex justify-content-between align-items-center">
+                          <InputGroup
+                            leftButton="true"
+                            styleInputGroup="input-group-sm input-group-myorder"
+                            styleButton="border-grey bg-transparent rounded-pill-start border-end-0"
+                            styleInput="rounded-pill-end border-start-0"
+                            textButton={<img src={searchIcon} alt="icon-search" aria-label="button search" />}
+                            name="allItems"
+                            type="text"
+                            placeholder="Search"
+                            onChange={searchHandler}
+                            value={search.allItems}
+                          />
+                          <select
+                            name="allItems"
+                            id="limitAllItems"
+                            className="form-select form-select-sm h-50 w-25 mt-3"
+                            defaultValue={limit.allItems}
+                            onChange={limitHandler}
+                          >
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select>
+                        </div>
                         <div className="table-responsive-md pt-3">
                           <table className="table table-secondary">
                             <thead>
