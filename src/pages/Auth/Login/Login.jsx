@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { LayoutAuthForm } from '../../../components/module';
 import AuthLogos from '../../../components/base/AuthLogos/AuthLogos';
@@ -8,10 +8,12 @@ import { Button } from '../../../components/base';
 import { login } from '../../../configs/redux/actions/userAction';
 import { useDispatch } from 'react-redux';
 import '../../../assets/css/auth.css';
+import SimpleReactValidator from 'simple-react-validator';
 
 const Login = (props) => {
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const validator = useRef(new SimpleReactValidator({ className: 'small text-danger' }));
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [roles, setRoles] = useState('seller');
   const initialFormData = {
     email: '',
@@ -31,8 +33,8 @@ const Login = (props) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(formData, history));
-  }
+    dispatch(login({ ...formData, roles }, history));
+  };
   return (
     <LayoutAuthForm>
       <AuthLogos />
@@ -41,26 +43,40 @@ const Login = (props) => {
       <form onSubmit={submitHandler} className="form-login px-5 px-md-0 px-lg-0 mt-4_5">
         <div className="row">
           <AuthInput
+            className={validator.current.message('email', formData.email, 'required|email') ? 'is-invalid' : ''}
             name="email"
             value={formData.email}
             onChangeInput={changeInputHandler}
             type="email"
             placeholder="Email"
-          />
+            onFocus={() => validator.current.showMessageFor('email')}
+          >
+            {validator.current.message('email', formData.email, 'required|email')}
+          </AuthInput>
           <AuthInput
+            className={
+              validator.current.message('password', formData.password, 'required|min:8|max:255') ? 'is-invalid' : ''
+            }
             name="password"
             value={formData.password}
+            onFocus={() => validator.current.showMessageFor('password')}
             onChangeInput={changeInputHandler}
             type="password"
             placeholder="Password"
-          />
+          >
+            {validator.current.message('password', formData.password, 'required|min:8|max:255')}
+          </AuthInput>
           <div className="col-md-6 offset-md-3 mb-3">
             <Link to="/auth/forgotpassword" className="text-end text-forgot-password d-block">
               Forgot Password
             </Link>
           </div>
           <div className="col-md-6 offset-md-3 mb-4 d-grid">
-            <Button type="submit" className="btn btn-submit rounded-pill">
+            <Button
+              disabled={validator.current.allValid() ? false : true}
+              type="submit"
+              className="btn btn-submit rounded-pill"
+            >
               Login
             </Button>
           </div>

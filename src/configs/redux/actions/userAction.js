@@ -5,15 +5,17 @@ import swal from 'sweetalert';
 export const login = (formData, history) => async (dispatch) => {
   try {
     const { data } = await (await axios.post('/users/login', formData)).data;
-    dispatch({ type: 'LOGIN', payload: data });
-    swal('Success', 'Login successful', 'success');
-    if (data.roles === 'seller') {
+    if (data.roles === 'seller' && formData.roles === 'seller') {
       history.push('/seller/profilestore');
-    } else if (data.roles === 'custommer') {
+    } else if (data.roles === 'custommer' && formData.roles === 'custommer') {
       history.push('/custommer/profile');
+    } else if (data.roles !== formData.roles) {
+      return swal('Error', 'please login according to your account status', 'error');
     }
+    swal('Success', 'Login successful', 'success');
+    dispatch({ type: 'LOGIN', payload: data });
   } catch (error) {
-    swal('Error', 'Login failed', 'error');
+    swal('Error', error.response.data.message, 'error');
   }
 };
 
