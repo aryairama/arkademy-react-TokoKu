@@ -11,6 +11,7 @@ const InputGroup = (props) => {
       <div className={`input-group ${props.styleInputGroup}`}>
         {props.leftButton && <button className={`input-group-text ${props.styleButton}`}>{props.textButton}</button>}
         <input
+          onFocus={props.onFocus}
           min={props.min}
           value={props.value}
           name={props.name}

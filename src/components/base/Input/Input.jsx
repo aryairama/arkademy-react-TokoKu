@@ -9,6 +9,8 @@ const Input = (props) => {
         </label>
       )}
       <input
+        onBlur={props.onBlur}
+        onFocus={props.onFocus}
         id={props.id}
         type={props.type}
         className={`form-control ${props.styleInput}`}

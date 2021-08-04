@@ -17,8 +17,10 @@ import Select from 'react-select';
 import { getColors } from '../../../configs/redux/actions/colorAction';
 import { postProduct } from '../../../configs/redux/actions/productAction';
 import swal from 'sweetalert';
+import SimpleReactValidator from 'simple-react-validator';
 
 const SellingProducts = (props) => {
+  const validator = useRef(new SimpleReactValidator({ className: 'small text-danger' }));
   const tinyEditor = useRef(null);
   const {
     color: { colors },
@@ -113,9 +115,12 @@ const SellingProducts = (props) => {
                     name="name"
                     value={formData.name}
                     onChange={formDataHandler}
-                    styleInput={errorFrom.name ? 'is-invalid' : ''}
+                    onFocus={() => validator.current.showMessageFor('name')}
+                    styleInput={
+                      validator.current.message('name', formData.name, 'required|min:3|max:255') ? 'is-invalid' : ''
+                    }
                   />
-                  {errorFrom.name && <div className="invalid-feedback">{errorFrom.name}</div>}
+                  {validator.current.message('name', formData.name, 'required|min:3|max:255')}
                 </div>
               </div>
               <div className="row">
@@ -126,9 +131,12 @@ const SellingProducts = (props) => {
                     name="brand"
                     value={formData.brand}
                     onChange={formDataHandler}
-                    styleInput={errorFrom.brand ? 'is-invalid' : ''}
+                    onFocus={() => validator.current.showMessageFor('brand')}
+                    styleInput={
+                      validator.current.message('brand', formData.brand, 'required|min:3|max:255') ? 'is-invalid' : ''
+                    }
                   />
-                  {errorFrom.brand && <div className="invalid-feedback">{errorFrom.brand}</div>}
+                  {validator.current.message('brand', formData.brand, 'required|min:3|max:255')}
                 </div>
               </div>
               <div className="row">
@@ -137,17 +145,22 @@ const SellingProducts = (props) => {
                     Category Product
                   </label>
                   <Select
-                    className={errorFrom.category_id ? 'border border-danger is-invalid' : ''}
+                    className={
+                      validator.current.message('category', formData.category_id, 'required')
+                        ? 'border border-danger is-invalid'
+                        : ''
+                    }
                     id="category"
                     options={categories}
                     name="category_id"
+                    onFocus={() => validator.current.showMessageFor('category')}
                     onChange={(e) =>
                       setFromData((oldValue) => {
                         return { ...oldValue, category_id: e.value };
                       })
                     }
                   ></Select>
-                  {errorFrom.category_id && <div className="invalid-feedback">{errorFrom.category_id}</div>}
+                  {validator.current.message('category', formData.category_id, 'required')}
                 </div>
               </div>
             </Fragment>
@@ -161,22 +174,31 @@ const SellingProducts = (props) => {
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
                   <Input
-                    styleInput={`input-number-noarrow ${errorFrom.price ? 'is-invalid' : ''}`}
+                    styleInput={`input-number-noarrow ${
+                      validator.current.message('price', formData.price, 'required|numeric|min:1,num|max:13')
+                        ? 'is-invalid'
+                        : ''
+                    }`}
                     label="Unit price"
-                    type="number"
+                    type="text"
                     name="price"
                     value={formData.price}
                     onChange={formDataHandler}
+                    onFocus={() => validator.current.showMessageFor('price')}
                     min="1"
                   />
-                  {errorFrom.price && <div className="invalid-feedback">{errorFrom.price}</div>}
+                  {validator.current.message('price', formData.price, 'required|numeric|min:1,num|max:13')}
                 </div>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12 mb-3">
                   <InputGroup
-                    styleInput="input-number-noarrow border-end-0"
-                    type="number"
+                    styleInput={`input-number-noarrow border-end-0 ${
+                      validator.current.message('quantity', formData.quantity, 'required|numeric|min:1,num|max:10')
+                        ? 'is-invalid'
+                        : ''
+                    }`}
+                    type="text"
                     label="Stock"
                     min="1"
                     name="quantity"
@@ -185,11 +207,14 @@ const SellingProducts = (props) => {
                     rightButton={true}
                     textButton="Buah"
                     typeButton="button"
+                    onFocus={() => validator.current.showMessageFor('quantity')}
                     styleButton={`border-grey border-start-0 bg-transparent text-black-50 text-black-14px ${
-                      errorFrom.quantity ? 'is-invalid' : ''
+                      validator.current.message('quantity', formData.quantity, 'required|numeric|min:1,num|max:10')
+                        ? 'border-danger'
+                        : ''
                     }`}
                   />
-                  {errorFrom.quantity && <div className="invalid-feedback">{errorFrom.quantity}</div>}
+                  {validator.current.message('quantity', formData.quantity, 'required|numeric|min:1,num|max:10')}
                 </div>
               </div>
               <div className="row">
@@ -223,7 +248,11 @@ const SellingProducts = (props) => {
                     Size Product
                   </label>
                   <Select
-                    className={errorFrom.size ? 'border border-danger is-invalid' : ''}
+                    className={
+                      validator.current.message('size', formData.size, 'required')
+                        ? 'border border-danger is-invalid'
+                        : ''
+                    }
                     id="size"
                     options={[
                       { value: 'XS', label: 'XS' },
@@ -238,14 +267,21 @@ const SellingProducts = (props) => {
                         return { ...oldValue, size: e.value };
                       })
                     }
+                    onFocus={() => validator.current.showMessageFor('size')}
                   ></Select>
-                  {errorFrom.size && <div className="invalid-feedback">{errorFrom.size}</div>}
+                  {validator.current.message('size', formData.size, 'required')}
                 </div>
               </div>
               <div className="row">
                 <div className="col-lg-6 col-md-8 col-sm-12 col-12">
                   <p className="text-black-50 lh-1">Stock</p>
-                  <div className={`form-check-inline ${errorFrom.product_status ? 'is-invalid' : ''}`}>
+                  <div
+                    className={`form-check-inline ${
+                      validator.current.message('product condition', formData.product_status, 'required')
+                        ? 'is-invalid'
+                        : ''
+                    }`}
+                  >
                     <InputCheck
                       type="radio"
                       value="new"
@@ -269,7 +305,7 @@ const SellingProducts = (props) => {
                       styleInput="me-2"
                     />
                   </div>
-                  {errorFrom.product_status && <div className="invalid-feedback">{errorFrom.product_status}</div>}
+                  {validator.current.message('product_condition', formData.product_status, 'required')}
                 </div>
               </div>
             </Fragment>
@@ -280,9 +316,10 @@ const SellingProducts = (props) => {
           cardHeader={<div className="text-black-20px fw-bold">Photo of goods</div>}
           cardBody={
             <Fragment>
-              <div className={errorFrom.img_product ? 'is-invalid' : ''}>
-                <InputImg onChange={setFromData} />
+              <div className={errorFrom.img_product ? 'is-invalid' : 'img_product'}>
+                <InputImg onBlur={() => validator.current.showMessageFor('img_product')} onChange={setFromData} />
               </div>
+              {validator.current.message('img_product', formData.img_product, 'required|array')}
               {errorFrom.img_product && <div className="invalid-feedback">{errorFrom.img_product}</div>}
             </Fragment>
           }
@@ -292,8 +329,13 @@ const SellingProducts = (props) => {
           cardHeader={<div className="text-black-20px fw-bold">Description</div>}
           cardBody={
             <Fragment>
-              <div className={errorFrom.description ? 'is-invalid' : ''}>
+              <div
+                className={
+                  validator.current.message('description', formData.description, 'requred|min:10') ? 'is-invalid' : ''
+                }
+              >
                 <Editor
+                  onFocus={() => validator.current.showMessageFor('description')}
                   apiKey="ye3sivj2b6om6cs63viibjhwr9hkpy3j4wxc1zrjag2g2adv"
                   onInit={(evt, editor) => (tinyEditor.current = editor)}
                   init={{
@@ -318,12 +360,16 @@ const SellingProducts = (props) => {
                   }
                 ></Editor>
               </div>
-              {errorFrom.description && <div className="invalid-feedback">{errorFrom.description}</div>}
+              {validator.current.message('description', formData.description, 'required|min:10')}
             </Fragment>
           }
         ></ContentCard>
         <div className=" text-end mb-4">
-          <Button type="submit" className="btn-sm btn-orange rounded-pill px-5">
+          <Button
+            disabled={validator.current.allValid() ? false : true}
+            type="submit"
+            className="btn-sm btn-orange rounded-pill px-5"
+          >
             Jual
           </Button>
         </div>

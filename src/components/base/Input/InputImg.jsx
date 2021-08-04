@@ -40,6 +40,7 @@ const InputImg = (props) => {
         </div>
       </div>
       <input
+        onBlur={props.onBlur}
         multiple
         type="file"
         accept="image/jpeg, image/png"
