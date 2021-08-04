@@ -9,14 +9,18 @@ import { Container, CountInput } from '../../components/base';
 import ModalHeader from '../../components/ModalFilter/Header';
 import ModalBody from '../../components/ModalFilter/Body';
 import ModalFooter from '../../components/ModalFilter/Footer';
+import { useSelector, useDispatch } from 'react-redux';
+import { incQuantity, decQuantity, deleteCart } from '../../configs/redux/actions/cartAction';
 import '../../assets/css/myBag.css';
-import img from '../Home/img';
-const MyBag = () => {
-  const [quantity, setQuantity] = useState(1);
+const MyBag = (props) => {
+  const dispatch = useDispatch();
+  const { carts, total } = useSelector((state) => state.cart);
   const refModalFilter = useRef(null);
   const [modalFilter, setModalFilter] = useState(null);
   const modalShowHandler = () => modalFilter.show();
   const modalHideHandler = () => modalFilter.hide();
+  const [deleteCarts, setDeleteCarts] = useState([]);
+  const [deleteAll, setDeleteAll] = useState(false);
   useEffect(async () => {
     try {
       setModalFilter(new Modal(refModalFilter.current, { backdrop: 'static' }));
@@ -24,6 +28,21 @@ const MyBag = () => {
       console.log(error);
     }
   }, []);
+  const cartHanlder = (e) => {
+    let options = deleteCarts;
+    let index;
+    if (e.target.checked) {
+      options = [...options, JSON.parse(e.target.value)];
+    } else {
+      index = options.findIndex(
+        (cart) =>
+          cart.product_id === JSON.parse(e.target.value).product_id &&
+          cart.color_id === JSON.parse(e.target.value).color_id
+      );
+      options.splice(index, 1);
+    }
+    setDeleteCarts(options);
+  };
   return (
     <Fragment>
       <Navbar
@@ -46,55 +65,91 @@ const MyBag = () => {
                 <div className="d-flex flex-wrap justify-content-between align-items-between">
                   <div className="form-check">
                     <input
+                      value={deleteAll}
+                      onChange={() => setDeleteAll((oldValue) => !oldValue)}
                       type="checkbox"
                       className="form-check-input form-check-product"
                       id="selectAllProduct"
-                      defaultChecked
                     />
                     <label className="form-check-label card-product-title" htmlFor="selectAllProduct">
                       Select all item
                       <label htmlFor="selectAllProduct" className="text-black-50">
-                        (2 items selected)
+                        ({carts.length})
                       </label>
                     </label>
                   </div>
-                  <span className="text-orange">Delete</span>
+                  <span
+                    className="text-orange"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => dispatch(deleteCart(deleteCarts, deleteAll))}
+                  >
+                    Delete
+                  </span>
                 </div>
               }
             />
             {/* start myBag */}
-            <ContentCard
-              styleCard="mt-2 shadow-sm"
-              cardBody={
-                <div className="row align-items-center">
-                  <div className="col-12 col-md-7 col-lg-7 d-flex flex-wrap align-items-center">
-                    <div className="form-check">
-                      <input type="checkbox" className="form-check-input form-check-product" id="product1" />
+            {carts?.map((cart, index) => (
+              <ContentCard
+                key={index}
+                styleCard="mt-2 shadow-sm"
+                cardBody={
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-7 col-lg-7 d-flex flex-wrap align-items-center">
+                      <div className="form-check">
+                        {deleteAll === true && (
+                          <input
+                            checked={deleteAll}
+                            type="checkbox"
+                            value={JSON.stringify({ product_id: cart.product_id, color_id: cart.color_id })}
+                            onChange={cartHanlder}
+                            className="form-check-input form-check-product"
+                          />
+                        )}
+                        {deleteAll === false && (
+                          <input
+                            type="checkbox"
+                            value={JSON.stringify({ product_id: cart.product_id, color_id: cart.color_id })}
+                            onChange={cartHanlder}
+                            className="form-check-input form-check-product"
+                          />
+                        )}
+                      </div>
+                      <img
+                        className="img-mybag-product rounded-3"
+                        src={`${process.env.REACT_APP_API_URL}/${cart.img_products[0].img_product}`}
+                        alt="logo-product"
+                      />
+                      <div className="mybag-product-header ms-3">
+                        <p className="card-product-title">{cart.name}</p>
+                        <p className="card-product-brand mt-n3">{cart.brand}</p>
+                      </div>
                     </div>
-                    <img className="img-mybag-product rounded-3" src={img.Product1} alt="logo-product" />
-                    <div className="mybag-product-header ms-3">
-                      <p className="card-product-title">Men's Jacket jeans</p>
-                      <p className="card-product-brand mt-n3">Zalora Cloth</p>
+                    <div className="col-6 col-md-3 col-lg-3 d-flex flex-wrap justify-content-start mt-md-0 mt-3">
+                      <CountInput
+                        redux={true}
+                        name={`quantity${index}`}
+                        value={cart.quantity}
+                        increment={() => dispatch(incQuantity(cart.product_id, cart.color_id))}
+                        decrement={() => dispatch(decQuantity(cart.product_id, cart.color_id))}
+                      />
+                    </div>
+                    <div className="col-6 col-md-2 col-lg-2 d-flex flex-wrap justify-content-end ">
+                      <span className="card-product-title fw-bold">Rp.{cart.prices}</span>
                     </div>
                   </div>
-                  <div className="col-6 col-md-3 col-lg-3 d-flex flex-wrap justify-content-start mt-md-0 mt-3">
-                    <CountInput name="quantity1" value={quantity} onClick={setQuantity} />
-                  </div>
-                  <div className="col-6 col-md-2 col-lg-2 d-flex flex-wrap justify-content-end ">
-                    <span className="card-product-title fw-bold">$ 20.0</span>
-                  </div>
-                </div>
-              }
-            />
+                }
+              />
+            ))}
           </div>
           <div className="col-md-4">
             <div className="card card-body shadow-sm mt-md-0 mt-4">
               <p className="card-product-title fw-bold">Shopping summary</p>
               <div className="d-flex justify-content-between">
                 <p className="card-product-title text-black-50">Total price</p>
-                <p className="shopping-summary-total-price">$ 40.0</p>
+                <p className="shopping-summary-total-price">Rp.{total}</p>
               </div>
-              <Link to="/checkout" className="btn btn-orange rounded-pill">
+              <Link to={carts.length > 0 ? '/checkout' : '#'} className="btn btn-orange rounded-pill">
                 Buy
               </Link>
             </div>

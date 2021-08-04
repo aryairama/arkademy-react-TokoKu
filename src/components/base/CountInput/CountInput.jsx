@@ -14,12 +14,7 @@ export class CountInput extends Component {
             >
               &#9866;
             </button>
-            <input
-              type="number"
-              className="form-control-quantity"
-              readOnly
-              value={this.props.value}
-            />
+            <input type="number" className="form-control-quantity" readOnly value={this.props.value} />
             <button
               className="btn-increment-product"
               onClick={() => {
@@ -30,6 +25,18 @@ export class CountInput extends Component {
                 }
               }}
             >
+              +
+            </button>
+          </div>
+        )}
+        {this.props.redux === true && (
+          <div className={this.props.className}>
+            <p className="filter-title lh-1">{this.props.title}</p>
+            <button className="btn-decrement-product" onClick={this.props.decrement}>
+              &#9866;
+            </button>
+            <input type="number" className="form-control-quantity" readOnly value={this.props.value} />
+            <button className="btn-increment-product" onClick={this.props.increment}>
               +
             </button>
           </div>
