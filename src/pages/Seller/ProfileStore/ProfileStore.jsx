@@ -90,7 +90,7 @@ const ProfileStore = () => {
                   <input
                     type="text"
                     className={`form-control ${
-                      !validator.current.fieldValid('store_name') && !validator.current.allValid() ? 'is-invalid' : ''
+                      validator.current.fieldValid('store_name') === false? 'is-invalid' : ''
                     }`}
                     id="store_name"
                     name="store_name"
