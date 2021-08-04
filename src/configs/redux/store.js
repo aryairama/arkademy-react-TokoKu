@@ -8,7 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const persistConfig = {
   key: 'TokoKu',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'cart'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));

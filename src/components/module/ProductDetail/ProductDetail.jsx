@@ -5,8 +5,6 @@ import CountInput from '../../base/CountInput/CountInput';
 
 const ProductDetail = (props) => {
   const [size, setSize] = useState(10);
-  const [quantity, setQuantity] = useState(1);
-  
   return (
     <Fragment>
       <div className="product-detail mt-md-0 mt-4">
@@ -30,8 +28,9 @@ const ProductDetail = (props) => {
             {props.colors &&
               props.colors.map((color) => (
                 <ColorPicker
+                  onClick={props.handlerChange}
                   type="radio"
-                  name="color_product"
+                  name="color_id"
                   id={`color_product${color.color_id}`}
                   key={color.color_id}
                   value={color.color_id}
@@ -46,17 +45,13 @@ const ProductDetail = (props) => {
         <div className="row">
           <CountInput className="col-xl-2 col-lg-3 col-md-4 col-6" title="Size" value={size} onClick={setSize} />
           <CountInput
+            max={props.quantityProduct}
             className="col-xl-2 col-lg-3 col-md-4 col-6"
             title="Quantity"
-            value={quantity}
-            onClick={setQuantity}
+            value={props.quantity}
+            onClick={props.handlerQuantity}
           />
         </div>
-      </div>
-      <div className="product-button-action d-flex  justify-content-around mt-lg-5 mt-4">
-        <button className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2">Chat</button>
-        <button className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2">Add bag</button>
-        <button className="btn btn-sm btn-orange rounded-pill w-40 py-md-2">Buy Now</button>
       </div>
     </Fragment>
   );

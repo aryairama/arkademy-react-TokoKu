@@ -7,13 +7,34 @@ import { ProductGallery, ProductDetail, ProductDescription } from '../../compone
 import Pagination from 'rc-pagination';
 import locale from 'rc-pagination/es/locale/en_US';
 import { getDetailProduct, paginationProductsById } from '../../configs/redux/actions/productAction';
+import { addCart } from '../../configs/redux/actions/cartAction';
 import '../../assets/css/product.css';
 
 const ViewProduct = (props) => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { detailProduct, productsById } = useSelector((state) => state.product);
+  const {
+    product: { detailProduct, productsById },
+    user: { user },
+  } = useSelector((state) => state);
   const [page, setPage] = useState(1);
+  const [product, setProduct] = useState({
+    product_id: id,
+    quantity: 1,
+    color_id: 0,
+    brand: '',
+    img_product: '',
+  });
+  const handlerQuantity = (e) => {
+    setProduct((oldValue) => {
+      return { ...oldValue, quantity: e };
+    });
+  };
+  const handlerChange = (e) => {
+    setProduct((oldValue) => {
+      return { ...oldValue, [e.target.name]: e.target.value };
+    });
+  };
   useEffect(() => {
     dispatch(getDetailProduct(id));
     window.scrollTo(0, 0);
@@ -23,6 +44,19 @@ const ViewProduct = (props) => {
       dispatch(paginationProductsById(detailProduct.category_id, page));
     }
   }, [page]);
+  useEffect(() => {
+    if (Object.keys(detailProduct).length > 0) {
+      const { quantity, ...product } = detailProduct;
+      setProduct((oldValue) => {
+        return { ...oldValue, ...product };
+      });
+    }
+  }, [detailProduct]);
+  const disableBuyProduct = () => {
+    if (Object.keys(user).length > 0 && user.roles === 'seller') {
+      return detailProduct.store_id === user.store_id;
+    }
+  };
   return (
     <Fragment>
       <Container className="mt-10">
@@ -38,11 +72,28 @@ const ViewProduct = (props) => {
           </div>
           <div className="col-md-8">
             <ProductDetail
+              handlerChange={handlerChange}
+              handlerQuantity={handlerQuantity}
+              quantity={product.quantity}
+              quantityProduct={detailProduct.quantity}
               name={detailProduct.name}
               brand={detailProduct.brand}
               price={detailProduct.price}
               colors={detailProduct.colors}
             />
+            <div className="product-button-action d-flex  justify-content-around mt-lg-5 mt-4">
+              <button className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2">Chat</button>
+              <button
+                onClick={() => dispatch(addCart(product, props.history))}
+                disabled={disableBuyProduct()}
+                className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2"
+              >
+                Add bag
+              </button>
+              <button disabled={disableBuyProduct()} className="btn btn-sm btn-orange rounded-pill w-40 py-md-2">
+                Buy Now
+              </button>
+            </div>
           </div>
           <div className="col-md-12 mt-5">
             <ProductDescription description={detailProduct.description} />
