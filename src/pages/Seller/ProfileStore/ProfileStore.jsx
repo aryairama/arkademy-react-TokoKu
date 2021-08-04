@@ -42,7 +42,6 @@ const ProfileStore = () => {
     setUserProfile((oldValue) => {
       return { ...oldValue, ...detailStore, email: '' };
     });
-    validator.current.showMessages();
   }, [detailStore]);
   useEffect(() => {
     validator.current.showMessages();
@@ -90,7 +89,9 @@ const ProfileStore = () => {
                 <div className="col-sm-9">
                   <input
                     type="text"
-                    className={`form-control ${validator.current.fieldValid('store_name') === false ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      !validator.current.fieldValid('store_name') && !validator.current.allValid() ? 'is-invalid' : ''
+                    }`}
                     id="store_name"
                     name="store_name"
                     value={userProfile.store_name}
@@ -106,7 +107,9 @@ const ProfileStore = () => {
                 <div className="col-sm-9">
                   <input
                     type="email"
-                    className={`form-control ${validator.current.fieldValid('email') === false ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      !validator.current.fieldValid('email') && !validator.current.allValid() ? 'is-invalid' : ''
+                    }`}
                     id="email"
                     name="email"
                     placeholder={detailStore.email}
@@ -123,7 +126,9 @@ const ProfileStore = () => {
                 <div className="col-sm-9">
                   <input
                     type="text"
-                    className={`form-control ${validator.current.fieldValid('phone_number') === false? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      !validator.current.fieldValid('phone_number') && !validator.current.allValid() ? 'is-invalid' : ''
+                    }`}
                     id="phone_number"
                     name="phone_number"
                     value={userProfile.phone_number}
@@ -142,7 +147,11 @@ const ProfileStore = () => {
                 </label>
                 <div className="col-sm-9">
                   <textarea
-                    className={`form-control ${validator.current.fieldValid('store_description') === false ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      !validator.current.fieldValid('store_description') && !validator.current.allValid()
+                        ? 'is-invalid'
+                        : ''
+                    }`}
                     name="store_description"
                     id="store_description"
                     cols="30"
