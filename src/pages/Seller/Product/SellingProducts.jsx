@@ -20,7 +20,10 @@ import swal from 'sweetalert';
 import SimpleReactValidator from 'simple-react-validator';
 
 const SellingProducts = (props) => {
-  const validator = useRef(new SimpleReactValidator({ className: 'small text-danger' }));
+  const [, forceUpdate] = useState();
+  const validator = useRef(
+    new SimpleReactValidator({ className: 'small text-danger', autoForceUpdate: { forceUpdate: forceUpdate } })
+  );
   const tinyEditor = useRef(null);
   const {
     color: { colors },
@@ -31,10 +34,10 @@ const SellingProducts = (props) => {
     name: '',
     brand: '',
     category_id: '',
-    price: 1,
+    price: 0,
     colors: [],
     size: '',
-    quantity: 1,
+    quantity: 0,
     product_status: '',
     description: '',
     img_product: [],
@@ -79,10 +82,16 @@ const SellingProducts = (props) => {
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
-      await dispatch(postProduct(formData));
-      setFromData(initializationData);
-      swal('Success', 'Data created successfully', 'success');
-      return props.history.push('/seller/myproducts');
+      if (validator.current.allValid()) {
+        await dispatch(postProduct(formData));
+        setFromData(initializationData);
+        swal('Success', 'Data created successfully', 'success');
+        return props.history.push('/seller/myproducts');
+      } else {
+        validator.current.showMessages();
+        forceUpdate(1);
+        document.querySelector('.main-panel').scrollTo(0, 0);
+      }
     } catch (error) {
       swal('Error', 'Failed to sell product', 'error');
       if (error.response.data.statusCode === 422) {
@@ -237,6 +246,7 @@ const SellingProducts = (props) => {
                         />
                       ))}
                   </div>
+                  {validator.current.message('colors', formData.colors, 'required')}
                   {errorFrom.colors && !Array.isArray(errorFrom.colors) && (
                     <div className="invalid-feedback">{errorFrom.colors}</div>
                   )}
@@ -331,7 +341,7 @@ const SellingProducts = (props) => {
             <Fragment>
               <div
                 className={
-                  validator.current.message('description', formData.description, 'requred|min:10') ? 'is-invalid' : ''
+                  validator.current.message('description', formData.description, 'required|min:10') ? 'is-invalid' : ''
                 }
               >
                 <Editor
@@ -365,11 +375,7 @@ const SellingProducts = (props) => {
           }
         ></ContentCard>
         <div className=" text-end mb-4">
-          <Button
-            disabled={validator.current.allValid() ? false : true}
-            type="submit"
-            className="btn-sm btn-orange rounded-pill px-5"
-          >
+          <Button type="submit" className="btn-sm btn-orange rounded-pill px-5">
             Jual
           </Button>
         </div>

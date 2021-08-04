@@ -2,7 +2,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Container, InputGroup, NotFound, buttonItemRender, Button } from '../../../components/base/index';
 import { ContentCard } from '../../../components/module/index';
-import { getProducts } from '../ConsumeApi';
 import { getStoreProducts } from '../../../configs/redux/actions/storeAction';
 import { deleteProduct } from '../../../configs/redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -84,8 +83,13 @@ const MyProducts = () => {
     }).then(async (value) => {
       if (value) {
         await dispatch(deleteProduct(id));
-        const { data } = await (await getProducts(search.allItems, order, fieldOrder, 10, page)).data;
-        setProductAllItems(data);
+        dispatch(getStoreProducts('STORE_PRODUCTS', search.allItems, order, fieldOrder, limit.allItems, page));
+        if (storeProducts.data) {
+          setProductAllItems(storeProducts.data);
+        }
+        if (storeProducts.pagination) {
+          setPagination(storeProducts.pagination);
+        }
         swal('Success', 'Data deleted successfully', 'success');
       }
     });
