@@ -10,6 +10,7 @@ const InputCheck = (props) => {
           value={props.value}
           name={props.name}
           id={props.id}
+          onBlur={props.onBlur}
           onChange={props.onClick}
           checked={props.defaultChecked === props.value ? true : false}
         />
@@ -21,6 +22,7 @@ const InputCheck = (props) => {
           value={props.value}
           name={props.name}
           id={props.id}
+          onBlur={props.onBlur}
           onChange={props.onClick}
         />
       )}

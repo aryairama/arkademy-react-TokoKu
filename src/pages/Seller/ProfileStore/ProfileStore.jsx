@@ -6,6 +6,7 @@ import { getDetailStore, updateProfileStore } from '../../../configs/redux/actio
 import { useSelector, useDispatch } from 'react-redux';
 import SimpleReactValidator from 'simple-react-validator';
 import swal from 'sweetalert';
+import defaultProfile from '../../../assets/img/profile/current_profile.png'
 
 const ProfileStore = () => {
   const validator = useRef(
@@ -189,17 +190,42 @@ const ProfileStore = () => {
                     })
                   }
                 />
-                <img
-                  className=" rounded-circle"
-                  src={
-                    userProfile.avatar
-                      ? URL.createObjectURL(userProfile.avatar)
-                      : `${process.env.REACT_APP_API_URL}/${user.avatar}`
-                  }
-                  width="110px"
-                  height="110px"
-                  alt="current-profile"
-                />
+                {user.avatar && user.avatar.length > 10 && !userProfile.avatar && (
+                  <img
+                    className=" rounded-circle"
+                    src={`${process.env.REACT_APP_API_URL}/${user.avatar}`}
+                    width="110px"
+                    height="110px"
+                    alt="current-profile"
+                  />
+                )}
+                {userProfile.avatar && !user.avatar && (
+                  <img
+                    className=" rounded-circle"
+                    src={URL.createObjectURL(userProfile.avatar)}
+                    width="110px"
+                    height="110px"
+                    alt="current-profile"
+                  />
+                )}
+                {!userProfile.avatar && !user.avatar && (
+                  <img
+                    className=" rounded-circle"
+                    src={defaultProfile}
+                    width="110px"
+                    height="110px"
+                    alt="current-profile"
+                  />
+                )}
+                {userProfile.avatar && user.avatar && (
+                  <img
+                    className=" rounded-circle"
+                    src={URL.createObjectURL(userProfile.avatar)}
+                    width="110px"
+                    height="110px"
+                    alt="current-profile"
+                  />
+                )}
                 {backendError.avatar && <div className="small text-danger">{backendError.avatar}</div>}
                 <label htmlFor="avatar" className="btn btn-outline-orange rounded-pill mt-2">
                   Select image
