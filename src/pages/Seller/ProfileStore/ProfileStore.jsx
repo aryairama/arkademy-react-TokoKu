@@ -108,7 +108,7 @@ const ProfileStore = () => {
                   <input
                     type="email"
                     className={`form-control ${
-                      !validator.current.fieldValid('email') && !validator.current.allValid() ? 'is-invalid' : ''
+                      !validator.current.check(userProfile.email, 'email') ? 'is-invalid' : ''
                     }`}
                     id="email"
                     name="email"
@@ -127,7 +127,9 @@ const ProfileStore = () => {
                   <input
                     type="text"
                     className={`form-control ${
-                      !validator.current.fieldValid('phone_number') && !validator.current.allValid() ? 'is-invalid' : ''
+                      !validator.current.check(userProfile.phone_number, 'required|min:10|max:15|numeric')
+                        ? 'is-invalid'
+                        : ''
                     }`}
                     id="phone_number"
                     name="phone_number"
@@ -148,9 +150,7 @@ const ProfileStore = () => {
                 <div className="col-sm-9">
                   <textarea
                     className={`form-control ${
-                      !validator.current.fieldValid('store_description') && !validator.current.allValid()
-                        ? 'is-invalid'
-                        : ''
+                      !validator.current.check(userProfile.store_description, 'required|min:10') ? 'is-invalid' : ''
                     }`}
                     name="store_description"
                     id="store_description"
