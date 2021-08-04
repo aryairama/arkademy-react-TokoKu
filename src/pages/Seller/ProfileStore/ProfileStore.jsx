@@ -29,7 +29,7 @@ const ProfileStore = () => {
     email: '',
   };
   const [userProfile, setUserProfile] = useState(initialization);
-  const [backendError,setBackendError] =useState({})
+  const [backendError, setBackendError] = useState({});
   const changeHandler = (e) => {
     setUserProfile((oldValue) => {
       return { ...oldValue, [e.target.name]: e.target.value };
@@ -58,7 +58,7 @@ const ProfileStore = () => {
         document.querySelector('.main-panel').scrollTo(0, 0);
         setBackendError({
           avatar: '',
-          email : ''
+          email: '',
         });
         setBackendError((oldValue) => {
           const inputError = {};
@@ -90,7 +90,7 @@ const ProfileStore = () => {
                   <input
                     type="text"
                     className={`form-control ${
-                      validator.current.fieldValid('store_name') === false? 'is-invalid' : ''
+                      !validator.current.check(userProfile.store_name, 'required|min:5|max:255') ? 'is-invalid' : ''
                     }`}
                     id="store_name"
                     name="store_name"
