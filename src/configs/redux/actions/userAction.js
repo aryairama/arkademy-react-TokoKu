@@ -27,6 +27,8 @@ export const logout = (history) => async (dispatch, getState) => {
       },
     });
     dispatch({ type: 'LOGOUT', payload: {} });
+    dispatch({ type: 'ADD_CART', payload: [] });
+    dispatch({ type: 'TOTAL', payload: 0 });
     history.push('/auth/login');
   } catch (error) {
     swal('Error', 'Logout failed', 'error');

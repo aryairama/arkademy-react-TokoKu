@@ -25,6 +25,8 @@ axiosConfig.interceptors.response.use(
         return axiosConfig(originalRequest);
       } catch (error) {
         store.dispatch({ type: 'LOGOUT', payload: {} });
+        store.dispatch({ type: 'ADD_CART', payload: [] });
+        store.dispatch({ type: 'TOTAL', payload: 0 });
       }
     }
     return Promise.reject(error);
