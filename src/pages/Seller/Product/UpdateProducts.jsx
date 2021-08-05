@@ -13,7 +13,7 @@ import { ContentCard } from '../../../components/module/index';
 import { getCategories } from '../../../configs/redux/actions/categoryAction';
 import { useSelector, useDispatch } from 'react-redux';
 import { getColors } from '../../../configs/redux/actions/colorAction';
-import { updateProduct,getDetailProduct } from '../../../configs/redux/actions/productAction';
+import { updateProduct, getDetailProduct } from '../../../configs/redux/actions/productAction';
 import { Editor } from '@tinymce/tinymce-react';
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
@@ -24,7 +24,7 @@ const UpdateProducts = (props) => {
   const {
     color: { colors },
     category: { categories: dataCategories },
-    product:{ detailProduct },
+    product: { detailProduct },
   } = useSelector((state) => state);
   const { id } = useParams();
   const [, forceUpdate] = useState();
@@ -56,8 +56,8 @@ const UpdateProducts = (props) => {
   };
   useEffect(async () => {
     dispatch(getColors('', 'ASC', 'ADD_COLORS', '', '', 'off'));
-    dispatch(getCategories('', 'DESC', 'CATEGORIES','','','off'));
-    dispatch(getDetailProduct(id))
+    dispatch(getCategories('', 'DESC', 'CATEGORIES', '', '', 'off'));
+    dispatch(getDetailProduct(id));
   }, []);
   useEffect(() => {
     if (dataCategories.data) {
@@ -82,7 +82,7 @@ const UpdateProducts = (props) => {
         };
       });
     }
-  }, [dataCategories.data,detailProduct]);
+  }, [dataCategories.data, detailProduct]);
   const colorsHandler = (e) => {
     const options = formData.colors;
     let index;
@@ -113,7 +113,7 @@ const UpdateProducts = (props) => {
     try {
       e.preventDefault();
       if (validator.current.allValid()) {
-        await dispatch(updateProduct(formData, id))
+        await dispatch(updateProduct(formData, id));
         swal('Success', 'Data updated successfully', 'success');
         return props.history.push('/seller/myproducts');
       } else {
@@ -122,8 +122,8 @@ const UpdateProducts = (props) => {
         document.querySelector('.main-panel').scrollTo(0, 0);
       }
     } catch (error) {
-      swal('Error', 'Failed to sell product', 'error');
       if (error.response.data.statusCode === 422) {
+        swal('Error', 'Failed to sell product', 'error');
         document.querySelector('.main-panel').scrollTo(0, 0);
         setErrorForm({ ...initializationData, quantity: '', price: '' });
         setErrorForm((oldValue) => {
@@ -133,6 +133,8 @@ const UpdateProducts = (props) => {
           });
           return { ...oldValue, ...inputError };
         });
+      } else if (error.response.data.statusCode === 403 || error.response.data.statusCode) {
+        swal('Error', error.response.data.message, 'error');
       }
     }
   };
@@ -395,7 +397,10 @@ const UpdateProducts = (props) => {
                   ))}
               </div>
               <label className="form-label text-black-50 mt-2">New Img Product</label>
-              <InputImg onChange={setFromData} />
+              <div className={errorFrom.img_product ? 'is-invalid' : 'img_product'}>
+                <InputImg onChange={setFromData} />
+              </div>
+              {errorFrom.img_product && <div className="invalid-feedback">{errorFrom.img_product}</div>}
             </Fragment>
           }
         ></ContentCard>
