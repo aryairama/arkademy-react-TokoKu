@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
-import img from '../../../pages/Home/img';
 const BoxItem = (props) => {
   return (
     <Fragment>
       <div className="card card-body shadow-sm my-2">
         <div className="row align-items-center">
           <div className="col-8 col-sm-8 col-md-8 col-lg-8 d-flex flex-wrap align-items-center">
-            <img className="img-mybag-product rounded-3 me-2" src={img.Product1} alt="logo-product" />
+            <img className="img-mybag-product rounded-3 me-2" src={props.imgProduct} alt="logo-product" />
             <div className="mybag-product-header">
               <p className="card-product-title">{props.name}</p>
               <p className="card-product-brand mt-n3">{props.brand}</p>

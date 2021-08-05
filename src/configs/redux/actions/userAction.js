@@ -66,3 +66,28 @@ export const updateProfile = (data) => async (dispatch, getState) => {
   });
   return sendData;
 };
+
+export const register = (data, history) => async (dispatch, getState) => {
+  try {
+    if (data.roles === 'seller') {
+      await axios.post('/users/register/seller', {
+        name: data.name,
+        store_name: data.storeName,
+        password: data.password,
+        email: data.email,
+        phone_number: data.phoneNumber,
+      });
+    } else if (data.roles === 'custommer') {
+      await axios.post('/users/register/custommer', data);
+    }
+    swal('Success', 'Register successful', 'success');
+    history.push('/checkemail');
+  } catch (error) {
+    if (error.response.data.statusCode === 422) {
+      swal('Error', error.response.data.error[0].msg, 'error');
+    } else {
+      swal('Error', 'Register failed', 'error');
+    }
+  }
+  dispatch({ type: 'REQUEST' });
+};

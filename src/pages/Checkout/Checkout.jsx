@@ -12,8 +12,12 @@ import ModalHeader from '../../components/ModalFilter/Header';
 import ModalBody from '../../components/ModalFilter/Body';
 import ModalFooter from '../../components/ModalFilter/Footer';
 import '../../assets/css/checkout.css';
+import { useSelector } from 'react-redux';
 
 const Checkout = () => {
+  const {
+    cart: { carts, total },
+  } = useSelector((state) => state);
   const refModalFilter = useRef(null);
   const refModalPayment = useRef(null);
   const refModalAddress = useRef(null);
@@ -75,15 +79,22 @@ const Checkout = () => {
               }
             />
             {/* start myBag */}
-            <BoxItem name="Men's Jacket jeans" brand="Zalora Cloth" price="150000" />
-            <BoxItem name="Men's Jacket jeans" brand="Zalora Cloth" price="150000" />
+            {carts?.map((cart, index) => (
+              <BoxItem
+                key={index}
+                imgProduct={`${process.env.REACT_APP_API_URL}/${cart.img_products[0].img_product}`}
+                name={cart.name}
+                brand={cart.brand}
+                price={cart.prices}
+              />
+            ))}
           </div>
           <div className="col-md-4">
             <div className="card card-body shadow-sm mt-md-0 mt-4">
               <p className="card-product-title fw-bold">Shopping summary</p>
               <div className="d-flex justify-content-between">
                 <p className="card-product-title text-black-50 lh-1">Order</p>
-                <p className="shopping-summary-total-price lh-1">Rp.300000</p>
+                <p className="shopping-summary-total-price lh-1">Rp.{total}</p>
               </div>
               <div className="d-flex justify-content-between">
                 <p className="card-product-title text-black-50 lh-1">Delivery</p>
@@ -92,7 +103,7 @@ const Checkout = () => {
               <hr className="border-secondary mt-0" />
               <div className="d-flex justify-content-between">
                 <p className="card-product-title fw-bold">Shopping summary</p>
-                <p className="shopping-summary-total-price text-orange lh-1">Rp.340000</p>
+                <p className="shopping-summary-total-price text-orange lh-1">Rp.{total + 40000}</p>
               </div>
               <Button className="btn btn-orange rounded-pill" onClick={modalPaymentShowHandler}>
                 Select payment
