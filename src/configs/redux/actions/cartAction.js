@@ -29,8 +29,6 @@ export const addCart = (dataProduct, history) => async (dispatch, getState) => {
         cart.quantity += dataProduct.quantity;
         cart.prices += dataProduct.quantity * parseInt(detailProduct.price, 10);
         foundProduct = true;
-      } else {
-        foundProduct = false;
       }
     });
   }
@@ -43,7 +41,7 @@ export const addCart = (dataProduct, history) => async (dispatch, getState) => {
     totalPrice += updateCart.prices;
   });
   dispatch({ type: 'TOTAL', payload: totalPrice });
-  swal('Success', 'successful add to cart','success');
+  swal('Success', 'successful add to cart', 'success');
 };
 
 export const incQuantity = (product_id, color_id) => async (dispatch, getState) => {
@@ -108,13 +106,15 @@ export const deleteCart = (carts, allDelete) => async (dispatch, getState) => {
     dispatch({ type: 'TOTAL', payload: 0 });
   } else if (allDelete === false) {
     let totalPrice = 0;
-    const deleteCarts = getState().cart.carts.filter((cart) => {
-      return carts.some((keyCart) => {
-        return !(keyCart.product_id === cart.product_id && keyCart.color_id === cart.color_id);
-      });
+    const { carts: oldCarts } = getState().cart;
+    carts.forEach((cart) => {
+      const index = oldCarts.findIndex(
+        (oldCart) => oldCart.product_id === cart.product_id && oldCart.color_id === cart.color_id
+      );
+      oldCarts.splice(index, 1);
     });
-    dispatch({ type: 'ADD_CART', payload: deleteCarts });
-    getState().cart.carts.forEach((updateCart) => {
+    dispatch({ type: 'ADD_CART', payload: oldCarts });
+    oldCarts.forEach((updateCart) => {
       totalPrice += updateCart.prices;
     });
     dispatch({ type: 'TOTAL', payload: totalPrice });
