@@ -53,7 +53,7 @@ const Body = () => {
                 onClick={paymentHandler}
                 type="radio"
                 className="form-check-input form-check-input-payment"
-                value="pos_ndonesia"
+                value="pos_indonesia"
                 name="payment_method"
               />
             </div>
