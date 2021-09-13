@@ -2,7 +2,21 @@ import React, { Fragment } from 'react';
 import posIndo from '../../assets/img/payment_method/pos_indo.png';
 import mastercard from '../../assets/img/payment_method/mastercard.png';
 import gopay from '../../assets/img/payment_method/gopay.png';
+import { useDispatch, useSelector } from 'react-redux';
+
 const Body = () => {
+  const dispatch = useDispatch();
+  const {
+    cart: { total },
+  } = useSelector((state) => state);
+  const paymentHandler = (e) => {
+    if (e.target.checked) {
+      dispatch({ type: 'SET_PAYMENT', payload: e.target.value });
+      dispatch({ type: 'BTN_BUY', payload: true });
+    } else {
+      dispatch({ type: 'BTN_BUY', payload: false });
+    }
+  };
   return (
     <Fragment>
       <p className="font-semi-bold">Payment method</p>
@@ -17,6 +31,7 @@ const Body = () => {
           <div className="col-4 d-flex justify-content-end">
             <div className="form-check">
               <input
+                onClick={paymentHandler}
                 type="radio"
                 className="form-check-input form-check-input-payment"
                 value="gopay"
@@ -35,6 +50,7 @@ const Body = () => {
           <div className="col-4 d-flex justify-content-end">
             <div className="form-check">
               <input
+                onClick={paymentHandler}
                 type="radio"
                 className="form-check-input form-check-input-payment"
                 value="pos_ndonesia"
@@ -53,6 +69,7 @@ const Body = () => {
           <div className="col-4 d-flex justify-content-end">
             <div className="form-check">
               <input
+                onClick={paymentHandler}
                 type="radio"
                 className="form-check-input form-check-input-payment"
                 value="mastercard"
@@ -67,11 +84,7 @@ const Body = () => {
         <p className="card-product-title fw-bold">Shopping summary</p>
         <div className="d-flex justify-content-between">
           <p className="card-product-title text-black-50 lh-1">Order</p>
-          <p className="shopping-summary-total-price lh-1">Rp.300000</p>
-        </div>
-        <div className="d-flex justify-content-between">
-          <p className="card-product-title text-black-50 lh-1">Delivery</p>
-          <p className="shopping-summary-total-price lh-1">Rp.40000</p>
+          <p className="shopping-summary-total-price lh-1">Rp.{total}</p>
         </div>
       </div>
     </Fragment>

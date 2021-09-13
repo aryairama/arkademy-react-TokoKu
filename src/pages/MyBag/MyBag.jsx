@@ -121,7 +121,7 @@ const MyBag = (props) => {
                         alt="logo-product"
                       />
                       <div className="mybag-product-header ms-3">
-                        <p className="card-product-title">{cart.name}</p>
+                        <p className="card-product-title">{`${cart.name} (${cart.color_name})`}</p>
                         <p className="card-product-brand mt-n3">{cart.brand}</p>
                       </div>
                     </div>

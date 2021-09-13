@@ -1,20 +1,24 @@
 import { NavLink } from 'react-router-dom';
 import profile from '../../../assets/img/profile/1.png';
-import iconPencil from '../../../assets/img/icon/pensil.svg';
 import iconUser from '../../../assets/img/icon/user.svg';
 import iconMap from '../../../assets/img/icon/map.svg';
 import iconClipboard from '../../../assets/img/icon/clipboard.svg';
+import { useSelector } from 'react-redux';
+
 const SidebarCustommer = (props) => {
+  const { user } = useSelector((state) => state.user);
   return (
     <div className="d-flex wrapper flex-nowrap">
       <aside className={`sidebar ps-5 flex-column ${props.sidebarActive ? 'sidebar-active' : ''}`}>
         <div className="user-profile d-flex flex-wrap mb-5">
-          <img src={profile} className="user-profile-img" alt="user-profile-img" />
+          <img
+            src={user?.avatar ? `${process.env.REACT_APP_API_URL}/${user.avatar}` : profile}
+            className="user-profile-img"
+            alt="user-profile-img"
+          />
           <div className="d-flex flex-column ps-3 pt-1">
-            <div className="text-black-16px font-semi-bold">Johanes Mikael</div>
-            <div className="text-black-14px text-black-50">
-              <img src={iconPencil} alt="" /> Ubah profile
-            </div>
+            <div className="text-black-16px font-semi-bold">{user?.name}</div>
+            <div className="text-black-14px text-black-50">{user?.roles}</div>
           </div>
         </div>
         <div>

@@ -14,7 +14,7 @@ import ModalFooter from '../../components/ModalFilter/Footer';
 import '../../assets/css/checkout.css';
 import { useSelector } from 'react-redux';
 
-const Checkout = () => {
+const Checkout = (props) => {
   const {
     cart: { carts, total },
   } = useSelector((state) => state);
@@ -40,6 +40,9 @@ const Checkout = () => {
       setModalPayment(new Modal(refModalPayment.current, { backdrop: 'static' }));
       setModalAddress(new Modal(refModalAddress.current, { backdrop: 'static' }));
       setModalAddAddress(new Modal(refModalAddAddress.current, { backdrop: 'static' }));
+      if (carts.length < 1) {
+        props.history.push('/mybag');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +86,7 @@ const Checkout = () => {
               <BoxItem
                 key={index}
                 imgProduct={`${process.env.REACT_APP_API_URL}/${cart.img_products[0].img_product}`}
-                name={cart.name}
+                name={`${cart.name} (${cart.color_name})`}
                 brand={cart.brand}
                 price={cart.prices}
               />
@@ -96,16 +99,20 @@ const Checkout = () => {
                 <p className="card-product-title text-black-50 lh-1">Order</p>
                 <p className="shopping-summary-total-price lh-1">Rp.{total}</p>
               </div>
-              <div className="d-flex justify-content-between">
+              {/* <div className="d-flex justify-content-between">
                 <p className="card-product-title text-black-50 lh-1">Delivery</p>
                 <p className="shopping-summary-total-price lh-1">Rp.40000</p>
-              </div>
+              </div> */}
               <hr className="border-secondary mt-0" />
               <div className="d-flex justify-content-between">
                 <p className="card-product-title fw-bold">Shopping summary</p>
-                <p className="shopping-summary-total-price text-orange lh-1">Rp.{total + 40000}</p>
+                <p className="shopping-summary-total-price text-orange lh-1">Rp.{total}</p>
               </div>
-              <Button className="btn btn-orange rounded-pill" onClick={modalPaymentShowHandler}>
+              <Button
+                disabled={carts.length < 1 ? true : false}
+                className="btn btn-orange rounded-pill"
+                onClick={modalPaymentShowHandler}
+              >
                 Select payment
               </Button>
             </div>
@@ -133,7 +140,7 @@ const Checkout = () => {
           styleFooter="justify-content-around"
           header={<ModalPaymentHeader onClickClosePayment={modalPaymentHideHandler} />}
           body={<ModalPaymentBody />}
-          footer={<ModalPaymentFooter />}
+          footer={<ModalPaymentFooter onClickClosePayment={modalPaymentHideHandler} />}
         />,
         document.getElementById('modal-root')
       )}

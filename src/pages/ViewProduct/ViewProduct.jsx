@@ -24,6 +24,7 @@ const ViewProduct = (props) => {
     color_id: 0,
     brand: '',
     img_product: '',
+    color_name: '',
   });
   const handlerQuantity = (e) => {
     setProduct((oldValue) => {
@@ -31,8 +32,9 @@ const ViewProduct = (props) => {
     });
   };
   const handlerChange = (e) => {
+    const color = detailProduct.colors.find((color) => color.color_id === parseInt(e.target.value, 10));
     setProduct((oldValue) => {
-      return { ...oldValue, [e.target.name]: e.target.value };
+      return { ...oldValue, [e.target.name]: e.target.value, color_name: color.color_name };
     });
   };
   useEffect(() => {
