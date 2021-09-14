@@ -55,10 +55,11 @@ const UpdateProducts = (props) => {
     });
   };
   useEffect(async () => {
+    dispatch({ type: 'DETAIL_PRODUCT', payload: {} });
     dispatch(getColors('', 'ASC', 'ADD_COLORS', '', '', 'off'));
     dispatch(getCategories('', 'DESC', 'CATEGORIES', '', '', 'off'));
     dispatch(getDetailProduct(id));
-  }, []);
+  }, [id]);
   useEffect(() => {
     if (dataCategories.data) {
       setCategories((oldValue) =>
@@ -82,7 +83,7 @@ const UpdateProducts = (props) => {
         };
       });
     }
-  }, [dataCategories.data, detailProduct]);
+  }, [dataCategories.data, detailProduct, id]);
   const colorsHandler = (e) => {
     const options = formData.colors;
     let index;
