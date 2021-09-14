@@ -56,9 +56,9 @@ const UpdateProducts = (props) => {
   };
   useEffect(async () => {
     dispatch({ type: 'DETAIL_PRODUCT', payload: {} });
-    dispatch(getColors('', 'ASC', 'ADD_COLORS', '', '', 'off'));
-    dispatch(getCategories('', 'DESC', 'CATEGORIES', '', '', 'off'));
-    dispatch(getDetailProduct(id));
+    await dispatch(getColors('', 'ASC', 'ADD_COLORS', '', '', 'off'));
+    await dispatch(getCategories('', 'DESC', 'CATEGORIES', '', '', 'off'));
+    await dispatch(getDetailProduct(id));
   }, [id]);
   useEffect(() => {
     if (dataCategories.data) {
