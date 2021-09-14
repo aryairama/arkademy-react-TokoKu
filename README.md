@@ -1,5 +1,6 @@
 This is a [React js](https://reactjs.org/) project bootstrapped with [`create-react-app`](https://github.com/facebook/create-react-app).
 
+[Demo application](https://bit.ly/3Cb3BSv)
 ## Contents
 
 - [Contents](#contents)
@@ -88,14 +89,14 @@ npm install
 
 ## Screenshots
 
-<p align="center">
-  <span>
-   <img src="https://drive.google.com/uc?export=view&id=1wai_VSv2T_vlkMRQyQ7SP-FAjipamPvk"   alt= border="0" /> <br/><br/><br/><br/>
-   <img src="https://drive.google.com/uc?export=view&id=1QtCaAWktbkPctcThSo_HYPeCWBBeiWKa"   alt= border="0" /> <br/><br/><br/><br/>
-   <img src="https://drive.google.com/uc?export=view&id=1fSH27CSGlztezMXmA4JO5Z4kPrYPBpdl"   alt= border="0" /> <br/><br/><br/><br/>
-   <img src="https://drive.google.com/uc?export=view&id=1QBH8ixxQDGfQwghmxNAjEf-UMNj1l24f"   alt= border="0" /> <br/><br/><br/><br/>
-  </span>
-</p>
+<div align="center">
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1wai_VSv2T_vlkMRQyQ7SP-FAjipamPvk" alt= border="0" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1QtCaAWktbkPctcThSo_HYPeCWBBeiWKa" alt= border="0" /> 
+</div>
+<div align="center">
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1fSH27CSGlztezMXmA4JO5Z4kPrYPBpdl" alt= border="0" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1QBH8ixxQDGfQwghmxNAjEf-UMNj1l24f" alt= border="0" />
+</div>
 
 ## Author
 
