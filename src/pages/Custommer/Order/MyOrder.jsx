@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useState, useEffect } from 'react';
-import { Container, InputGroup, Button, NotFound, buttonItemRender } from '../../../components/base';
+import { Container, InputGroup, NotFound, buttonItemRender } from '../../../components/base';
 import { ContentCard } from '../../../components/module';
 import iconNotfound from '../../../assets/img/icon/undraw_opinion_dxp8_1.svg';
 import arrowUpDOwn from '../../../assets/img/icon/arrow_up_down.svg';
@@ -267,7 +267,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/seller/updateproducts/${value.product_id}`}
+                                to={`/custommer/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -371,7 +371,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/seller/updateproducts/${value.product_id}`}
+                                to={`/custommer/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -464,7 +464,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/seller/updateproducts/${value.product_id}`}
+                                to={`/custommer/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -562,7 +562,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/seller/updateproducts/${value.product_id}`}
+                                to={`/custommer/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -660,7 +660,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/seller/updateproducts/${value.product_id}`}
+                                to={`/custommer/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View

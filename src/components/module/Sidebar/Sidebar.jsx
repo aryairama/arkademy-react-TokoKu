@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation,Link } from 'react-router-dom';
 import profile from '../../../assets/img/profile/1.png';
 import iconHome from '../../../assets/img/icon/home.svg';
 import iconPackage from '../../../assets/img/icon/package.svg';
@@ -21,6 +21,11 @@ const Sidebar = (props) => {
             <div className="text-black-16px font-semi-bold">{user?.name}</div>
             <div className="text-black-14px text-black-50">{user?.roles}</div>
           </div>
+          {user.roles === 'seller' && (
+            <Link to="/custommer/profile" className="badge bg-secondary mt-3 text-white text-decoration-none">
+              Switch Dashboard Custommer
+            </Link>
+          )}
         </div>
         <div>
           <ul className="sidebar-menu">

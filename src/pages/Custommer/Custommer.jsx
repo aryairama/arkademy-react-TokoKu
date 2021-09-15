@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom';
 import Address from './Address/Address';
 import MyOrder from './Order/MyOrder';
 import Profile from './Profile/Profile';
+import OrderDetail from './Order/OrderDetail';
 import { Header as ModalHeader, Body as ModalBody, Footer as ModalFooter } from '../../components/ModalFilter/Index';
 import {
   Navbar,
@@ -49,7 +50,8 @@ const Seller = (prop) => {
         <Switch>
           <PrivateRoute roles={['custommer', 'seller']} path="/custommer/profile" component={Profile} />
           <PrivateRoute roles={['custommer', 'seller']} path="/custommer/address" component={Address} />
-          <PrivateRoute roles={['custommer', 'seller']} path="/custommer/myorder" component={MyOrder} />
+          <PrivateRoute exact roles={['custommer', 'seller']} path="/custommer/myorder" component={MyOrder} />
+          <PrivateRoute roles={['custommer', 'seller']} path="/custommer/myorder/:id" component={OrderDetail} />
           <Route
             component={() => {
               return <p> Page Not Found</p>;

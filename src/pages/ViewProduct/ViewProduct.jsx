@@ -43,6 +43,9 @@ const ViewProduct = (props) => {
   }, [id]);
   useEffect(() => {
     if (Object.keys(detailProduct).length > 0) {
+      if (detailProduct.quantity < 1) {
+        props.history.push('/')
+      }
       dispatch(paginationProductsById(detailProduct.category_id, page));
     }
   }, [page]);
@@ -83,12 +86,12 @@ const ViewProduct = (props) => {
               price={detailProduct.price}
               colors={detailProduct.colors}
             />
-            <div className="product-button-action d-flex  justify-content-around mt-lg-5 mt-4">
-              <button className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2">Chat</button>
+            <div className="product-button-action d-flex  justify-content-end mt-lg-5 mt-4">
+              {/* <button className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2">Chat</button> */}
               <button
                 onClick={() => dispatch(addCart(product, props.history))}
                 disabled={disableBuyProduct()}
-                className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2"
+                className="btn btn-sm btn-outline-orange rounded-pill w-25 py-md-2 mx-3"
               >
                 Add bag
               </button>

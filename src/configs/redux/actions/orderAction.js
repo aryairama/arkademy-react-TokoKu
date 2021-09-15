@@ -42,3 +42,37 @@ export const getOrderAll =
       console.log(error);
     }
   };
+
+export const getOrderDetail = (id, history) => async (dispatch, getState) => {
+  try {
+    const data = await (
+      await axios.get(`/orders/detail/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getState().user.user.accessToken}`,
+        },
+      })
+    ).data;
+    return data;
+  } catch (error) {
+    history.push('/custommer/myorder');
+    swal('Error', error?.response?.data?.message, 'error');
+  }
+};
+
+export const updateOrderStatus = (order_id, status) => async (dispatch, getState) => {
+  try {
+    await axios.patch(
+      `/orders/${order_id}`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${getState().user.user.accessToken}`,
+        },
+      }
+    );
+    swal('Success', 'Successfully updated order status', 'success');
+  } catch (error) {
+    swal('Error', error?.response?.data?.message, 'error');
+    console.log(error);
+  }
+};
