@@ -43,6 +43,26 @@ export const getOrderAll =
     }
   };
 
+  export const getOrderStoreAll =
+    (status, search = '', order, fieldOrder, limit, page) =>
+    async (dispatch, getState) => {
+      try {
+        const data = await (
+          await axios.get(
+            `/orders/orderstore?search=${search}&order=${order}&fieldOrder=${fieldOrder}&limit=${limit}&page=${page}&status=${status}`,
+            {
+              headers: {
+                Authorization: `Bearer ${getState().user.user.accessToken}`,
+              },
+            }
+          )
+        ).data;
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
 export const getOrderDetail = (id, history) => async (dispatch, getState) => {
   try {
     const data = await (
