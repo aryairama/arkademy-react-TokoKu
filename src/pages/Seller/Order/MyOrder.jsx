@@ -267,7 +267,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/custommer/myorder/${value.order_id}`}
+                                to={`/seller/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -384,7 +384,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/custommer/myorder/${value.order_id}`}
+                                to={`/seller/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -477,7 +477,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/custommer/myorder/${value.order_id}`}
+                                to={`/seller/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -575,7 +575,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/custommer/myorder/${value.order_id}`}
+                                to={`/seller/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View
@@ -673,7 +673,7 @@ const MyOrder = () => {
                             <td>{moment(value.created_at).format('llll')}</td>
                             <td>
                               <Link
-                                to={`/custommer/myorder/${value.order_id}`}
+                                to={`/seller/myorder/${value.order_id}`}
                                 className="btn btn-sm btn-outline-orange mx-1 text-decoration-none"
                               >
                                 View

@@ -6,6 +6,7 @@ import UpdateProducts from './Product/UpdateProducts';
 import ProfileStore from './ProfileStore/ProfileStore';
 import MyOrder from './Order/MyOrder';
 import MyOrderCancel from './Order/MyOrderCancel';
+import OrderDetail from '../Seller/Order/OrderDetail';
 import { Navbar, SideNavbar, SidebarButton, Sidebar } from '../../components/module/index';
 import PrivateRoute from '../../configs/midlleware/PrivateRoute';
 import logoTokoKu from '../../assets/img/icon/Vector.svg';
@@ -33,7 +34,8 @@ const Seller = (prop) => {
           <PrivateRoute roles={['seller']} path="/seller/sellingproducts" component={SellingProducts} />
           <PrivateRoute roles={['seller']} path="/seller/updateproducts/:id" component={UpdateProducts} />
           <PrivateRoute roles={['seller']} path="/seller/profilestore" component={ProfileStore} />
-          <PrivateRoute roles={['seller']} path="/seller/myorder" component={MyOrder} />
+          <PrivateRoute exact roles={['seller']} path="/seller/myorder" component={MyOrder} />
+          <PrivateRoute roles={['seller']} path="/seller/myorder/:id" component={OrderDetail} />
           <PrivateRoute roles={['seller']} path="/seller/myordercancel" component={MyOrderCancel} />
           <Route
             component={() => {

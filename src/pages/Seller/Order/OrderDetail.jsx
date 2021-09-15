@@ -15,13 +15,13 @@ const OrderDetail = (props) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(async () => {
-    const data = await dispatch(getOrderDetail(id, props.history, '/custommer/myorder'));
+    const data = await dispatch(getOrderDetail(id, props.history, '/seller/myorder'));
     setOrderDetail(data);
   }, [id, reload]);
   useEffect(() => {
     if (Object.keys(orderDetail).length > 0) {
-      if (user.user_id !== orderDetail.user_id) {
-        props.history.push('/custommer/myorder');
+      if (user.store_id !== orderDetail.store_id) {
+        props.history.push('/seller/myorder');
       }
       if (orderDetail.status === 'submit' || orderDetail.status === 'processed' || orderDetail.status === 'sent') {
         setCancel(true);
@@ -80,20 +80,58 @@ const OrderDetail = (props) => {
                         </ul>
                       </td>
                     </tr>
-                    {cancel && (
+                    {!(orderDetail.status === 'completed' || orderDetail.status === 'cancel') && (
                       <tr>
                         <td>Action</td>
                         <td className="text-center">
-                          <div
-                            onClick={async () => {
-                              await dispatch(updateOrderStatus(orderDetail.order_id, 'cancel'));
-                              setReload(!reload);
-                            }}
-                            style={{ cursor: 'pointer' }}
-                            className="badge bg-danger p-2"
-                          >
-                            Cancel
-                          </div>
+                          {cancel && (
+                            <div
+                              onClick={async () => {
+                                await dispatch(updateOrderStatus(orderDetail.order_id, 'cancel'));
+                                setReload(!reload);
+                              }}
+                              style={{ cursor: 'pointer' }}
+                              className="badge bg-danger p-2 mx-2"
+                            >
+                              Cancel
+                            </div>
+                          )}
+                          {orderDetail.status === 'submit' && (
+                            <div
+                              onClick={async () => {
+                                await dispatch(updateOrderStatus(orderDetail.order_id, 'processed'));
+                                setReload(!reload);
+                              }}
+                              style={{ cursor: 'pointer' }}
+                              className="badge bg-orange p-2 mx-2"
+                            >
+                              Processed
+                            </div>
+                          )}
+                          {orderDetail.status === 'processed' && (
+                            <div
+                              onClick={async () => {
+                                await dispatch(updateOrderStatus(orderDetail.order_id, 'sent'));
+                                setReload(!reload);
+                              }}
+                              style={{ cursor: 'pointer' }}
+                              className="badge bg-primary p-2 mx-2"
+                            >
+                              Sent
+                            </div>
+                          )}
+                          {orderDetail.status === 'sent' && (
+                            <div
+                              onClick={async () => {
+                                await dispatch(updateOrderStatus(orderDetail.order_id, 'completed'));
+                                setReload(!reload);
+                              }}
+                              style={{ cursor: 'pointer' }}
+                              className="badge bg-success p-2 mx-2"
+                            >
+                              Completed
+                            </div>
+                          )}
                         </td>
                       </tr>
                     )}

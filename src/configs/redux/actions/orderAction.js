@@ -43,27 +43,27 @@ export const getOrderAll =
     }
   };
 
-  export const getOrderStoreAll =
-    (status, search = '', order, fieldOrder, limit, page) =>
-    async (dispatch, getState) => {
-      try {
-        const data = await (
-          await axios.get(
-            `/orders/orderstore?search=${search}&order=${order}&fieldOrder=${fieldOrder}&limit=${limit}&page=${page}&status=${status}`,
-            {
-              headers: {
-                Authorization: `Bearer ${getState().user.user.accessToken}`,
-              },
-            }
-          )
-        ).data;
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    };
+export const getOrderStoreAll =
+  (status, search = '', order, fieldOrder, limit, page) =>
+  async (dispatch, getState) => {
+    try {
+      const data = await (
+        await axios.get(
+          `/orders/orderstore?search=${search}&order=${order}&fieldOrder=${fieldOrder}&limit=${limit}&page=${page}&status=${status}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getState().user.user.accessToken}`,
+            },
+          }
+        )
+      ).data;
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-export const getOrderDetail = (id, history) => async (dispatch, getState) => {
+export const getOrderDetail = (id, history, urlRedirect) => async (dispatch, getState) => {
   try {
     const data = await (
       await axios.get(`/orders/detail/${id}`, {
@@ -74,7 +74,7 @@ export const getOrderDetail = (id, history) => async (dispatch, getState) => {
     ).data;
     return data;
   } catch (error) {
-    history.push('/custommer/myorder');
+    history.push(urlRedirect);
     swal('Error', error?.response?.data?.message, 'error');
   }
 };
