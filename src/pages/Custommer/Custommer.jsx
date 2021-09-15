@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useState, useRef, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
 import Address from './Address/Address';
@@ -54,7 +54,7 @@ const Seller = (prop) => {
           <PrivateRoute roles={['custommer', 'seller']} path="/custommer/myorder/:id" component={OrderDetail} />
           <Route
             component={() => {
-              return <p> Page Not Found</p>;
+              return <Redirect to="/404" />;
             }}
           />
         </Switch>

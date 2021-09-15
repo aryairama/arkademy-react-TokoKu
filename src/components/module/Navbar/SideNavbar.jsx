@@ -1,6 +1,7 @@
 import { Link, useHistory } from 'react-router-dom';
-import bell from '../../../assets/img/icon/lonceng.svg';
-import mail from '../../../assets/img/icon/mail.svg';
+// import bell from '../../../assets/img/icon/lonceng.svg';
+// import mail from '../../../assets/img/icon/mail.svg';
+import cart from '../../../assets/img/icon/keranjang.svg';
 import imgProfile from '../../../assets/img/profile/1.png';
 import iconNavbar from '../../../assets/img/icon/list.svg';
 import { Button } from '../../base';
@@ -16,11 +17,14 @@ const SideNavbar = (props) => {
     <div className="row flex-grow-1 flex-wrap">
       <div className="offset-md-2 col-10 d-flex justify-content-md-end justify-content-start align-items-center">
         <Link to="/mybag" className="btn-icon mx-3">
+          <img src={cart} alt="icon-bell" />
+        </Link>
+        {/* <Link to="/mybag" className="btn-icon mx-3">
           <img src={bell} alt="icon-bell" />
         </Link>
         <Link to="/mybag" className="btn-icon mx-3">
           <img src={mail} alt="icon-mail" />
-        </Link>
+        </Link> */}
         <div className="btn-icon mx-3 dropdown">
           <img
             data-bs-toggle="dropdown"

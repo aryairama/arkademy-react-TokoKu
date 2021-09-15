@@ -1,6 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
-import bell from '../../../assets/img/icon/lonceng.svg';
-import mail from '../../../assets/img/icon/mail.svg';
+// import bell from '../../../assets/img/icon/lonceng.svg';
+// import mail from '../../../assets/img/icon/mail.svg';
 import cart from '../../../assets/img/icon/keranjang.svg';
 import imgProfile from '../../../assets/img/profile/1.png';
 import { useSelector } from 'react-redux';
@@ -18,12 +18,12 @@ const NavbarAuthRight = (props) => {
         <Link to="/mybag" className="btn-icon mx-3">
           <img src={cart} alt="icon-bell" />
         </Link>
-        <Link to="/" className="btn-icon mx-3">
+        {/* <Link to="/" className="btn-icon mx-3">
           <img src={bell} alt="icon-mail" />
         </Link>
         <Link to="/" className="btn-icon mx-3">
           <img src={mail} alt="icon-mail" />
-        </Link>
+        </Link> */}
         <div className="btn-icon mx-3 dropdown">
           <img
             width="32px"

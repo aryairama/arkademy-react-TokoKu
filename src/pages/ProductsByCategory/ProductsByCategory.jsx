@@ -26,7 +26,7 @@ const ProductsByCategory = (props) => {
     <Fragment>
       <Container className="mt-10 ps-4">
         <Breadcrumb
-          url={['/', '/category', `/category/${detailCategory.category_id}`]}
+          url={['/', '/', `/category/${detailCategory.category_id}`]}
           textUrl={['Home', 'Category', detailCategory.name]}
         />
       </Container>

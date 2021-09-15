@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Breadcrumb, ProductCard, ProductCardLayout, buttonItemRender } from '../../components/base/index';
 import { ProductGallery, ProductDetail, ProductDescription } from '../../components/module/index';
@@ -66,7 +66,7 @@ const ViewProduct = (props) => {
     <Fragment>
       <Container className="mt-10">
         <Breadcrumb
-          url={['/', '/category', `/category/${detailProduct.category_id}`]}
+          url={['/', '/', `/category/${detailProduct.category_id}`]}
           textUrl={['Home', 'Category', detailProduct.category_name]}
         />
       </Container>
@@ -95,9 +95,9 @@ const ViewProduct = (props) => {
               >
                 Add bag
               </button>
-              <button disabled={disableBuyProduct()} className="btn btn-sm btn-orange rounded-pill w-40 py-md-2">
-                Buy Now
-              </button>
+              <Link to="/mybag" className="btn btn-sm btn-orange rounded-pill w-40 py-md-2">
+                Open Cart
+              </Link>
             </div>
           </div>
           <div className="col-md-12 mt-5">

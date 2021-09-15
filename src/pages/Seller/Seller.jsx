@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import MyProducts from '../Seller/Product/MyProducts';
 import SellingProducts from './Product/SellingProducts';
 import UpdateProducts from './Product/UpdateProducts';
@@ -37,7 +37,7 @@ const Seller = (prop) => {
           <PrivateRoute roles={['seller']} path="/seller/myordercancel" component={MyOrderCancel} />
           <Route
             component={() => {
-              return <p> Page Not Found</p>;
+              return <Redirect to="/404" />;
             }}
           />
         </Switch>

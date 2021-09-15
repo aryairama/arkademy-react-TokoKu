@@ -12,6 +12,7 @@ import { Route, Switch } from 'react-router-dom';
 import PublicRoute from './configs/midlleware/PublicRoute';
 import PrivateRoute from './configs/midlleware/PrivateRoute';
 import CheckEmail from './pages/Auth/Register/CheckEmail';
+import NotFound from './pages/NotFound/NotFound';
 
 function App(props) {
   return (
@@ -27,11 +28,7 @@ function App(props) {
         <PrivateRoute roles={['custommer', 'seller']} path="/checkout" component={Checkout} />
         <Route path="/verifemailregister" component={VerifRegisterEmail} />
         <Route path="/checkemail" component={CheckEmail} />
-        <Route
-          component={() => {
-            return <p> Page Not Found</p>;
-          }}
-        />
+        <Route component={NotFound} />
       </Switch>
     </Fragment>
   );
