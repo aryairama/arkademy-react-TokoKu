@@ -5,11 +5,32 @@ import { ContentCard, Modal as MyModal } from '../../../components/module/index'
 import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
 import { ModalAddAddressHeader, ModalAddAddressBody, ModalAddAddressFooter } from '../../../components/ModalAddAddress';
+import SimpleReactValidator from 'simple-react-validator';
+
 const Address = () => {
   const refModalAddAddress = useRef(null);
   const [modalAddAddress, setModalAddAddress] = useState(null);
+  const initialInsertState = {
+    primary_address: '0',
+    label: '',
+    recipients_name: '',
+    phone_number: '',
+    city_or_subdistrict: '',
+    address: '',
+    postal_code: '',
+  };
+  const [insertAddress, setInsertAddress] = useState(initialInsertState);
   const modalAddAddressShowHandler = () => modalAddAddress.show();
   const modalAddAddressHideHandler = () => modalAddAddress.hide();
+  const insertAddressHandler = (e) => setInsertAddress((oldVal) => ({ ...oldVal, [e.target.name]: e.target.value }));
+  const validatorInsert = useRef(new SimpleReactValidator({ className: 'small text-danger' }));
+  const insertPrimaryAddressHandler = (e) => {
+    if (e.target.checked) {
+      setInsertAddress((oldVal) => ({ ...oldVal, [e.target.name]: e.target.value }));
+    } else {
+      setInsertAddress((oldVal) => ({ ...oldVal, [e.target.name]: '0' }));
+    }
+  };
   useEffect(async () => {
     try {
       setModalAddAddress(new Modal(refModalAddAddress.current, { backdrop: 'static' }));
@@ -17,6 +38,7 @@ const Address = () => {
       console.log(error);
     }
   }, []);
+
   return (
     <Fragment>
       <Container className="mb-5">
@@ -58,9 +80,33 @@ const Address = () => {
           styleDialog="modal-lg"
           styleBody="px-5 h-min-60vh"
           styleHeader="justify-content-end border-0 mb-3"
-          header={<ModalAddAddressHeader onClickCloseAddAddress={modalAddAddressHideHandler} />}
-          body={<ModalAddAddressBody />}
-          footer={<ModalAddAddressFooter onClickCloseAddAddress={modalAddAddressHideHandler} />}
+          header={
+            <ModalAddAddressHeader
+              initialtState={initialInsertState}
+              validator={validatorInsert}
+              setAddress={setInsertAddress}
+              onClickCloseAddAddress={modalAddAddressHideHandler}
+            />
+          }
+          body={
+            <ModalAddAddressBody
+              initialtState={initialInsertState}
+              address={insertAddress}
+              addressHandler={insertAddressHandler}
+              validator={validatorInsert}
+              setAddress={setInsertAddress}
+              insertPrimaryAddressHandler={insertPrimaryAddressHandler}
+            />
+          }
+          footer={
+            <ModalAddAddressFooter
+              address={insertAddress}
+              initialtState={initialInsertState}
+              validator={validatorInsert}
+              setAddress={setInsertAddress}
+              onClickCloseAddAddress={modalAddAddressHideHandler}
+            />
+          }
         />,
         document.getElementById('modal-root')
       )}

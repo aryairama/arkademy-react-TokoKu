@@ -93,3 +93,18 @@ export const register = (data, history) => async (dispatch, getState) => {
   }
   dispatch({ type: 'REQUEST' });
 };
+
+export const insertAddress = (formData, closeModal) => async (dispatch, getState) => {
+  try {
+    await axios.post('/addresses', formData, {
+      headers: {
+        Authorization: `Bearer ${getState().user.user.accessToken}`,
+      },
+    });
+    closeModal()
+    swal('Success', 'Successfully added address', 'success');
+  } catch (error) {
+    swal('Error', error.response.data.message, 'error');
+    console.log(error);
+  }
+};
