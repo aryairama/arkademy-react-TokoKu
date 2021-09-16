@@ -9,9 +9,9 @@
     <br />
     <a href="https://bit.ly/_tokoku">View Demo</a>
     ·
-    <a href="https://github.com/aryairama/arkademy-express-TokoKu/issues">Report Bug</a>
+    <a href="https://github.com/aryairama/arkademy-react-TokoKu/issues">Report Bug</a>
     ·
-    <a href="https://github.com/aryairama/arkademy-express-TokoKu/issues">Request Feature</a>
+    <a href="https://github.com/aryairama/arkademy-react-TokoKu/issues">Request Feature</a>
   </p>
 </p>
 
@@ -63,11 +63,11 @@ This is an example of how to list things you need to use the software and how to
 
 - Clone This Front End Repo
 ```
-git clone https://github.com/aryairama/arkademy-express-TokoKu.git
+git clone https://github.com/aryairama/arkademy-react-TokoKu.git
 ```
 - Go To Folder Repo
 ```
-cd arkademy-express-TokoKu
+cd arkademy-react-TokoKu
 ```
 - Install Module
 ```
@@ -78,7 +78,7 @@ npm install
 ### Setup .env
 Create .env file in your root project folder.
 ```
-REACT_APP_API_URL =
+REACT_APP_API_URL = [BACKEND_URL]
 ```
 
 <!-- ROADMAP -->
