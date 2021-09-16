@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import SimpleReactValidator from 'simple-react-validator';
 import { getAddress, deleteAddress, setPrimaryAddress } from '../../configs/redux/actions/userAction';
 import { useDispatch } from 'react-redux';
+import swal from 'sweetalert';
 
 const Checkout = (props) => {
   const {
@@ -149,15 +150,18 @@ const Checkout = (props) => {
                 <p className="shopping-summary-total-price text-orange lh-1">Rp.{total}</p>
               </div>
               <Button
-                disabled={
-                  carts.length < 1 ||
-                  dataAddress?.data?.length === 0 ||
-                  (dataAddress?.data && dataAddress?.data[0]?.primary_address === 0)
-                    ? true
-                    : false
-                }
+                disabled={carts.length < 1 ? true : false}
                 className="btn btn-orange rounded-pill"
-                onClick={modalPaymentShowHandler}
+                onClick={() => {
+                  if (
+                    dataAddress?.data?.length === 0 ||
+                    (dataAddress?.data && dataAddress?.data[0]?.primary_address === 0)
+                  ) {
+                    swal('Invalid address', 'Please complete your address and set the main address', 'error');
+                  } else {
+                    modalPaymentShowHandler();
+                  }
+                }}
               >
                 Select payment
               </Button>

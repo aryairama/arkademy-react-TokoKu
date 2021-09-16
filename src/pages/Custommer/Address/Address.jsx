@@ -85,7 +85,7 @@ const Address = () => {
                       <p className="text-black-14px">
                         {address.address}, [{address.city_or_subdistrict}], {address.postal_code}
                       </p>
-                      {address.primary_address === 0 && (
+                      {(address.primary_address === 0 || address.primary_address === 1) && (
                         <div
                           onClick={async () => {
                             await dispatch(deleteAddress(address.address_id));

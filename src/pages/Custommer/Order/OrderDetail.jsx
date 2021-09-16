@@ -80,6 +80,23 @@ const OrderDetail = (props) => {
                         </ul>
                       </td>
                     </tr>
+                    <tr>
+                      <td>Address</td>
+                      <td>
+                        {Object.keys(orderDetail).length > 0 && Object.keys(orderDetail?.address).length > 0 && (
+                          <>
+                            <div className="text-black-16px font-semi-bold lh-lg">{orderDetail?.address?.label}</div>
+                            <div className="text-black-14px font-semi-bold lh-lg">
+                              {orderDetail?.address?.recipients_name} ({orderDetail?.address?.phone_number})
+                            </div>
+                            <p className="text-black-14px">
+                              {orderDetail?.address?.address}, [{orderDetail?.address?.city_or_subdistrict}]
+                              {orderDetail?.address?.postal_code}
+                            </p>
+                          </>
+                        )}
+                      </td>
+                    </tr>
                     {cancel && (
                       <tr>
                         <td>Action</td>
