@@ -85,23 +85,23 @@ REACT_APP_API_URL =
 ## Screenshots
 
 <div align="center">
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1KSbM3h4EcU0dtXndxWDQC5W3BGfIMJwE" alt="1" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1boL26MeZcxymjdg3e-i46b-cXUDmwlgz" alt="2" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1e5OVkTPo9TonnTwhz2JGZjjhdTB7B-en" alt="3" /> 
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1BiyV5IXlh0BcsGWQvM3DzAiQI9OYtl0x" alt="4" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1wbWbs_VnqPwbuwW5KUsScdy6Cb1fLid3" alt="5" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1GZ-epy97OiFJBGekiuyT_azbm9IWwN69" alt="6" /> 
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1Z283LMyzw1EdDnkq5bOm3jEUglzU5hTc" alt="7" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1DRFmVELULiOLlkF6eqpRC04A0zlZpkJx" alt="8" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=14MEk5jH6SMsiiLELiIonRfpdVUgimXb6" alt="9" /> 
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1YfJJpp-45D9YgCXIMzFz-EZvekP4CyzK" alt="10" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=12FhsMF5elcD9biw_TLXDZoECtMDvCMkp" alt="11" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1s4E9zpbbbtVQOoet-OgCzwLGzqoFdCi3" alt="12" /> 
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1_ovnkjUToFurvXpSaku0RaMKKYvXLNpr" alt="13" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1IGcbrdoDthV3PH4VW89otQs_tzBLkQ2i" alt="14" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1bvr0m_BoFnhITa1sdpJ8-a3xkldWKoNY" alt="15" /> 
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1a41G3WTWRQ44J3hdK4nj3Mc6LbA1TywD" alt="16" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1puU5ZjnIB4NSTVsprpbap7FdTXLE9MUX" alt="17" />
+  <img width="250px" src="/screenshots/1.png" alt="1" />
+  <img width="250px" src="/screenshots/3.png" alt="3" /> 
+  <img width="250px" src="/screenshots/2.png" alt="2" />
+  <img width="250px" src="/screenshots/4.png" alt="4" />
+  <img width="250px" src="/screenshots/5.png" alt="5" />
+  <img width="250px" src="/screenshots/6.png" alt="6" /> 
+  <img width="250px" src="/screenshots/7.png" alt="7" />
+  <img width="250px" src="/screenshots/8.png" alt="8" />
+  <img width="250px" src="/screenshots/9.png" alt="9" /> 
+  <img width="250px" src="/screenshots/10.png" alt="10" />
+  <img width="250px" src="/screenshots/11.png" alt="11" />
+  <img width="250px" src="/screenshots/12.png" alt="12" /> 
+  <img width="250px" src="/screenshots/13.png" alt="13" />
+  <img width="250px" src="/screenshots/14.png" alt="14" />
+  <img width="250px" src="/screenshots/15.png" alt="15" /> 
+  <img width="250px" src="/screenshots/16.png" alt="16" />
+  <img width="250px" src="/screenshots/17.png" alt="17" />
 </div>
 
 <!-- CONTRIBUTING -->
