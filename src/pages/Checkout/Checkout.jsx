@@ -14,7 +14,7 @@ import ModalFooter from '../../components/ModalFilter/Footer';
 import '../../assets/css/checkout.css';
 import { useSelector } from 'react-redux';
 import SimpleReactValidator from 'simple-react-validator';
-import { getAddress, deleteAddress } from '../../configs/redux/actions/userAction';
+import { getAddress, deleteAddress, setPrimaryAddress } from '../../configs/redux/actions/userAction';
 import { useDispatch } from 'react-redux';
 
 const Checkout = (props) => {
@@ -200,6 +200,7 @@ const Checkout = (props) => {
           header={<ModalAddressHeader onClickCloseAddress={modalAddressHideHandler} />}
           body={
             <ModalAddressBody
+              setPrimaryAddress={setPrimaryAddress}
               setPage={setPage}
               page={page}
               reloadAddData={reloadAddData}

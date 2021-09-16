@@ -142,3 +142,21 @@ export const deleteAddress = (addressId) => async (dispatch, getState) => {
     console.log(error);
   }
 };
+
+export const setPrimaryAddress = (addressId) => async (dispatch, getState) => {
+  try {
+    await axios.patch(
+      `/addresses/primary/${addressId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getState().user.user.accessToken}`,
+        },
+      }
+    );
+    swal('Success', 'Successfully set primary address', 'success');
+  } catch (error) {
+    swal('Error', error.response.data.message, 'error');
+    console.log(error);
+  }
+};

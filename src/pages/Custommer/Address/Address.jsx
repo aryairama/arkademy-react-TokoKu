@@ -6,7 +6,7 @@ import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
 import { ModalAddAddressHeader, ModalAddAddressBody, ModalAddAddressFooter } from '../../../components/ModalAddAddress';
 import SimpleReactValidator from 'simple-react-validator';
-import { getAddress, deleteAddress } from '../../../configs/redux/actions/userAction';
+import { getAddress, deleteAddress, setPrimaryAddress } from '../../../configs/redux/actions/userAction';
 import { useDispatch } from 'react-redux';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
@@ -87,7 +87,7 @@ const Address = () => {
                       </p>
                       {address.primary_address === 0 && (
                         <div
-                          onClick={async() => {
+                          onClick={async () => {
                             await dispatch(deleteAddress(address.address_id));
                             setReloadAddData(!reloadAddData);
                           }}
@@ -97,7 +97,17 @@ const Address = () => {
                           Delete
                         </div>
                       )}
-                      {address.primary_address === 0 && <div style={{ cursor: 'pointer' }}>Primary</div>}
+                      {address.primary_address === 0 && (
+                        <div
+                          onClick={async () => {
+                            await dispatch(setPrimaryAddress(address.address_id));
+                            setReloadAddData(!reloadAddData);
+                          }}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          Primary
+                        </div>
+                      )}
                     </div>
                   ))}
                   <div className="row mt-3">

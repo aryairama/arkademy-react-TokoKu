@@ -41,7 +41,17 @@ const Body = (props) => {
               Delete
             </div>
           )}
-          {address.primary_address === 0 && <div style={{ cursor: 'pointer' }}>Primary</div>}
+          {address.primary_address === 0 && (
+            <div
+              onClick={async () => {
+                await props.dispatch(props.setPrimaryAddress(address.address_id));
+                props.setReload(!props.reloadAddData);
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              Primary
+            </div>
+          )}
         </div>
       ))}
       <div className="row mt-3">
