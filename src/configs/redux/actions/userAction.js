@@ -101,8 +101,42 @@ export const insertAddress = (formData, closeModal) => async (dispatch, getState
         Authorization: `Bearer ${getState().user.user.accessToken}`,
       },
     });
-    closeModal()
+    closeModal();
     swal('Success', 'Successfully added address', 'success');
+  } catch (error) {
+    swal('Error', error.response.data.message, 'error');
+    console.log(error);
+  }
+};
+
+export const getAddress =
+  (search = '', order, fieldOrder, limit, page) =>
+  async (dispatch, getState) => {
+    try {
+      const data = await (
+        await axios.get(
+          `/addresses?search=${search}&order=${order}&fieldOrder=${fieldOrder}&limit=${limit}&page=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getState().user.user.accessToken}`,
+            },
+          }
+        )
+      ).data;
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const deleteAddress = (addressId) => async (dispatch, getState) => {
+  try {
+    await axios.delete(`/addresses/${addressId}`, {
+      headers: {
+        Authorization: `Bearer ${getState().user.user.accessToken}`,
+      },
+    });
+    swal('Success', 'Successfully deleted address', 'success');
   } catch (error) {
     swal('Error', error.response.data.message, 'error');
     console.log(error);

@@ -3,7 +3,7 @@ import { Button } from '../base/index';
 import { insertAddress as insertUserAddress } from '../../configs/redux/actions/userAction';
 import { useDispatch } from 'react-redux';
 
-const Footer = ({ setAddress, address, validator, initialtState, ...props }) => {
+const Footer = ({ setAddress, address, validator, initialtState, setReload, ...props }) => {
   const dispatch = useDispatch();
   const resetField = () => {
     setAddress(initialtState);
@@ -21,9 +21,10 @@ const Footer = ({ setAddress, address, validator, initialtState, ...props }) => 
         Cancel
       </Button>
       <Button
-        onClick={() => {
-          dispatch(insertUserAddress(address, props.onClickCloseAddAddress));
+        onClick={async() => {
+          await dispatch(insertUserAddress(address, props.onClickCloseAddAddress));
           resetField();
+          setReload((oldVal) => !oldVal);
         }}
         disabled={validator.current.allValid() ? false : true}
         className="btn btn-orange rounded-pill w-25"

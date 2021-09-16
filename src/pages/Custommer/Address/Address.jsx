@@ -1,13 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { Container } from '../../../components/base/index';
+import { Container, buttonItemRender } from '../../../components/base/index';
 import { ContentCard, Modal as MyModal } from '../../../components/module/index';
 import { Modal } from 'bootstrap';
 import { createPortal } from 'react-dom';
 import { ModalAddAddressHeader, ModalAddAddressBody, ModalAddAddressFooter } from '../../../components/ModalAddAddress';
 import SimpleReactValidator from 'simple-react-validator';
+import { getAddress, deleteAddress } from '../../../configs/redux/actions/userAction';
+import { useDispatch } from 'react-redux';
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
+import locale from 'rc-pagination/es/locale/en_US';
 
 const Address = () => {
+  const [reloadAddData, setReloadAddData] = useState(false);
+  const dispatch = useDispatch();
+  const [dataAddress, setDataAddress] = useState({});
+  const [page, setPage] = useState(1);
   const refModalAddAddress = useRef(null);
   const [modalAddAddress, setModalAddAddress] = useState(null);
   const initialInsertState = {
@@ -38,7 +47,10 @@ const Address = () => {
       console.log(error);
     }
   }, []);
-
+  useEffect(async () => {
+    const { data, pagination } = await dispatch(getAddress('', 'DESC', 'primary_address', 2, page));
+    setDataAddress({ data, pagination });
+  }, [page, reloadAddData]);
   return (
     <Fragment>
       <Container className="mb-5">
@@ -59,13 +71,48 @@ const Address = () => {
                   >
                     <div className="text-black-50">Add new address</div>
                   </div>
-                  <div className="list-address mt-4 p-3 rounded-3">
-                    <p className="text-black-16px font-semi-bold">Andreas Jane</p>
-                    <p className="text-black-14px mt-n2">
-                      Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181
-                      [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181
-                    </p>
-                    <span className="text-orange">Delete</span>
+                  {dataAddress?.data?.map((address, index) => (
+                    <div
+                      key={index}
+                      className={`list-address mt-4 p-3 rounded-3 w-100 ${
+                        address.primary_address === 0 ? 'border-dark' : ''
+                      }`}
+                    >
+                      <div className="text-black-16px font-semi-bold lh-lg">{address.label}</div>
+                      <div className="text-black-14px font-semi-bold lh-lg">
+                        {address.recipients_name} ({address.phone_number})
+                      </div>
+                      <p className="text-black-14px">
+                        {address.address}, [{address.city_or_subdistrict}], {address.postal_code}
+                      </p>
+                      {address.primary_address === 0 && (
+                        <div
+                          onClick={async() => {
+                            await dispatch(deleteAddress(address.address_id));
+                            setReloadAddData(!reloadAddData);
+                          }}
+                          style={{ cursor: 'pointer' }}
+                          className="text-orange"
+                        >
+                          Delete
+                        </div>
+                      )}
+                      {address.primary_address === 0 && <div style={{ cursor: 'pointer' }}>Primary</div>}
+                    </div>
+                  ))}
+                  <div className="row mt-3">
+                    <div className="col-12">
+                      {dataAddress?.pagination && (
+                        <Pagination
+                          current={page}
+                          total={dataAddress?.pagination.countData}
+                          pageSize={dataAddress?.pagination.limit ? dataAddress?.pagination.limit : 1}
+                          itemRender={buttonItemRender}
+                          onChange={(current, pageSize) => setPage(current)}
+                          locale={locale}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -100,6 +147,7 @@ const Address = () => {
           }
           footer={
             <ModalAddAddressFooter
+              setReload={setReloadAddData}
               address={insertAddress}
               initialtState={initialInsertState}
               validator={validatorInsert}

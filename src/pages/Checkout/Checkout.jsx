@@ -14,6 +14,8 @@ import ModalFooter from '../../components/ModalFilter/Footer';
 import '../../assets/css/checkout.css';
 import { useSelector } from 'react-redux';
 import SimpleReactValidator from 'simple-react-validator';
+import { getAddress, deleteAddress } from '../../configs/redux/actions/userAction';
+import { useDispatch } from 'react-redux';
 
 const Checkout = (props) => {
   const {
@@ -67,6 +69,17 @@ const Checkout = (props) => {
       setInsertAddress((oldVal) => ({ ...oldVal, [e.target.name]: '0' }));
     }
   };
+  const [reloadAddData, setReloadAddData] = useState(false);
+  const dispatch = useDispatch();
+  const [dataAddress, setDataAddress] = useState({});
+  const [page, setPage] = useState(1);
+  useEffect(async () => {
+    const { data, pagination } = await dispatch(getAddress('', 'DESC', 'primary_address', 2, page));
+    setDataAddress({ data, pagination });
+    // if (data.length === 0) {
+    //   props.history.push('');
+    // }
+  }, [page, reloadAddData]);
   return (
     <Fragment>
       <Navbar
@@ -88,11 +101,18 @@ const Checkout = (props) => {
               styleCard="shadow-sm"
               cardBody={
                 <Fragment>
-                  <p className="text-black-16px font-semi-bold">Andreas Jane</p>
-                  <p className="text-black-14px mt-n2">
-                    Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181
-                    [Tokopedia Note: blok c 16] Sokaraja, Kab. Banyumas, 53181
-                  </p>
+                  {dataAddress?.data && dataAddress?.data.length > 0 && dataAddress?.data[0]?.primary_address === 1 && (
+                    <>
+                      <div className="text-black-16px font-semi-bold lh-lg">{dataAddress?.data[0]?.label}</div>
+                      <div className="text-black-14px font-semi-bold lh-lg">
+                        {dataAddress?.data[0]?.recipients_name} ({dataAddress?.data[0]?.phone_number})
+                      </div>
+                      <p className="text-black-14px">
+                        {dataAddress?.data[0]?.address}, [{dataAddress?.data[0]?.city_or_subdistrict}],{' '}
+                        {dataAddress?.data[0]?.postal_code}
+                      </p>
+                    </>
+                  )}
                   <div className="button-action">
                     <Button className="btn rounded-pill btn-outline-orange" onClick={modalAddressShowHandler}>
                       Choose another address
@@ -129,7 +149,13 @@ const Checkout = (props) => {
                 <p className="shopping-summary-total-price text-orange lh-1">Rp.{total}</p>
               </div>
               <Button
-                disabled={carts.length < 1 ? true : false}
+                disabled={
+                  carts.length < 1 ||
+                  dataAddress?.data?.length === 0 ||
+                  (dataAddress?.data && dataAddress?.data[0]?.primary_address === 0)
+                    ? true
+                    : false
+                }
                 className="btn btn-orange rounded-pill"
                 onClick={modalPaymentShowHandler}
               >
@@ -174,6 +200,13 @@ const Checkout = (props) => {
           header={<ModalAddressHeader onClickCloseAddress={modalAddressHideHandler} />}
           body={
             <ModalAddressBody
+              setPage={setPage}
+              page={page}
+              reloadAddData={reloadAddData}
+              dispatch={dispatch}
+              deleteAddress={deleteAddress}
+              dataAddress={dataAddress}
+              setReload={setReloadAddData}
               onClickShowAddAddress={modalAddAddressShowHandler}
               onClickCloseAddress={modalAddressHideHandler}
             />
@@ -208,6 +241,7 @@ const Checkout = (props) => {
           }
           footer={
             <ModalAddAddressFooter
+              setReload={setReloadAddData}
               address={insertAddress}
               initialtState={initialInsertState}
               validator={validatorInsert}

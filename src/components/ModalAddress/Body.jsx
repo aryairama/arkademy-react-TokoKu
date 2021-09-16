@@ -1,4 +1,9 @@
 import React from 'react';
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
+import locale from 'rc-pagination/es/locale/en_US';
+import { buttonItemRender } from '../base';
+
 const Body = (props) => {
   return (
     <div className="d-flex flex-wrap flex-column align-items-center">
@@ -12,13 +17,46 @@ const Body = (props) => {
       >
         <div className="text-black-50">Add new address</div>
       </div>
-      <div className="list-address mt-4 p-3 rounded-3">
-        <p className="text-black-16px font-semi-bold">Andreas Jane</p>
-        <p className="text-black-14px mt-n2">
-          Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja, Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia
-          Note: blok c 16] Sokaraja, Kab. Banyumas, 53181
-        </p>
-        <span className="text-orange">Delete</span>
+      {props.dataAddress?.data?.map((address, index) => (
+        <div
+          key={index}
+          className={`list-address mt-4 p-3 rounded-3 w-100 ${address.primary_address === 0 ? 'border-dark' : ''}`}
+        >
+          <div className="text-black-16px font-semi-bold lh-lg">{address.label}</div>
+          <div className="text-black-14px font-semi-bold lh-lg">
+            {address.recipients_name} ({address.phone_number})
+          </div>
+          <p className="text-black-14px">
+            {address.address}, [{address.city_or_subdistrict}], {address.postal_code}
+          </p>
+          {address.primary_address === 0 && (
+            <div
+              onClick={async () => {
+                await props.dispatch(props.deleteAddress(address.address_id));
+                props.setReload(!props.reloadAddData);
+              }}
+              style={{ cursor: 'pointer' }}
+              className="text-orange"
+            >
+              Delete
+            </div>
+          )}
+          {address.primary_address === 0 && <div style={{ cursor: 'pointer' }}>Primary</div>}
+        </div>
+      ))}
+      <div className="row mt-3">
+        <div className="col-12">
+          {props.dataAddress?.pagination && (
+            <Pagination
+              current={props.page}
+              total={props.dataAddress?.pagination.countData}
+              pageSize={props.dataAddress?.pagination.limit ? props.dataAddress?.pagination.limit : 1}
+              itemRender={buttonItemRender}
+              onChange={(current, pageSize) => props.setPage(current)}
+              locale={locale}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
