@@ -1,103 +1,134 @@
-This is a [React js](https://reactjs.org/) project bootstrapped with [`create-react-app`](https://github.com/facebook/create-react-app).
+<br />
+<p align="center">
+<div align="center">
+  <img height="150" src="https://drive.google.com/uc?export=view&id=1_qgXTPQC_IuvHMWXam6ezA0qWEYEdx0C"/>
+</div>
+  <h3 align="center">TokoKu : E-Commerce</h3>
+  <p align="center">
+    <a href="https://github.com/aryairama/arkademy-react-TokoKu"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://bit.ly/_tokoku">View Demo</a>
+    ·
+    <a href="https://github.com/aryairama/arkademy-express-TokoKu/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/aryairama/arkademy-express-TokoKu/issues">Request Feature</a>
+  </p>
+</p>
 
-[Demo application](https://bit.ly/3Cb3BSv)
-## Contents
 
-- [Contents](#contents)
-- [About](#about)
-- [Packages](#packages)
+
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
   - [Built With](#built-with)
-  - [Packages](#packages-1)
-- [Installation](#installation)
-- [TokoKu - Backend](#backend)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Setup .env](#setup-env)
 - [Screenshots](#screenshots)
-- [Author](#author)
+- [Contributing](#contributing)
+- [Related Project](#related-project)
+- [Contact](#contact)
 
-## About
 
-<p align="justify">
-TokoKu merupakan website front end yang mengusung tema ecommerce yang memiliki fitur order, manage order, manage color product, manage category product, manage profile dan lain lain.
 
-## Packages
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+
+TokoKu is an e-commerce website made with react js, express js, bootstrap 5, and several other technologies. TokoKu has implemented multi-seller, where all products sold are the property of the seller.
 
 ### Built With
 
+- [Redux](https://redux.js.org/)
 - [Bootstrap 5](https://getbootstrap.com/)
 - [React.js](https://reactjs.org/)
 - [TinyMCE](https://www.tiny.cloud/)
 - [React-slick](https://react-slick.neostack.com/)
 - and other
 
-### Packages
-    "@popperjs/core": "^2.9.2",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@tinymce/tinymce-react": "^3.12.6",
-    "axios": "^0.21.1",
-    "bootstrap": "^5.0.0-beta3",
-    "node-sass": "^6.0.1",
-    "query-string": "^7.0.1",
-    "rc-pagination": "^3.1.7",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-dropdown-date": "^2.2.5",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "react-select": "^4.3.1",
-    "react-slick": "^0.28.1",
-    "redux": "^4.1.0",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0",
-    "simple-react-validator": "^1.6.1",
-    "slick-carousel": "^1.8.1",
-    "sweetalert": "^2.1.2",
-    "web-vitals": "^1.1.2"
 
-## Installation
+<!-- GETTING STARTED -->
+## Getting Started
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+
+* [nodejs](https://nodejs.org/en/download/)
+
+### Installation
 
 - Clone This Front End Repo
-
 ```
 git clone https://github.com/aryairama/arkademy-express-TokoKu.git
-
 ```
-
 - Go To Folder Repo
-
 ```
 cd arkademy-express-TokoKu
 ```
-
 - Install Module
-
 ```
 npm install
 ```
-
 - Type ` npm run start` To Start Website
 
-<br/>
+### Setup .env
+Create .env file in your root project folder.
+```
+REACT_APP_API_URL =
+```
 
-## Backend
-
-:rocket: [`Backend TokoKU`](https://github.com/aryairama/arkademy-express-TokoKu.git)
-
-<br/>
-
+<!-- ROADMAP -->
 ## Screenshots
 
 <div align="center">
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1wai_VSv2T_vlkMRQyQ7SP-FAjipamPvk" alt= border="0" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1QtCaAWktbkPctcThSo_HYPeCWBBeiWKa" alt= border="0" /> 
-</div>
-<div align="center">
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1fSH27CSGlztezMXmA4JO5Z4kPrYPBpdl" alt= border="0" />
-  <img width="250px" src="https://drive.google.com/uc?export=view&id=1QBH8ixxQDGfQwghmxNAjEf-UMNj1l24f" alt= border="0" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1KSbM3h4EcU0dtXndxWDQC5W3BGfIMJwE" alt="1" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1boL26MeZcxymjdg3e-i46b-cXUDmwlgz" alt="2" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1e5OVkTPo9TonnTwhz2JGZjjhdTB7B-en" alt="3" /> 
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1BiyV5IXlh0BcsGWQvM3DzAiQI9OYtl0x" alt="4" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1wbWbs_VnqPwbuwW5KUsScdy6Cb1fLid3" alt="5" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1GZ-epy97OiFJBGekiuyT_azbm9IWwN69" alt="6" /> 
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1Z283LMyzw1EdDnkq5bOm3jEUglzU5hTc" alt="7" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1DRFmVELULiOLlkF6eqpRC04A0zlZpkJx" alt="8" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=14MEk5jH6SMsiiLELiIonRfpdVUgimXb6" alt="9" /> 
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1YfJJpp-45D9YgCXIMzFz-EZvekP4CyzK" alt="10" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=12FhsMF5elcD9biw_TLXDZoECtMDvCMkp" alt="11" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1s4E9zpbbbtVQOoet-OgCzwLGzqoFdCi3" alt="12" /> 
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1_ovnkjUToFurvXpSaku0RaMKKYvXLNpr" alt="13" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1IGcbrdoDthV3PH4VW89otQs_tzBLkQ2i" alt="14" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1bvr0m_BoFnhITa1sdpJ8-a3xkldWKoNY" alt="15" /> 
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1a41G3WTWRQ44J3hdK4nj3Mc6LbA1TywD" alt="16" />
+  <img width="250px" src="https://drive.google.com/uc?export=view&id=1puU5ZjnIB4NSTVsprpbap7FdTXLE9MUX" alt="17" />
 </div>
 
-## Author
+<!-- CONTRIBUTING -->
+## Contributing
 
-[Arya Irama Wahono](https://github.com/aryairama) - https://github.com/aryairama
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+## Related Project
+:rocket: [`Backend TokoKU`](https://github.com/aryairama/arkademy-express-TokoKu)
+:rocket: [`Frontend TokoKU`](https://github.com/aryairama/arkademy-react-TokoKu)
+:rocket: [`Demo TokoKu`](https://bit.ly/_tokoku)
+
+<!-- CONTACT -->
+## Contact
+
+My Email : aryairama987@gmail.com
+Project Link: [https://github.com/aryairama/arkademy-react-TokoKu](https://github.com/aryairama/arkademy-react-TokoKu)
+
+
+
+
+
