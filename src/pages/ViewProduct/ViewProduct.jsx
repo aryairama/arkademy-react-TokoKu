@@ -77,6 +77,7 @@ const ViewProduct = (props) => {
           </div>
           <div className="col-md-8">
             <ProductDetail
+              size={detailProduct.size}
               handlerChange={handlerChange}
               handlerQuantity={handlerQuantity}
               quantity={product.quantity}

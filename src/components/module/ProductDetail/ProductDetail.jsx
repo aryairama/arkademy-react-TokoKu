@@ -43,7 +43,11 @@ const ProductDetail = (props) => {
       </div>
       <div className="product-size-and-quantity mt-4">
         <div className="row">
-          <CountInput className="col-xl-2 col-lg-3 col-md-4 col-6" title="Size" value={size} onClick={setSize} />
+          <div className="col-xl-2 col-lg-3 col-md-4 col-6">
+            <p>Size</p>
+            <div className="fw-bold">{props.size}</div>
+          </div>
+          {/* <CountInput className="col-xl-2 col-lg-3 col-md-4 col-6" title="Size" value={size} onClick={setSize} /> */}
           <CountInput
             max={props.quantityProduct}
             className="col-xl-2 col-lg-3 col-md-4 col-6"
