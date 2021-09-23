@@ -73,6 +73,7 @@ cd arkademy-react-TokoKu
 ```
 npm install
 ```
+- <a href="#setup-env">Setup .env</a>
 - Type ` npm run start` To Start Website
 
 ### Setup .env
