@@ -123,7 +123,7 @@ Contributions are what make the open source community such an amazing place to b
 
 :rocket: [`Frontend TokoKU`](https://github.com/aryairama/arkademy-react-TokoKu)
 
-:rocket: [`Demo TokoKu`](https://bit.ly/_tokoku)
+:rocket: [`Demo TokoKu`](https://toko-ku.netlify.app)
 
 <!-- CONTACT -->
 ## Contact
